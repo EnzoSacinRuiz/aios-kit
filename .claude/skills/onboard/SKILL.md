@@ -29,20 +29,32 @@ This skill replaces the demo with the operator's real context, on record, once.
    install regardless of who's running it.
 
 3. **Archive the demo before writing anything new — first run only.**
-   Run, in order:
+   Don't archive by path list — the demo grows over time and a list goes stale the moment it
+   does. Instead, find every file **by its first line**: the demo banner is exactly
+   `> 🟡 DEMO — `/onboard` replaces this file with yours.`, and every demo file in this kit
+   carries it as a global constraint. Run, in order:
    - `mkdir -p archives/demo`
-   - For `context`, `knowledge`, and `decisions/log.md`, in order: if the path doesn't exist,
-     skip it — a previous run already moved it. Otherwise run
-     `git mv <path> archives/demo/ || mv <path> archives/demo/`. `git mv` fails whenever the
-     path isn't tracked by git — a fresh clone with nothing committed yet, or a path a previous
-     partial run already moved with plain `mv` — and the `mv` fallback still lands it in
-     `archives/demo/` either way.
-   - `mkdir -p context knowledge/external knowledge/playbook decisions`
+   - Walk every tracked and untracked file in the repo, excluding `.git/` and anything already
+     under `archives/demo/` (so a second run can't re-archive its own output), and test whether
+     line 1 matches the banner **exactly**. For each match, preserve its relative path
+     underneath `archives/demo/` — `knowledge/playbook/index.md` becomes
+     `archives/demo/knowledge/playbook/index.md`, not a flat dump — creating parent directories
+     as needed. Use `git mv <path> <dest> || mv <path> <dest>` for each: `git mv` fails
+     whenever the path isn't tracked by git — a fresh clone with nothing committed yet, or a
+     path a previous partial run already moved with plain `mv` — and the `mv` fallback still
+     lands it in `archives/demo/` either way. Skip a path that's already gone; a previous run
+     (or this loop, on a second pass) may already have moved it.
+   - `mkdir -p context knowledge/external knowledge/playbook decisions` — recreate every
+     directory the routing map in `CLAUDE.md` promises exists, even the ones now emptied by the
+     move above, so the map never points at nothing.
    - `touch decisions/log.md`
    Tell the operator plainly, in your own words: nothing was deleted, the original demo
-   content now lives in `archives/demo/`, and they can open it any time. Doing this before you
-   write the new files matters — write first and archive after, and the operator's own answers
-   get swept into `archives/demo/` along with the fictional company.
+   content now lives in `archives/demo/` under the same paths it came from, and they can open
+   it any time. Doing this before you write the new files matters — write first and archive
+   after, and the operator's own answers get swept into `archives/demo/` along with the
+   fictional company. Because the check is "does line 1 match," not "is this on a list," a
+   second run finds no banners left to match and does nothing — archiving is idempotent by
+   construction, not by a flag you have to remember to check.
 
 4. **Run the interview. One question per message — never a form, never batched.**
    Ask each of these seven in its own message and wait for the answer before asking the next:
