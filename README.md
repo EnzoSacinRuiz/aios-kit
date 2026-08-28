@@ -79,9 +79,10 @@ aios-kit/
 ├── projects/                     Work per account. Deliverables, not context —
 │                                 go to the one project, never load the folder.
 ├── reports/                      What the skills write. Generated, not authored.
-├── references/                   voice.md and sops/ — one file per
-│                                 repeatable process.
+├── references/                   voice.md, and sops/ — where a repeatable process
+│                                 goes once it is written down, one file each.
 ├── templates/                    Starting points you copy rather than edit in place.
+│   └── session-summary.md        Close a working session: decided, changed, open, next.
 ├── archives/                     Nothing is deleted here, it is archived.
 ├── scripts/
 │   └── aios-freshness-check.sh   Read-only drift check. Runs on every session start,
@@ -95,11 +96,11 @@ aios-kit/
 
 ### It ships full, not empty
 
-Most template repositories are hollow: folders with a `.gitkeep` and a README describing a system that has never held anything. This one arrives pre-filled with a worked example — **Meridian Research**, a fictional four-person market-research consultancy — so you can read a live workspace instead of guessing at one.
+Most template repositories are hollow: folders with a `.gitkeep` and a README describing a system that has never held anything. This one arrives pre-filled with a worked example — **Meridian Research**, a fictional four-person market-research consultancy — so you can read a live workspace instead of guessing at one. It is not permanent furniture, and it is not thrown away either: once you run `/onboard`, the demo is archived under `archives/demo/` rather than deleted, and stays readable there as a worked example while your own workspace runs.
 
 Click into `knowledge/playbook/` and you will find a sales principle written as one claim per file, linked to the client account in `knowledge/external/` that keeps triggering it and to the entry in `decisions/log.md` it came from. Click into `context/priorities.md` and you will see quarter goals sitting next to an explicit warning that the cash balance must never be written there. That is the whole thesis, working, in files you can open right now.
 
-Every demo file opens with the same line — `> 🟡 DEMO — /onboard replaces this file with yours.` — and `/onboard` finds them by that line, not by a list that would go stale, moves them to `archives/demo/` with their paths intact, and writes yours in their place. Nothing is deleted, so you can go back and read the example after your own workspace is running.
+Every demo file opens with the same line — `> 🟡 DEMO — /onboard replaces this file with yours.` — and that first line, not a list that would go stale, is how `/onboard` finds them. Each one keeps its relative path inside the archive: `context/me.md` lands at `archives/demo/context/me.md`.
 
 ---
 

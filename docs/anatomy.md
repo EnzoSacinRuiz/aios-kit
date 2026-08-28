@@ -10,8 +10,15 @@ For why the structure is shaped this way, read [`how-it-works.md`](how-it-works.
 
 ## The tree
 
-Verified against the repository. Files marked **demo** carry the `🟡 DEMO` banner and are moved
-into `archives/demo/` the first time `/onboard` runs.
+**This tree is the repository as it ships.** Entries marked `# demo` are demo content: the
+first `/onboard` run moves each of them under `archives/demo/` at the same relative path —
+`context/me.md` becomes `archives/demo/context/me.md` — and writes yours in its place. Nothing
+is deleted, and the one exception is noted in the tree: a project folder left empty by the move
+is removed, because an empty `projects/<name>/` reads as a live engagement that is not one. So
+this tree and your post-onboarding tree differ by exactly one archive directory, and every
+`# demo` line below tells you which entries make that trip.
+
+Every path printed here was checked against the repository on **2026-08-27**.
 
 ```
 .
@@ -45,23 +52,23 @@ into `archives/demo/` the first time `/onboard` runs.
 │
 ├── knowledge/
 │   ├── external/                  # intelligence about the outside world
-│   │   ├── CLAUDE.md              # demo — what belongs here, node format, link rules
-│   │   ├── index.md               # demo — lists every node in this folder
+│   │   ├── CLAUDE.md              # what belongs here, node format, link rules — machinery, stays put
+│   │   ├── index.md               # demo — lists every node; /onboard writes an empty stub back
 │   │   ├── northwind-labs-pushes-for-rush-timelines.md   # demo — account node
 │   │   └── pulse-category-research-undercuts-on-price.md # demo — competitor node
 │   └── playbook/                  # the operator's own reusable method
-│       ├── CLAUDE.md              # demo — what belongs here, node format, link rules
-│       ├── index.md               # demo — lists every node in this folder
+│       ├── CLAUDE.md              # what belongs here, node format, link rules — machinery, stays put
+│       ├── index.md               # demo — lists every node; /onboard writes an empty stub back
 │       ├── hold-the-fee-negotiate-scope.md   # demo — sales principle node
 │       ├── record-before-synthesize.md       # demo — delivery principle node
 │       └── respondents-are-never-named-to-the-client.md # demo — delivery principle node
 │
 ├── decisions/
-│   └── log.md                     # demo — append-only. What was decided, why, in what context
+│   └── log.md                     # demo — append-only; /onboard recreates it empty and logs the install
 │
 ├── projects/                      # work per account or initiative; deliverables, not context
 │   ├── README.md
-│   └── northwind-labs-landscape-study/
+│   └── northwind-labs-landscape-study/   # demo folder — removed once emptied by the move
 │       ├── brief.md                  # demo — scope, objective, constraints
 │       ├── deliverable-outline.md    # demo — the shape of what gets handed over
 │       └── interview-progress-2026-08-20.md  # demo — the status snapshot the other two point at
@@ -71,12 +78,13 @@ into `archives/demo/` the first time `/onboard` runs.
 │
 ├── references/                    # stable material you point at rather than restate
 │   ├── README.md
-│   ├── voice.md                   # demo — how the operator's writing sounds
+│   ├── voice.md                   # demo — how the operator's writing sounds; /onboard writes yours back
 │   └── sops/
-│       └── win-loss-retainer-setup.md   # demo — one file per repeatable process
+│       └── win-loss-retainer-setup.md   # demo — the shape an SOP takes: one file, one process
 │
-├── templates/
-│   └── README.md                  # starting points for recurring deliverables; copy, don't edit in place
+├── templates/                     # where a starting point for a recurring deliverable goes
+│   ├── README.md
+│   └── session-summary.md         # capture a working session: decided, changed, open, next
 │
 ├── archives/
 │   └── README.md                  # nothing is deleted here; /onboard puts the demo in archives/demo/
@@ -106,8 +114,8 @@ that flags it as unrouted is scoped wrong.
 | `decisions/` | **Failure protocol.** A rule changed without a log entry is a rule the next session will not know about. | `/distill` appends decisions found in raw material. `/route-fix` appends when a fix changes a rule. `/leverage` appends what it built and what it cut. `/onboard` appends the initialization entry. |
 | `projects/` | **Routing.** Deliverables, not context — the map tells the agent to open one project and never the folder. | Nothing in the kit writes here automatically; this is where your work lives. `/os-audit` reads it looking for raw material that never got distilled. |
 | `reports/` | **Maintenance loop.** Generated output, so it is safe to delete and regenerate. | `/os-audit` writes `os-audit-YYYY-MM-DD.md`. `/blueprint` writes `blueprint-YYYY-MM-DD.md`. Both are read-only everywhere else. |
-| `references/` | **Precedence.** Stable material you point at instead of restating — voice, frameworks, and one SOP file per repeatable process in `sops/`. | `/leverage` writes an SOP to `sops/` when the machine it ships is smaller than a skill. `/leverage` reads `sops/` before cutting a process. |
-| `templates/` | **Precedence.** A template is copied, never edited in place, so the original stays the one authority on the shape. | Nothing writes here automatically. You add templates as recurring deliverables emerge. |
+| `references/` | **Precedence.** Stable material you point at instead of restating: the voice profile, frameworks, and `sops/` — where a repeatable process goes once it is written down, one file per process. The folder is thin until you have processes worth writing down. | `/leverage` writes an SOP to `sops/` when the machine it ships is smaller than a skill. `/leverage` reads `sops/` before cutting a process. |
+| `templates/` | **Precedence.** Where a starting point for a recurring deliverable goes. A template is copied, never edited in place, so the original stays the one authority on the shape. | Nothing writes here automatically. `session-summary.md` ships with the kit; you add the rest as recurring deliverables emerge. |
 | `archives/` | **Failure protocol.** Keeping history intact is what lets a later repair reconstruct why a file moved. | `/onboard` moves the demo here on its first run, preserving the original paths under `archives/demo/`. Every audit ignores this folder by design. |
 | `scripts/` | **Maintenance loop.** Automation that runs outside a session. | `/leverage` writes here when the machine it ships is a script. Every automation added here needs a row in the automation table in `CLAUDE.md`. |
 | `docs/` | **Routing.** Documentation about the kit for humans, kept out of the always-loaded layer so it costs nothing per session. | Nothing writes here automatically. |

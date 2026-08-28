@@ -81,6 +81,17 @@ This skill replaces the demo with the operator's real context, on record, once.
    8. When the agent writes as you, how should it sound — and what should it never sound
       like? Ask for the register too: does anything change between an internal note and
       something a client reads?
+   **If the answer to question 4 is "nobody, I work alone," don't accept it and move on.**
+   Taken literally it produces a two-line `context/team.md` in the always-loaded layer — a file
+   that costs budget in every session and answers no question anyone will ask. Ask the
+   follow-up instead: who do you rely on who isn't on your payroll? A subcontractor you call
+   when the work overflows, a bookkeeper or accountant, a designer or editor you always use,
+   a lawyer, a peer you check hard decisions with. Record each one exactly as you would an
+   employee — name, what they cover, and the trigger that pulls them in — and say plainly in
+   the file that these are outside the company. Someone always has a team; it is just not
+   payroll. If they genuinely rely on no one at all, write that as the one line it is and move
+   on — a short true file beats an invented roster.
+
    On a re-run, show the current content of each file first and ask only what changed —
    don't re-run the full interview against someone who already answered it.
 

@@ -1,1 +1,1 @@
-Voice profile, frameworks, and SOPs. Stable material you point at rather than restate. `sops/` holds one file per repeatable process.
+Voice profile, frameworks, and SOPs. Stable material you point at rather than restate. `sops/` is where a repeatable process goes once it is written down — one file per process, added as processes prove they repeat.

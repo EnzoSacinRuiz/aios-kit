@@ -79,9 +79,10 @@ aios-kit/
 ├── projects/                     Trabajo por cuenta. Entregables, no contexto — vas
 │                                 al proyecto puntual, nunca cargas la carpeta entera.
 ├── reports/                      Lo que escriben las skills. Generado, no redactado.
-├── references/                   voice.md y sops/ — un archivo por
-│                                 proceso repetible.
+├── references/                   voice.md, y sops/ — donde va un proceso repetible
+│                                 una vez que lo escribes, un archivo por proceso.
 ├── templates/                    Puntos de partida que se copian, no se editan encima.
+│   └── session-summary.md        Cierra una sesión: decidido, cambiado, abierto, sigue.
 ├── archives/                     Acá nada se borra, se archiva.
 ├── scripts/
 │   └── aios-freshness-check.sh   Chequeo de deriva de solo lectura. Corre al inicio de
@@ -95,11 +96,11 @@ aios-kit/
 
 ### Viene lleno, no vacío
 
-La mayoría de los repos plantilla están huecos: carpetas con un `.gitkeep` y un README que describe un sistema que nunca contuvo nada. Este llega precargado con un ejemplo trabajado — **Meridian Research**, una consultora ficticia de investigación de mercado de cuatro personas — para que leas un workspace vivo en vez de imaginártelo.
+La mayoría de los repos plantilla están huecos: carpetas con un `.gitkeep` y un README que describe un sistema que nunca contuvo nada. Este llega precargado con un ejemplo trabajado — **Meridian Research**, una consultora ficticia de investigación de mercado de cuatro personas — para que leas un workspace vivo en vez de imaginártelo. No es mobiliario permanente, y tampoco se tira: cuando corras `/onboard`, el demo queda archivado en `archives/demo/` en vez de borrarse, y sigue ahí legible como ejemplo trabajado mientras tu propio workspace anda.
 
 Entra a `knowledge/playbook/` y vas a encontrar un principio de venta escrito como una afirmación por archivo, enlazado a la cuenta de `knowledge/external/` que lo dispara una y otra vez y a la entrada de `decisions/log.md` de donde salió. Entra a `context/priorities.md` y vas a ver las metas del trimestre junto a una advertencia explícita de que el saldo en caja jamás se escribe ahí. Esa es la tesis completa, funcionando, en archivos que puedes abrir ahora mismo.
 
-Todos los archivos del demo abren con la misma línea — `> 🟡 DEMO — /onboard replaces this file with yours.` — y `/onboard` los encuentra por esa línea, no por una lista que quedaría desactualizada, los mueve a `archives/demo/` conservando su ruta, y escribe los tuyos en su lugar. No se borra nada: puedes volver a leer el ejemplo cuando tu propio workspace ya esté andando.
+Todos los archivos del demo abren con la misma línea — `> 🟡 DEMO — /onboard replaces this file with yours.` — y esa primera línea, no una lista que quedaría desactualizada, es como `/onboard` los encuentra. Cada uno conserva su ruta relativa dentro del archivo: `context/me.md` termina en `archives/demo/context/me.md`.
 
 ---
 

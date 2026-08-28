@@ -60,8 +60,8 @@ the table is stale — fix it (see the next section)._
 | `decisions/` | `log.md`, append-only. What was decided, why, and in what context. | Before re-opening a settled question. Always, when something is decided. |
 | `projects/` | Work per account or initiative. Deliverables, not context. | A specific piece of client or project work. Go to the one project — never load the folder. |
 | `reports/` | Output written by skills: audits, briefs, notes. Generated, not authored. | Finding a report a skill already produced. |
-| `references/` | Voice profile and `sops/` — one file per repeatable process. | Matching the operator's voice, or following a process that already exists. |
-| `templates/` | Starting points for recurring deliverables. | Beginning something you make repeatedly. Copy it; don't edit in place. |
+| `references/` | Stable material you point at instead of restating: the voice profile, and `sops/` — where a repeatable process goes once it is written down, one file per process. Thin until you have processes worth writing down. | Matching the operator's voice, or following a process that already exists. |
+| `templates/` | Where a starting point for a recurring deliverable goes. Ships with `session-summary.md`; the rest you add as they emerge. | Beginning something you make repeatedly. Copy it; don't edit in place. |
 | `archives/` | Retired material. Nothing is deleted here — it is archived. `/onboard` puts the demo company in `archives/demo/`. | Recovering something that was removed. |
 | `scripts/` | Automation that runs outside a session. | Changing what runs on its own. |
 | `docs/` | Documentation about this kit itself, for humans. | Explaining the system to a person, not using it. |
