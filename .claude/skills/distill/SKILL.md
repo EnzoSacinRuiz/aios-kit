@@ -28,10 +28,10 @@ never made.
      Use today's date, not the date of the source material, unless the operator says otherwise.
    - **Durable facts about the outside world** — a client, a prospect, a competitor, a market
      condition, something true about someone or something outside the operator's own company.
-     Goes to `knowledge/external/` as one or more knowledge nodes (see step 3).
+     Goes to `knowledge/external/` as one or more knowledge nodes (see step 4).
    - **The operator's own reusable method** — a principle, a play, a way of doing the work that
      will apply again next time, not just this once. Goes to `knowledge/playbook/` as one or
-     more knowledge nodes (see step 3).
+     more knowledge nodes (see step 4).
    - **Action items** — something someone needs to go do. These do not go in a knowledge file
      at all. Check the precedence table in `CLAUDE.md` for "Task and project status" — that
      names the task tool this operator actually uses (ClickUp, Linear, Notion, or similar).
@@ -41,7 +41,17 @@ never made.
    If a piece of material doesn't fit any of the four, it's probably not worth keeping —
    raw material is not automatically knowledge. Say what you're leaving out and why.
 
-3. **Write each knowledge node as one claim, not one topic.** A node is a single fact or
+3. **Check for contradictions before you write.** Before adding or editing a node, search
+   `knowledge/external/` and `knowledge/playbook/` for existing claims on the same subject. If
+   the new material contradicts one:
+   - Do **not** silently overwrite it. That's `clash`, and it destroys whichever version was
+     right without leaving a trace that there was ever a question.
+   - Surface both versions to the operator and ask which one wins.
+   - Record the resolution in `decisions/log.md` in the same format as step 2, regardless of
+     which side won — the fact that a contradiction was found and resolved is itself worth
+     keeping.
+
+4. **Write each knowledge node as one claim, not one topic.** A node is a single fact or
    principle, with its source and its date, linked to its neighbors. Don't write a node titled
    after the meeting ("2026-08-27 call notes") — write one node per claim that survives the
    meeting. Shape:
@@ -61,21 +71,11 @@ never made.
    A forty-minute call might produce zero nodes, one node, or five — it depends on how many
    distinct claims survive. It almost never produces one node per transcript.
 
-4. **Update the wiki's `index.md` in the same pass — not as a follow-up.** Every new file in
+5. **Update the wiki's `index.md` in the same pass — not as a follow-up.** Every new file in
    `knowledge/external/` or `knowledge/playbook/` gets an entry in that folder's `index.md`
    before you consider the work done. An index that lags the nodes it's supposed to list is
    `confusion`: the next session reads the index, doesn't see the node, and reports that the
    knowledge doesn't exist — even though the file is sitting right there unlinked.
-
-5. **Check for contradictions before you write.** Before adding or editing a node, search
-   `knowledge/external/` and `knowledge/playbook/` for existing claims on the same subject. If
-   the new material contradicts one:
-   - Do **not** silently overwrite it. That's `clash`, and it destroys whichever version was
-     right without leaving a trace that there was ever a question.
-   - Surface both versions to the operator and ask which one wins.
-   - Record the resolution in `decisions/log.md` in the same format as step 2, regardless of
-     which side won — the fact that a contradiction was found and resolved is itself worth
-     keeping.
 
 6. **Say where the raw file should live, and leave it there.** This kit does not impose a
    folder for raw source material — that's a deliberate gap, not an oversight. Tell the

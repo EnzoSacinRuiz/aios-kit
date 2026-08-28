@@ -63,9 +63,14 @@ something and it is not here, the table is stale — fix it (see the next sectio
 | `archives/` | Retired material. Nothing is deleted here — it is archived. `/onboard` puts the demo company in `archives/demo/`. | Recovering something that was removed. |
 | `scripts/` | Automation that runs outside a session. | Changing what runs on its own. |
 | `docs/` | Documentation about this kit itself, for humans. | Explaining the system to a person, not using it. |
+| `.claude/` | The machinery, not the content. `rules/` holds permanent standing rules, `skills/` holds one folder per skill, `settings.json` wires the session hook. | Adding a rule, adding a skill, or changing what runs automatically. |
 
 **Adding a folder:** create the folder and add its row here in the same commit. A folder the
 map doesn't mention is a folder you will not find.
+
+**Scope of this map:** every folder above is in it, including `.claude/`. The only folder
+deliberately left out is `.git/`, which belongs to git and not to you. An audit that flags
+`.git/` as unrouted is scoped wrong.
 
 ---
 

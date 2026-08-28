@@ -122,8 +122,11 @@ and score 40 because nothing holds it together. Run both.
    `add a row for assets/ to the routing map in CLAUDE.md`. Not "run an audit" — `/os-audit`.
    A fix the operator has to design themselves will not get done.
 
-8. **Write the report** to `reports/blueprint-YYYY-MM-DD.md`, using today's date. Print the
-   score line in the session too — the operator should not have to open a file to see it.
+8. **Write the report** to `reports/blueprint-YYYY-MM-DD.md`, using today's date. Before
+   writing, check for a previous run (`ls reports/blueprint-*.md`) and fill the previous-score
+   line in the template below from whatever you find — drop that line entirely if this is the
+   first run. Print the score line in the session too — the operator should not have to open a
+   file to see it.
 
    ```markdown
    # Blueprint — YYYY-MM-DD
@@ -153,8 +156,7 @@ and score 40 because nothing holds it together. Run both.
    is not surprised by them.>
    ```
 
-9. **Close by telling them to re-run.** Before writing the report, check for a previous one
-   (`ls reports/blueprint-*.md`) and fill the previous-score line. Then say it plainly: do the
+9. **Close by telling them to re-run.** Say it plainly: do the
    three fixes and run `/blueprint` again — the number moves, and the movement is the only
    proof the fixes were real. A score you take once is a verdict. A score you take monthly is
    a control loop, and this workspace stops being true in about sixty days without one.

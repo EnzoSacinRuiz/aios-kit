@@ -31,7 +31,12 @@ This skill replaces the demo with the operator's real context, on record, once.
 3. **Archive the demo before writing anything new — first run only.**
    Run, in order:
    - `mkdir -p archives/demo`
-   - `git mv context knowledge decisions/log.md archives/demo/`
+   - For `context`, `knowledge`, and `decisions/log.md`, in order: if the path doesn't exist,
+     skip it — a previous run already moved it. Otherwise run
+     `git mv <path> archives/demo/ || mv <path> archives/demo/`. `git mv` fails whenever the
+     path isn't tracked by git — a fresh clone with nothing committed yet, or a path a previous
+     partial run already moved with plain `mv` — and the `mv` fallback still lands it in
+     `archives/demo/` either way.
    - `mkdir -p context knowledge/external knowledge/playbook decisions`
    - `touch decisions/log.md`
    Tell the operator plainly, in your own words: nothing was deleted, the original demo

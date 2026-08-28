@@ -9,11 +9,6 @@ The failure this prevents: automating a task that should not exist in the first 
 makes a bad process faster, not better — and now it scales, because a machine repeats a
 mistake exactly, every time, without getting tired of it.
 
-## When to run this
-
-Weekly, or whenever the operator asks what to automate next. If the operator already knows
-exactly what they want built, this skill is the wrong one — see **When NOT to run this**.
-
 ## Procedure
 
 ### 1. Friction
@@ -56,8 +51,10 @@ exactly what they want built, this skill is the wrong one — see **When NOT to 
   skill file yourself here. If the machine is smaller than a skill (a checklist, a short
   script), write it directly to `references/sops/` or `scripts/`, whichever the routing map
   says owns that kind of file.
-- **Append one entry to `decisions/log.md`**: which friction you picked, what you cut, what you
-  built, and where the artifact lives.
+- **Append one entry to `decisions/log.md`**, in the standing format
+  `[YYYY-MM-DD] DECISION: … | REASONING: … | CONTEXT: …`: DECISION is what you built,
+  REASONING is what you cut and why, CONTEXT is which friction you picked and where the
+  artifact lives.
 
 ## One run = one shipped artifact
 
@@ -72,5 +69,7 @@ skill exists to cut. Don't report the run as done until you can point at the art
   to find *what* to build when that isn't clear yet; running it on a known target just adds two
   steps of friction-finding for a friction that's already found.
 - If nothing recurred this week and last week's build is still unproven, don't force a new
-  candidate. Log that in `decisions/log.md` and skip the run rather than shipping a machine for
-  a friction that might not come back.
+  candidate. Log that in `decisions/log.md` — same format, e.g.
+  `[YYYY-MM-DD] DECISION: skipped this week's leverage run | REASONING: nothing recurred and
+  last week's build is still unproven | CONTEXT: … ` — and skip the run rather than shipping a
+  machine for a friction that might not come back.
