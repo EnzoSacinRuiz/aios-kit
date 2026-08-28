@@ -48,19 +48,25 @@ if [ -d reports ]; then
   fi
 fi
 
-# 3. Undistilled raw material — a file in projects/ or reports/ newer than
-#    the newest entry in decisions/log.md. Skipped until that file exists
-#    (created in Task 11 of the aios-kit build, or by the operator).
+# 3. Undistilled raw material — a file in projects/ newer than the newest
+#    entry in decisions/log.md. Skipped until that file exists (created in
+#    Task 11 of the aios-kit build, or by the operator).
+#
+#    projects/ only — NOT reports/. reports/ is skill-generated output by
+#    definition (see CLAUDE.md routing map: "Generated, not authored"), so
+#    it is never raw input to distill. /os-audit itself writes into
+#    reports/, so scanning reports/ here would make this hook warn on the
+#    very next session after every single audit — a hook that fires every
+#    session gets ignored. If raw material ever ends up in reports/ by
+#    mistake, that is a routing error and belongs to /os-audit check 6, not
+#    this hook. Do not add reports/ back to this scan.
 if [ -f decisions/log.md ]; then
   raw=""
   if [ -d projects ]; then
     raw="$raw$(find projects -type f -newer decisions/log.md 2>/dev/null)"
   fi
-  if [ -d reports ]; then
-    raw="$raw$(find reports -type f -newer decisions/log.md 2>/dev/null)"
-  fi
   if [ -n "$raw" ]; then
-    warn "There's material in projects/ or reports/ newer than the last decisions/log.md entry — distill it."
+    warn "There's material in projects/ newer than the last decisions/log.md entry — distill it."
   fi
 fi
 
