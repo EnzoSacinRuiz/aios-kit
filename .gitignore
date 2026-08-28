@@ -1,0 +1,42 @@
+# ─────────────────────────────────────────────────────────────
+# .gitignore — aios-kit
+#
+# The repo carries the BRAIN: manual, context, skills, knowledge.
+# It never carries deliverables, binaries, or secrets.
+# A 2 GB repo is unusable from a phone or a cloud session.
+# ─────────────────────────────────────────────────────────────
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+CLAUDE.local.md
+.claude/settings.local.json
+*.pem
+*.key
+credentials.json
+.claude.json
+*token*.json
+*secret*
+*.oat
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Dependencies and build output
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+dist/
+build/
+
+# Heavy deliverables — these live in your drive, not in git
+*.pdf
+*.docx
+*.xlsx
+*.pptx
+*.mp4
+*.mov
+*.zip
