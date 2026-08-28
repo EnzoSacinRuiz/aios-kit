@@ -3,7 +3,7 @@
 # Deliverable outline — Northwind Labs landscape study
 
 Counts — interviews coded, competitors researched — live in
-`reports/northwind-labs-interview-progress-2026-08-20.md`, not here. This file says what each
+`interview-progress-2026-08-20.md`, beside this file, not here. This file says what each
 section is and what is blocking it; it gets updated in place as sections draft, not rewritten
 from scratch at the end.
 
@@ -35,12 +35,11 @@ from scratch at the end.
    is locked. Respondent list and transcript index update as interviews land.
 
    **Client pushback, resolved:** Northwind's GTM lead asked whether the respondent list could
-   name each buyer's company for their internal sales team, instead of anonymizing. Declined —
-   anonymity is the reason practitioners speak candidly about competitors' pricing and their
-   own vendor complaints, and Meridian's standing terms promise it on every engagement.
-   Offered segment and company-size tags per respondent instead (e.g. "mid-market, 200–500
-   employees") so the sales team still gets useful context without a name attached. Northwind
-   accepted the compromise on the 2026-08-14 call.
+   name each buyer's company for their internal sales team, instead of anonymizing. Declined,
+   and segment tags offered instead; Northwind accepted the compromise on the 2026-08-14 call.
+   The rule itself is not a fact about this project — it is a standing term on every
+   engagement, so it lives in `knowledge/playbook/respondents-are-never-named-to-the-client.md`
+   and applies the next time a client asks. Read the reasoning there, not here.
 
 ## Format
 

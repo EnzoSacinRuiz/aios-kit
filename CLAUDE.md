@@ -67,6 +67,7 @@ the table is stale — fix it (see the next section)._
 | `docs/` | Documentation about this kit itself, for humans. | Explaining the system to a person, not using it. |
 | `.claude/` | The machinery, not the content. `rules/` holds permanent standing rules, `skills/` holds one folder per skill, `settings.json` wires the session hook. | Adding a rule, adding a skill, or changing what runs automatically. |
 | `.mcp.json` | Which external data sources this workspace can reach. Ships inert — an empty `mcpServers`, so a fresh clone starts nothing and prompts for nothing. | Wiring, checking, or removing an integration. Read it before assuming a system is or isn't reachable. |
+| `.env.example` | Which credentials a skill may expect to find in the environment. A template only — copy it to `.env`, which is gitignored and never committed. The kit itself needs no keys. | Wiring a skill that calls an external API, or checking what credentials this workspace expects before assuming one is available. |
 
 **Adding a folder:** create the folder and add its row here in the same commit. A folder the
 map doesn't mention is a folder you will not find. The same goes for an integration added to

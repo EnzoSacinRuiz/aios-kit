@@ -225,11 +225,12 @@ Cuatro capas, corriendo en relojes distintos.
 
 **Cada sesión — el hook.** `.claude/settings.json` engancha `SessionStart` a
 `scripts/aios-freshness-check.sh`. Es `sh` POSIX, siempre sale con 0, y no imprime nada cuando
-nada se movió. Chequea cinco cosas: `context/` sin tocar hace 60 días, ningún reporte de
-auditoría en 30 días, material en `projects/` más nuevo que la última entrada de
-`decisions/log.md`, el banner `🟡 DEMO` todavía sentado en `context/me.md`, y archivos
-trackeados que parecen secretos. No arregla nada. El silencio es el estado de éxito, y eso es
-lo que evita que se convierta en ruido que aprendes a scrollear.
+nada se movió. Lo que vigila es la deriva que el operador no notaría por su cuenta, medida de
+forma mecánica y sin pedir criterio — todo lo que necesita contexto para leerse va a la
+auditoría mensual. El script es el dueño de esa lista, y esta página deliberadamente no la
+copia: lee `scripts/aios-freshness-check.sh` para ver qué corre hoy. No arregla nada. El
+silencio es el estado de éxito, y eso es lo que evita que se convierta en ruido que aprendes a
+scrollear.
 
 El hook se eligió por encima de un cron a propósito: un hook vive en el repo y corre en esta
 máquina, todas las sesiones, para siempre. Un cron de sesión muere cuando cierras la sesión.

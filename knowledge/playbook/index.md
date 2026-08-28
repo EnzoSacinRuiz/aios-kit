@@ -11,3 +11,5 @@ belongs here and the node format.
   pushes on price or timeline.
 - [[record-before-synthesize]] — delivery principle: no synthesis starts without a recorded,
   transcribed interview.
+- [[respondents-are-never-named-to-the-client]] — delivery principle: anonymity is a standing
+  term on every engagement; offer segment tags instead of names.

@@ -3,7 +3,8 @@
 # Northwind Labs landscape study — interview progress note
 
 **Date:** 2026-08-20
-**Project:** `projects/northwind-labs-landscape-study/`
+**Scope this reports against:** `brief.md`, beside this file. Counts live here; scope lives
+there. Neither file repeats the other.
 
 ## Where things stand
 

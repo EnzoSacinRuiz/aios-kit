@@ -39,6 +39,6 @@ decide whether to build a dedicated feature set or partner instead.
 ## Status
 
 Not here. Live status belongs to the project tracker; the latest written snapshot is
-`reports/northwind-labs-interview-progress-2026-08-20.md`. This file holds the scope that was
+`interview-progress-2026-08-20.md`, beside this file. This file holds the scope that was
 agreed — if it starts carrying counts too, one of the two will go stale and nobody will know
 which.

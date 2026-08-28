@@ -11,7 +11,7 @@ The manual, the indexes, and the wikis are claims about what exists and what is 
 
 ## Before you start
 
-Tell the operator to run `scripts/aios-freshness-check.sh` first, or run it yourself and read the output. It's the cheap subset of check 3 below — five fast checks (stale `context/`, no recent audit, undistilled raw material, demo still installed, tracked secrets) that this audit re-verifies in full and extends. Don't duplicate its output verbatim in your report; use it as a starting pointer, then go deeper.
+Tell the operator to run `scripts/aios-freshness-check.sh` first, or run it yourself and read the output. **The script owns the list of what it checks — open `scripts/aios-freshness-check.sh` and read it there.** Don't restate that list here or in your report: a copy of it in this file is correct the day it's written and wrong the next time the script changes. What the hook covers is the cheap, mechanical end of what follows — drift the operator would not otherwise notice, tested on every session start with no judgement required. This audit re-verifies the same ground in full and extends it, so use the hook's output as a starting pointer and then go deeper.
 
 ## The four failure modes
 

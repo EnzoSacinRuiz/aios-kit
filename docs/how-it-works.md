@@ -217,11 +217,11 @@ Four layers, running on different clocks.
 
 **Every session — the hook.** `.claude/settings.json` wires `SessionStart` to
 `scripts/aios-freshness-check.sh`. It is POSIX `sh`, always exits 0, and prints nothing when
-nothing has drifted. It checks five things: `context/` untouched for 60 days, no audit report
-in 30 days, material in `projects/` newer than the last entry in `decisions/log.md`, the
-`🟡 DEMO` banner still sitting in `context/me.md`, and tracked files that look like secrets.
-It fixes nothing. Silence is the success state, which is what keeps it from becoming noise you
-learn to scroll past.
+nothing has drifted. What it watches is drift the operator would not otherwise notice, tested
+mechanically with no judgement required — anything that needs context to read belongs in the
+monthly audit instead. The script itself is the list, and this page deliberately does not copy
+it: read `scripts/aios-freshness-check.sh` to see what runs today. It fixes nothing. Silence is
+the success state, which is what keeps it from becoming noise you learn to scroll past.
 
 A hook was chosen over a cron deliberately: a hook lives in the repo and runs on this machine
 every session, forever. A session-scoped cron dies when the session closes.

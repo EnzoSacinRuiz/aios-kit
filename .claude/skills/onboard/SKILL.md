@@ -44,9 +44,15 @@ This skill replaces the demo with the operator's real context, on record, once.
      path a previous partial run already moved with plain `mv` — and the `mv` fallback still
      lands it in `archives/demo/` either way. Skip a path that's already gone; a previous run
      (or this loop, on a second pass) may already have moved it.
+   - `find projects -mindepth 1 -type d -empty -delete` — a project folder that existed only to
+     hold the demo's files is now an empty shell, and an empty `projects/<name>/` reads as a
+     live engagement that isn't one. Run this **only** under `projects/`: the routing map names
+     no individual project, so nothing there is promised to exist.
    - `mkdir -p context knowledge/external knowledge/playbook decisions references/sops` —
      recreate every directory the routing map in `CLAUDE.md` promises exists, even the ones now
-     emptied by the move above, so the map never points at nothing.
+     emptied by the move above, so the map never points at nothing. These five are the opposite
+     case from the line above: the map declares them, so they come back empty rather than being
+     swept away.
    - `touch decisions/log.md`
    Directories are not enough. The banner predicate is right for demo *content*, but it also
    catches files that are **machinery** — an `index.md` is the entry point the routing map

@@ -2,7 +2,7 @@
 
 # aios-kit
 
-An operating system for your AI agent's context — four mechanisms and seven skills that stop it missing what it already knows.
+An operating system for your AI agent's context — four mechanisms and the skills that run them, so it stops missing what it already knows.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -89,7 +89,7 @@ aios-kit/
 ├── docs/                         Documentation about the kit itself, for humans.
 └── .claude/
     ├── rules/                    Permanent standing rules — the rule, then why.
-    ├── skills/                   Seven skills, one folder each.
+    ├── skills/                   One folder per skill. The disk is the list.
     └── settings.json             Wires the session hook.
 ```
 
@@ -104,6 +104,8 @@ Every demo file opens with the same line — `> 🟡 DEMO — /onboard replaces 
 ---
 
 ## The lifecycle
+
+The disk owns this list — `ls .claude/skills/`, and each skill's `description` frontmatter is what fires it. What follows is what ships in the box today, so you know where to start.
 
 | Skill | Role |
 |---|---|

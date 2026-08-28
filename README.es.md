@@ -2,7 +2,7 @@
 
 # aios-kit
 
-Un sistema operativo para el contexto de tu agente de IA — cuatro mecanismos y siete skills para que deje de no encontrar lo que ya sabe.
+Un sistema operativo para el contexto de tu agente de IA — cuatro mecanismos y las skills que los hacen correr, para que deje de no encontrar lo que ya sabe.
 
 [![Licencia: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -89,7 +89,7 @@ aios-kit/
 ├── docs/                         Documentación sobre el kit mismo, para humanos.
 └── .claude/
     ├── rules/                    Reglas permanentes — la regla, y luego el porqué.
-    ├── skills/                   Siete skills, una carpeta cada una.
+    ├── skills/                   Una carpeta por skill. El disco es la lista.
     └── settings.json             Conecta el hook de sesión.
 ```
 
@@ -104,6 +104,8 @@ Todos los archivos del demo abren con la misma línea — `> 🟡 DEMO — /onbo
 ---
 
 ## El ciclo de vida
+
+El dueño de esta lista es el disco — `ls .claude/skills/`, y lo que dispara cada skill es su `description` en el frontmatter. Lo que sigue es lo que viene en la caja hoy, para que sepas por dónde empezar.
 
 | Skill | Rol |
 |---|---|
