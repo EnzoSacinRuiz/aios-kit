@@ -19,7 +19,7 @@ never made.
    file. If you cannot tell what kind of material this is (transcript, document, notes),
    ask before routing.
 
-2. **Route into three destinations, not one.** Most of the value in raw material is destroyed
+2. **Route into four destinations, not one.** Most of the value in raw material is destroyed
    by filing it in a single place — a transcript is never one kind of thing. Go through the
    material looking for each of these separately, because a single paragraph can contain more
    than one:

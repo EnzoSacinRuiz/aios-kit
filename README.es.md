@@ -10,11 +10,11 @@ Un sistema operativo para el contexto de tu agente de IA — cuatro mecanismos y
 
 ## El problema
 
-Le sigues dando más contexto al agente, y sigue pasando por alto lo que ya tiene.
+Le preguntas al agente por algo que dejaste resuelto hace seis semanas. Busca, no encuentra nada y te dice que eso no existe — mientras el archivo está tres carpetas más allá, escrito por ti.
 
 Más contexto no es la solución. Un montón más grande tarda más en recorrerse y esconde más contradicciones.
 
-El problema casi nunca es cuánto sabe — es que no encuentra lo que ya sabe.
+No encuentra lo que ya sabe. Eso es un problema de archivo, y el archivo es lo que este kit arregla.
 
 ---
 
@@ -22,10 +22,10 @@ El problema casi nunca es cuánto sabe — es que no encuentra lo que ya sabe.
 
 | Mecanismo | Qué resuelve |
 |---|---|
-| **Precedencia** | Un dato vive en un solo lugar; todo lo demás apunta ahí. |
-| **Ruteo** | Una tabla de qué contiene cada carpeta y cuándo ir ahí. |
-| **Protocolo de falla** | Cuando el agente no encuentra algo que sí estaba, se nombra el modo de falla y se arregla la causa, no el síntoma. |
-| **Ciclo de mantenimiento** | El sistema se audita y se repara solo, o se pudre. |
+| **Precedencia** (Precedence) | Un dato vive en un solo lugar; todo lo demás apunta ahí. |
+| **Ruteo** (Routing) | Una tabla de qué guarda cada carpeta y cuándo ir ahí. |
+| **Protocolo de falla** (Failure protocol) | Cuando el agente no encuentra algo que sí existe, se nombra el modo de falla y se arregla la causa, no el síntoma. |
+| **Ciclo de mantenimiento** (Maintenance loop) | El sistema se audita y se repara solo, o se pudre. |
 
 Los cuatro viven en `CLAUDE.md`, el manual que el agente lee antes que cualquier otra cosa.
 
@@ -33,53 +33,9 @@ Los cuatro viven en `CLAUDE.md`, el manual que el agente lee antes que cualquier
 
 **Ruteo** es una tabla que cubre todas las carpetas de primer nivel — qué guarda cada una y cuándo ir ahí. Una carpeta que el mapa no menciona es una carpeta que el agente no va a encontrar. Si agregas una carpeta, agregas su fila en el mismo commit.
 
-El **protocolo de falla** se corre en el momento en que se confirma que el agente no encontró algo. Toda falla es exactamente uno de cuatro modos, y el kit usa las mismas cuatro palabras en todas partes: `poisoning` (un archivo precargado afirmó algo falso o viejo), `bloat` (la respuesta estaba ahí, enterrada en demasiado), `confusion` (el mapa calla o manda a un lugar irrelevante), `clash` (dos archivos se contradicen y el agente le creyó al equivocado). Nombrar el modo es lo que convierte una disculpa en una reparación — un archivo encontrado a mano y no re-ruteado se vuelve a perder la semana siguiente.
+El **protocolo de falla** se corre en el momento en que se confirma que el agente no encontró algo. Toda falla es exactamente uno de cuatro modos, y el kit usa las mismas cuatro palabras en todas partes: `poisoning` (un archivo precargado afirmó algo falso), `bloat` (la respuesta estaba ahí, enterrada en demasiado), `confusion` (el mapa calla o manda a un lugar irrelevante), `clash` (dos archivos se contradicen y el agente le creyó al equivocado). Nombrar el modo es lo que convierte una disculpa en una reparación — un archivo encontrado a mano y no re-ruteado se vuelve a perder la semana siguiente.
 
 El **ciclo de mantenimiento** es el que todo el mundo se salta. Los manuales, los índices y los archivos de contexto son afirmaciones sobre lo que existe, y nadie vuelve a verificar una afirmación una vez que está escrita. Un workspace que nadie mantiene deja de ser cierto en unos sesenta días, y un sistema que se equivoca con seguridad es peor que no tener sistema. Por eso el kit se revisa a sí mismo: un chequeo de deriva de solo lectura corre al inicio de cada sesión y habla únicamente cuando algo se movió, y dos skills — una de exactitud y otra de estructura — dejan el estado del workspace por escrito cada mes.
-
----
-
-## Anatomía
-
-```
-aios-kit/
-├── CLAUDE.md                     El manual operativo. Tabla de precedencia, mapa
-│                                 de ruteo, protocolo de falla, automatizaciones.
-├── context/                      Se carga en cada sesión. Cuatro archivos cortos.
-│   ├── me.md                     Quién es el operador.
-│   ├── work.md                   Qué vende el negocio y a quién.
-│   ├── team.md                   Quién hace qué, y quién firma.
-│   └── priorities.md             Metas del trimestre. El único lugar donde se editan.
-├── knowledge/
-│   ├── external/                 El mundo de afuera: clientes, prospectos,
-│   │                             competencia. Un grafo [[wiki-link]] con su propio
-│   │                             index.md y su manual de ingesta.
-│   └── playbook/                 Tu método propio: principios y jugadas. Igual forma.
-├── decisions/log.md              Append-only. Qué se decidió, por qué, en qué contexto.
-├── projects/                     Trabajo por cuenta. Entregables, no contexto — vas
-│                                 al proyecto puntual, nunca cargas la carpeta entera.
-├── reports/                      Lo que escriben las skills. Generado, no redactado.
-├── references/                   voice.md, marcos de trabajo y sops/ — un archivo por
-│                                 proceso repetible.
-├── templates/                    Puntos de partida que se copian, no se editan encima.
-├── archives/                     Acá nada se borra, se archiva.
-├── scripts/
-│   └── aios-freshness-check.sh   Chequeo de deriva de solo lectura. Corre al inicio de
-│                                 cada sesión y no imprime nada si nada se movió.
-├── docs/                         Documentación sobre el kit mismo, para humanos.
-└── .claude/
-    ├── rules/                    Reglas permanentes — la regla, y luego el porqué.
-    ├── skills/                   Siete skills, una carpeta cada una.
-    └── settings.json             Conecta el hook de sesión.
-```
-
-### Viene lleno, no vacío
-
-La mayoría de los repos plantilla están huecos: carpetas con un `.gitkeep` y un README que describe un sistema que nunca contuvo nada. Este llega precargado con un ejemplo trabajado — **Meridian Research**, una consultora ficticia de investigación de mercado de cuatro personas — para que leas un workspace vivo en vez de imaginártelo.
-
-Entra a `knowledge/playbook/` y vas a encontrar un principio de venta escrito como una afirmación por archivo, enlazado a la cuenta de `knowledge/external/` que lo dispara una y otra vez y a la entrada de `decisions/log.md` de donde salió. Entra a `context/priorities.md` y vas a ver las metas del trimestre junto a una advertencia explícita de que el saldo en caja jamás se escribe ahí. Esa es la tesis completa, funcionando, en archivos que puedes abrir ahora mismo.
-
-Todos los archivos del demo abren con la misma línea — `> 🟡 DEMO — /onboard replaces this file with yours.` — y `/onboard` los encuentra por esa línea, no por una lista que quedaría desactualizada, los mueve a `archives/demo/` conservando su ruta, y escribe los tuyos en su lugar. No se borra nada: puedes volver a leer el ejemplo cuando tu propio workspace ya esté andando.
 
 ---
 
@@ -103,6 +59,50 @@ Eso es toda la instalación. No hay paquete que instalar ni nada que configurar 
 
 ---
 
+## Anatomía
+
+```
+aios-kit/
+├── CLAUDE.md                     El manual operativo. Tabla de precedencia, mapa
+│                                 de ruteo, protocolo de falla, automatizaciones.
+├── context/                      Se carga en cada sesión. Cuatro archivos cortos.
+│   ├── me.md                     Quién es el operador.
+│   ├── work.md                   Qué vende el negocio y a quién.
+│   ├── team.md                   Quién hace qué, y quién firma.
+│   └── priorities.md             Metas del trimestre. El único lugar donde se editan.
+├── knowledge/
+│   ├── external/                 El mundo de afuera: clientes, prospectos,
+│   │                             competencia. Un grafo [[wiki-link]] con su propio
+│   │                             index.md y su manual de ingesta.
+│   └── playbook/                 Tu método propio: principios y jugadas. Igual forma.
+├── decisions/log.md              Append-only. Qué se decidió, por qué, en qué contexto.
+├── projects/                     Trabajo por cuenta. Entregables, no contexto — vas
+│                                 al proyecto puntual, nunca cargas la carpeta entera.
+├── reports/                      Lo que escriben las skills. Generado, no redactado.
+├── references/                   voice.md y sops/ — un archivo por
+│                                 proceso repetible.
+├── templates/                    Puntos de partida que se copian, no se editan encima.
+├── archives/                     Acá nada se borra, se archiva.
+├── scripts/
+│   └── aios-freshness-check.sh   Chequeo de deriva de solo lectura. Corre al inicio de
+│                                 cada sesión y no imprime nada si nada se movió.
+├── docs/                         Documentación sobre el kit mismo, para humanos.
+└── .claude/
+    ├── rules/                    Reglas permanentes — la regla, y luego el porqué.
+    ├── skills/                   Siete skills, una carpeta cada una.
+    └── settings.json             Conecta el hook de sesión.
+```
+
+### Viene lleno, no vacío
+
+La mayoría de los repos plantilla están huecos: carpetas con un `.gitkeep` y un README que describe un sistema que nunca contuvo nada. Este llega precargado con un ejemplo trabajado — **Meridian Research**, una consultora ficticia de investigación de mercado de cuatro personas — para que leas un workspace vivo en vez de imaginártelo.
+
+Entra a `knowledge/playbook/` y vas a encontrar un principio de venta escrito como una afirmación por archivo, enlazado a la cuenta de `knowledge/external/` que lo dispara una y otra vez y a la entrada de `decisions/log.md` de donde salió. Entra a `context/priorities.md` y vas a ver las metas del trimestre junto a una advertencia explícita de que el saldo en caja jamás se escribe ahí. Esa es la tesis completa, funcionando, en archivos que puedes abrir ahora mismo.
+
+Todos los archivos del demo abren con la misma línea — `> 🟡 DEMO — /onboard replaces this file with yours.` — y `/onboard` los encuentra por esa línea, no por una lista que quedaría desactualizada, los mueve a `archives/demo/` conservando su ruta, y escribe los tuyos en su lugar. No se borra nada: puedes volver a leer el ejemplo cuando tu propio workspace ya esté andando.
+
+---
+
 ## El ciclo de vida
 
 | Skill | Rol |
@@ -113,7 +113,7 @@ Eso es toda la instalación. No hay paquete que instalar ni nada que configurar 
 | `/os-audit` | **¿Sigue siendo cierto?** Seis chequeos de solo lectura que contrastan cada afirmación del manual contra lo que hay en disco. Escribe un reporte; no cambia nada. |
 | `/blueprint` | **¿Está bien construido?** Puntúa el workspace sobre 100 en ruteo, precedencia, frescura y ciclo, y nombra los tres arreglos de mayor apalancamiento con el comando exacto de cada uno. |
 | `/leverage` | **Extender, cada semana.** Encuentra la fricción, corta la parte que no debería existir, y construye la máquina más chica que resuelva lo que quedó. |
-| `/skill-builder` | **Extender, cuando haga falta.** Convierte un proceso que repites a mano en una skill, con una entrevista de nueve bloques que pregunta antes de escribir. |
+| `/skill-builder` | **Extender, cuando haga falta.** Convierte un proceso que vuelves a explicar cada vez en una skill, con una entrevista de nueve bloques que pregunta antes de escribir. |
 
 `/os-audit` y `/blueprint` miden cosas distintas y las dos importan. Un workspace puede sacar 95 en estructura y estar lleno de datos vencidos; puede estar perfectamente al día y sacar 40 porque no hay nada que lo sostenga. Corre ambas, una vez al mes.
 

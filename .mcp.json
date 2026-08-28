@@ -1,14 +1,7 @@
 {
-  "//": "MCP servers this project connects to. Nothing here is wired by default.",
-  "//2": "Replace the example below with a real server, or delete this file.",
-  "//3": "Rule: whatever you add here, also add a row to the routing table in CLAUDE.md — an integration nobody documented is a phantom data source.",
-  "mcpServers": {
-    "example-server": {
-      "command": "npx",
-      "args": ["-y", "@example/mcp-server"],
-      "env": {
-        "EXAMPLE_API_KEY": "${EXAMPLE_API_KEY}"
-      }
-    }
-  }
+  "//": "MCP servers this project connects to. Nothing is wired by default — this file ships inert so a fresh clone starts no server and prompts for nothing.",
+  "//2": "To wire one, copy the shape below into mcpServers and replace it with a real server:",
+  "//3": "  \"example-server\": { \"command\": \"npx\", \"args\": [\"-y\", \"@vendor/mcp-server\"], \"env\": { \"EXAMPLE_API_KEY\": \"${EXAMPLE_API_KEY}\" } }",
+  "//4": "Rule: whatever you add here, also add a row to the routing table in CLAUDE.md — an integration nobody documented is a phantom data source.",
+  "mcpServers": {}
 }

@@ -9,7 +9,8 @@ that didn't cover the hours, and it shows up again with Northwind Labs' recurrin
 requests and with prospects who compare us to Pulse's lower price. Same principle, three
 different triggers.
 
-**Source:** decision to stop quick-read engagements, plus recurring pattern across Northwind
+**Source:** the `[2026-07-29]` entry in [`decisions/log.md`](../../decisions/log.md) — stop
+taking single-interview "quick read" engagements — plus recurring pattern across Northwind
 and Pulse-competitive deals
 **Date:** 2026-07-29
 

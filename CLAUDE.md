@@ -58,7 +58,7 @@ something and it is not here, the table is stale — fix it (see the next sectio
 | `decisions/` | `log.md`, append-only. What was decided, why, and in what context. | Before re-opening a settled question. Always, when something is decided. |
 | `projects/` | Work per account or initiative. Deliverables, not context. | A specific piece of client or project work. Go to the one project — never load the folder. |
 | `reports/` | Output written by skills: audits, briefs, notes. Generated, not authored. | Finding a report a skill already produced. |
-| `references/` | Voice profile, frameworks, and `sops/` — one file per repeatable process. | Matching the operator's voice, or following a process that already exists. |
+| `references/` | Voice profile and `sops/` — one file per repeatable process. | Matching the operator's voice, or following a process that already exists. |
 | `templates/` | Starting points for recurring deliverables. | Beginning something you make repeatedly. Copy it; don't edit in place. |
 | `archives/` | Retired material. Nothing is deleted here — it is archived. `/onboard` puts the demo company in `archives/demo/`. | Recovering something that was removed. |
 | `scripts/` | Automation that runs outside a session. | Changing what runs on its own. |

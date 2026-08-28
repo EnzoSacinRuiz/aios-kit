@@ -256,7 +256,8 @@ friction, cuts the part of it that should not exist, and ships the smallest mach
 survives — a checklist before a script, a script before a skill, a skill before a scheduled
 agent. The run is not done until a file exists on disk that did not exist before.
 `/skill-builder` runs the nine-block interview that turns a repeated process into a real skill,
-and refuses to write to a folder the routing map has never heard of.
+and if that skill writes somewhere the routing map has never heard of, it adds the routing row
+in the same pass — so the new folder is findable the moment the session that created it ends.
 
 ### What it costs you
 
@@ -270,8 +271,8 @@ This is the expensive mechanism, and the one people quietly drop.
   to approve and apply, and a fix list nobody applies is a document about problems you now know
   you have.
 - **`/distill` is slower than pasting.** Pasting a transcript into a file takes a keystroke.
-  Splitting it into three destinations, checking for contradictions, and updating an index
-  takes fifteen minutes. The tenth time you do it under deadline, you will want to paste.
+  Splitting it into four destinations — decisions, durable outside facts, your own method,
+  action items — checking for contradictions, and updating an index takes fifteen minutes. The tenth time you do it under deadline, you will want to paste.
 - **A weekly ritual will lapse.** `/leverage` is designed to survive that — if nothing recurred
   this week, it tells you to log the skip rather than manufacture a candidate. But a skill run
   four times a year is not a loop.

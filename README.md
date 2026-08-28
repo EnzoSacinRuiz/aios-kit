@@ -10,11 +10,11 @@ An operating system for your AI agent's context — four mechanisms and seven sk
 
 ## The problem
 
-You keep giving the agent more context, and it keeps missing what it already has.
+You ask the agent about something you settled six weeks ago. It searches, finds nothing, and tells you the thing does not exist — while the file sits three folders away, written by you.
 
 More context is not the fix. A bigger pile takes longer to search and hides more contradictions.
 
-The problem is almost never how much it knows — it is that it cannot find what it already knows.
+It cannot find what it already knows. That is a filing problem, and filing is what this kit fixes.
 
 ---
 
@@ -39,6 +39,26 @@ The **maintenance loop** is the one people skip. Manuals, indexes and context fi
 
 ---
 
+## Quickstart
+
+```sh
+git clone https://github.com/EnzoSacinRuiz/aios-kit.git my-workspace
+cd my-workspace
+claude
+```
+
+Then, in the session:
+
+```
+/onboard
+```
+
+It asks what language you want the workspace to work in, interviews you one question at a time, archives the demo company, and writes your real context files and your first standing rule. It is safe to re-run — a second run updates in place and will not archive the demo twice.
+
+That is the whole install. No package to add, nothing to configure first.
+
+---
+
 ## Anatomy
 
 ```
@@ -59,7 +79,7 @@ aios-kit/
 ├── projects/                     Work per account. Deliverables, not context —
 │                                 go to the one project, never load the folder.
 ├── reports/                      What the skills write. Generated, not authored.
-├── references/                   voice.md, frameworks, and sops/ — one file per
+├── references/                   voice.md and sops/ — one file per
 │                                 repeatable process.
 ├── templates/                    Starting points you copy rather than edit in place.
 ├── archives/                     Nothing is deleted here, it is archived.
@@ -80,26 +100,6 @@ Most template repositories are hollow: folders with a `.gitkeep` and a README de
 Click into `knowledge/playbook/` and you will find a sales principle written as one claim per file, linked to the client account in `knowledge/external/` that keeps triggering it and to the entry in `decisions/log.md` it came from. Click into `context/priorities.md` and you will see quarter goals sitting next to an explicit warning that the cash balance must never be written there. That is the whole thesis, working, in files you can open right now.
 
 Every demo file opens with the same line — `> 🟡 DEMO — /onboard replaces this file with yours.` — and `/onboard` finds them by that line, not by a list that would go stale, moves them to `archives/demo/` with their paths intact, and writes yours in their place. Nothing is deleted, so you can go back and read the example after your own workspace is running.
-
----
-
-## Quickstart
-
-```sh
-git clone https://github.com/EnzoSacinRuiz/aios-kit.git my-workspace
-cd my-workspace
-claude
-```
-
-Then, in the session:
-
-```
-/onboard
-```
-
-It asks what language you want the workspace to work in, interviews you one question at a time, archives the demo company, and writes your real context files and your first standing rule. It is safe to re-run — a second run updates in place and will not archive the demo twice.
-
-That is the whole install. No package to add, nothing to configure first.
 
 ---
 

@@ -2,38 +2,38 @@
 
 Un agente con buena memoria y mal archivo se comporta exactamente igual que un agente sin
 memoria. Busca, no encuentra nada y te dice que eso no existe — mientras el archivo está tres
-carpetas más allá, escrito por vos, hace seis semanas.
+carpetas más allá, escrito por ti, hace seis semanas.
 
-Este kit son cuatro mecanismos que hacen que esa falla sea rara, y un loop que la caza cuando
+Este kit son cuatro mecanismos que hacen que esa falla sea rara, y un ciclo que la caza cuando
 ocurre igual.
 
 | Mecanismo | Qué es |
 |---|---|
-| **Precedence** (precedencia) | Un dato vive en un solo lugar; todo lo demás apunta ahí. |
-| **Routing** (ruteo) | Una tabla de qué guarda cada carpeta y cuándo ir ahí. |
-| **Failure protocol** (protocolo de falla) | Cuando el agente no encuentra algo que sí existe, se nombra el modo de falla y se arregla la causa, no el síntoma. |
-| **Maintenance loop** (loop de mantenimiento) | El sistema se audita y se repara solo, o se pudre. |
+| **Precedencia** (Precedence) | Un dato vive en un solo lugar; todo lo demás apunta ahí. |
+| **Ruteo** (Routing) | Una tabla de qué guarda cada carpeta y cuándo ir ahí. |
+| **Protocolo de falla** (Failure protocol) | Cuando el agente no encuentra algo que sí existe, se nombra el modo de falla y se arregla la causa, no el síntoma. |
+| **Ciclo de mantenimiento** (Maintenance loop) | El sistema se audita y se repara solo, o se pudre. |
 
 Cada sección responde tres preguntas en el mismo orden: qué se rompe sin el mecanismo, qué es
 el mecanismo, y cuánto cuesta mantenerlo. La tercera es la que casi ningún kit de contexto
 contesta. Todo lo de acá tiene una factura de mantenimiento, y conviene verla antes de decidir
-si adoptás algo de esto.
+si adoptas algo de esto.
 
 ---
 
-## 1. Precedence — la precedencia
+## 1. Precedencia
 
 ### Qué se rompe sin esto
 
-Escribís la meta del trimestre en `context/priorities.md`. Dos semanas después estás armando
-el brief de un proyecto y volvés a tipear el número, porque tipearlo es más rápido que abrir
+Escribes la meta del trimestre en `context/priorities.md`. Dos semanas después estás armando
+el brief de un proyecto y vuelves a tipear el número, porque tipearlo es más rápido que abrir
 el archivo. Ahora existe dos veces.
 
-La copia es correcta el día que la pegás y falsa para siempre después. Nadie la actualiza,
+La copia es correcta el día que la pegas y falsa para siempre después. Nadie la actualiza,
 porque nadie se acuerda de que está ahí. Dos meses más tarde se abre una sesión, lee la copia
 y te dice algo falso con voz de certeza. No hay error. No se ve nada roto.
 
-Multiplicá eso por cada número, estado, fecha y headcount que alguna vez mencionaste dos
+Multiplica eso por cada número, estado, fecha y headcount que alguna vez mencionaste dos
 veces, y el workspace deja de ser fuente de verdad para convertirse en una pila de
 afirmaciones de antigüedad desconocida.
 
@@ -55,15 +55,15 @@ cuál es la meta de propuestas del trimestre; dice que esa meta vive en
 `context/priorities.md`. Ningún archivo enumera las skills, porque `ls .claude/skills/` no se
 puede desactualizar.
 
-La regla se generaliza más allá de la tabla: si te encontrás copiando un número o un estado a
-un segundo archivo, no lo copies — escribí dónde vive.
+La regla se generaliza más allá de la tabla: si te encuentras copiando un número o un estado a
+un segundo archivo, no lo copies — escribe dónde vive.
 
 ### Qué te cuesta
 
 - **Es más lento en el momento.** Pegar el número toma dos segundos. Abrir el archivo dueño,
   confirmar que sigue siendo el dueño y escribir un puntero toma treinta. Ese impuesto lo
-  pagás cada vez, y el retorno llega meses después en forma de un error que no ocurrió.
-- **Tenés que decidir un dueño antes de poder escribir.** Para una clase nueva de dato — quién
+  pagas cada vez, y el retorno llega meses después en forma de un error que no ocurrió.
+- **Tienes que decidir un dueño antes de poder escribir.** Para una clase nueva de dato — quién
   posee los precios, quién posee el headcount — esa es una decisión real, y saltearla hace que
   el dato caiga en dos archivos por defecto.
 - **La tabla necesita una fila por cada clase disputada.** Una tabla de precedencia con tres
@@ -75,7 +75,7 @@ un segundo archivo, no lo copies — escribí dónde vive.
 
 ---
 
-## 2. Routing — el ruteo
+## 2. Ruteo
 
 ### Qué se rompe sin esto
 
@@ -83,10 +83,10 @@ El agente necesita la nota que escribiste sobre cómo negocia un cliente. Busca 
 Busca en `reports/`. No busca en `knowledge/external/`, porque nada le dijo que esa carpeta
 guarda inteligencia de cuentas. Responde que esa nota no existe.
 
-Vos le pegás la ruta. El trabajo sigue. La semana que viene pasa otra vez con otro archivo.
+Le pegas la ruta. El trabajo sigue. La semana que viene pasa otra vez con otro archivo.
 
 Un workspace sin mapa no es buscable, es adivinable — y el agente adivina con los nombres de
-carpeta que vos elegiste, que significan algo para vos y nada para él.
+carpeta que tú elegiste, que significan algo para ti y nada para él.
 
 ### Qué es el mecanismo
 
@@ -94,8 +94,8 @@ Una sola tabla en `CLAUDE.md`, con una fila por carpeta de primer nivel y tres c
 carpeta, qué guarda, y **cuándo ir ahí**.
 
 La tercera columna es la que hace el trabajo. "Entregables, no contexto" describe `projects/`.
-"Un pedazo específico de trabajo de cliente — andá a un proyecto, nunca cargues la carpeta
-entera" le dice al agente cuándo abrirla y cuándo no meterse. El mapa está indexado por la
+"Un pedazo específico de trabajo de cliente o de proyecto — ve al proyecto puntual, nunca
+cargues la carpeta entera" le dice al agente cuándo abrirla y cuándo no meterse. El mapa está indexado por la
 pregunta que se hace, no por el contenido de la carpeta.
 
 Tres propiedades lo mantienen honesto:
@@ -107,7 +107,7 @@ Tres propiedades lo mantienen honesto:
   cada una un `index.md` que lista todos sus nodos, y un `CLAUDE.md` de carpeta con el formato
   de nodo. Un nodo que no está en el índice es invisible para cualquiera que siga el grafo,
   aunque el archivo esté ahí.
-- **Lleva una fecha de `Last verified`.** Que significa algo solo si la movés cuando
+- **Lleva una fecha de `Last verified`.** Que significa algo solo si la mueves cuando
   verificaste, y nunca en otro caso.
 
 ### Qué te cuesta
@@ -117,7 +117,7 @@ Tres propiedades lo mantienen honesto:
   durante tres días, y la costumbre de postergarlo es como mueren los mapas.
 - **Renombrar ahora toca dos archivos.** Mover `reports/` a `output/` implica editar el mapa, y
   probablemente una o dos skills que escriben ahí.
-- **Tenés que resistir la tentación de engordarlo.** Cada búsqueda fallida da ganas de agregar
+- **Tienes que resistir la tentación de engordarlo.** Cada búsqueda fallida da ganas de agregar
   una fila. Un mapa de cuarenta filas no es más preciso que uno de doce; es un mapa que nadie
   lee. Cuando un archivo está en un lugar que el manual no describe, mover el archivo suele
   salir más barato que agregarle una fila.
@@ -126,36 +126,36 @@ Tres propiedades lo mantienen honesto:
 
 ---
 
-## 3. Failure protocol — el protocolo de falla
+## 3. Protocolo de falla
 
 ### Qué se rompe sin esto
 
 Este es el intercambio que destruye sistemas de contexto en silencio:
 
 > **Agente:** No encontré nada sobre eso.
-> **Vos:** Está ahí — `knowledge/playbook/hold-the-fee-negotiate-scope.md`.
-> **Agente:** Tenés razón, disculpá. Lo leo ahora.
+> **Tú:** Está ahí — `knowledge/playbook/hold-the-fee-negotiate-scope.md`.
+> **Agente:** Tienes razón, disculpa. Lo leo ahora.
 
 El trabajo sigue. Nada del sistema cambió, así que la misma falla se repite la semana que
 viene, y la siguiente. La disculpa es el problema: se siente como una resolución y no repara
 nada.
 
-En unos meses aprendés a no confiar en que el agente encuentre las cosas y empezás a pegar
-rutas a mano. En ese punto el índice sos vos, y el workspace es decoración.
+En unos meses aprendes a no confiar en que el agente encuentre las cosas y empiezas a pegar
+rutas a mano. En ese punto el índice eres tú, y el workspace es decoración.
 
 ### Qué es el mecanismo
 
 Una falla confirmada dispara un procedimiento fijo de cuatro pasos, que `/route-fix` recorre:
 
-1. **Trazá, no te disculpes.** Cada ruta leída, en orden, incluidas las que no devolvieron
+1. **Traza, no te disculpes.** Cada ruta leída, en orden, incluidas las que no devolvieron
    nada. Cada búsqueda corrida y qué matcheó. Qué fila del mapa de ruteo mandó al agente al
    lugar equivocado, citada. Y después una pregunta contestada por escrito: ¿por qué el mapa
    apuntaba lejos del archivo?
-2. **Nombrá el modo de falla.** Exactamente uno de cuatro. Nunca dos, nunca uno nuevo.
-3. **Arreglá la causa, según el modo.** Una falla de `confusion` no se arregla nunca podando un
+2. **Nombra el modo de falla.** Exactamente uno de cuatro. Nunca dos, nunca uno nuevo.
+3. **Arregla la causa, según el modo.** Una falla de `confusion` no se arregla nunca podando un
    archivo.
-4. **Mostrá el diff y frená.** No se escribe nada sin aprobación, y el arreglo tiene que
-   señalar la línea que evita que esta falla específica vuelva a pasar. Si no podés trazar esa
+4. **Muestra el diff y detente.** No se escribe nada sin aprobación, y el arreglo tiene que
+   señalar la línea que evita que esta falla específica vuelva a pasar. Si no puedes trazar esa
    línea, el arreglo es decorativo.
 
 ### Los cuatro modos de falla
@@ -182,32 +182,32 @@ meta del trimestre es `6 propuestas por mes` en `context/priorities.md` y `10 po
 README de un proyecto escrito antes de que la meta se revisara. Los dos están precargados. El
 agente elige uno.
 
-La distinción que más cuesta en la práctica es `bloat` contra `confusion`: bloat es un archivo
+La distinción que más importa en la práctica es `bloat` contra `confusion`: bloat es un archivo
 demasiado gordo para leer, confusion es un mapa que nunca nombró el archivo. Cuando las dos
 son ciertas, el modo es la **primera** vuelta equivocada, no la última.
 
 ### Qué te cuesta
 
 - **Interrumpe el trabajo que estabas haciendo.** La falla pasa en medio de una tarea. El
-  protocolo dice frená, trazá, diagnosticá y proponé — justo cuando menos ganas tenés.
+  protocolo dice detente, traza, diagnostica y propón — justo cuando menos ganas tienes.
   Correrlo más tarde no funciona: la traza depende de lo que el agente todavía recuerda haber
   leído.
 - **Exige una pasada de aprobación cada vez.** El protocolo se niega a escribir sin
   supervisión, porque una reparación que edita mal el mapa es peor que la falla original.
 - **Algunas fallas son del agente, y el resultado honesto es no editar nada.** Si el agente
   nunca consultó el mapa de ruteo, el mapa no está roto — el procedimiento se salteó. Editar
-  el mapa para parecer diligente agrega filas que nadie necesita, y un mapa engordado es como
-  un mapa se vuelve ilegible.
+  el mapa para parecer diligente agrega filas que nadie necesita, y así es como un mapa se
+  vuelve ilegible.
 - **Algunas fallas son tuyas.** Nada rutea a un dato que nunca se escribió. Eso no es un
   defecto de ruteo; es material que falta, y le corresponde a `/distill`.
 
 ---
 
-## 4. Maintenance loop — el loop de mantenimiento
+## 4. Ciclo de mantenimiento
 
 ### Qué se rompe sin esto
 
-Todo lo anterior se degrada, en silencio, y ninguno de los tres avisa que se está degradando.
+Todo lo anterior se degrada, en silencio, y nada de eso avisa que se está degradando.
 
 La precedencia se degrada la primera vez que alguien pega un número en vez de un puntero. El
 ruteo se degrada la primera vez que se crea una carpeta a las once de la noche. La capa
@@ -217,7 +217,7 @@ precargada se degrada de manera continua, porque los negocios cambian y los arch
 Nada de eso tira un error. Un workspace degradándose se ve exactamente igual que uno sano
 desde afuera — las mismas carpetas, los mismos archivos, las mismas respuestas seguras. El
 único síntoma observable es que las respuestas se vuelven sutilmente incorrectas, que es
-justo el síntoma que peor podés detectar, porque la pregunta la hiciste vos.
+justo el síntoma que peor puedes detectar, porque la pregunta la hiciste tú.
 
 ### Qué es el mecanismo
 
@@ -229,12 +229,12 @@ nada se movió. Chequea cinco cosas: `context/` sin tocar hace 60 días, ningún
 auditoría en 30 días, material en `projects/` más nuevo que la última entrada de
 `decisions/log.md`, el banner `🟡 DEMO` todavía sentado en `context/me.md`, y archivos
 trackeados que parecen secretos. No arregla nada. El silencio es el estado de éxito, y eso es
-lo que evita que se convierta en ruido que aprendés a scrollear.
+lo que evita que se convierta en ruido que aprendes a scrollear.
 
 El hook se eligió por encima de un cron a propósito: un hook vive en el repo y corre en esta
-máquina, todas las sesiones, para siempre. Un cron de sesión muere cuando cerrás la sesión.
+máquina, todas las sesiones, para siempre. Un cron de sesión muere cuando cierras la sesión.
 
-**Mensual — las dos auditorías.** Hacen preguntas distintas y necesitás las dos.
+**Mensual — las dos auditorías.** Hacen preguntas distintas y necesitas las dos.
 
 - `/os-audit` pregunta *¿esto sigue siendo cierto?* Seis chequeos de solo lectura: integridad
   de rutas, verdad de los índices, frescura, duplicación y bloat, fallas silenciosas (secretos
@@ -242,9 +242,9 @@ máquina, todas las sesiones, para siempre. Un cron de sesión muere cuando cerr
   cableadas) y ubicación del contexto. Cada hallazgo se etiqueta con uno de los cuatro modos
   de falla. El único archivo que escribe es su propio reporte, que termina en una lista
   numerada de arreglos — por lotes, ordenada de más barato a más caro, y que nadie aplica
-  hasta que vos la aprobás.
-- `/blueprint` pregunta *¿está bien construido?* Puntúa cuatro ejes sobre 25 — Routing,
-  Precedence, Freshness, Loop — con valores en bandas, y la banda la fija el hallazgo más
+  hasta que tú la apruebas.
+- `/blueprint` pregunta *¿está bien construido?* Puntúa cuatro ejes sobre 25 — ruteo,
+  precedencia, frescura y ciclo — con valores en bandas, y la banda la fija el hallazgo más
   grave, nunca la cantidad de hallazgos. Nombra el hallazgo que fijó cada banda, así dos
   corridas con un mes de diferencia son comparables, y ordena los tres arreglos de mayor
   palanca: puntos recuperados sobre esfuerzo, cada uno con el comando exacto.
@@ -265,8 +265,9 @@ fricción recurrente, corta la parte que no debería existir, y construye la má
 para lo que sobrevive — un checklist antes que un script, un script antes que una skill, una
 skill antes que un agente programado. La corrida no termina hasta que existe en disco un
 archivo que antes no existía. `/skill-builder` corre la entrevista de nueve bloques que
-convierte un proceso repetido en una skill real, y se niega a escribir en una carpeta de la
-que el mapa de ruteo nunca oyó hablar.
+convierte un proceso repetido en una skill real, y si esa skill escribe en una carpeta de la
+que el mapa de ruteo nunca oyó hablar, le agrega su fila de ruteo en la misma pasada — así la
+carpeta nueva es encontrable desde que termina la sesión que la creó.
 
 ### Qué te cuesta
 
@@ -278,29 +279,29 @@ Este es el mecanismo caro, y el que la gente abandona sin decirlo.
 - **Una auditoría produce una lista de arreglos, no arreglos.** Las dos auditorías son de solo
   lectura a propósito — una auditoría que edita en silencio lo que mide nunca se puede volver
   a correr con honestidad. Eso implica una segunda sentada para aprobar y aplicar, y una lista
-  de arreglos que nadie aplica es un documento sobre problemas que ahora sabés que tenés.
+  de arreglos que nadie aplica es un documento sobre problemas que ahora sabes que tienes.
 - **`/distill` es más lento que pegar.** Pegar una transcripción en un archivo es una tecla.
-  Partirla en tres destinos, chequear contradicciones y actualizar un índice son quince
-  minutos. La décima vez, con una entrega encima, vas a querer pegar.
+  Partirla en cuatro destinos — decisiones, hechos durables del mundo externo, tu propio
+  método, tareas — chequear contradicciones y actualizar un índice son quince minutos. La décima vez, con una entrega encima, vas a querer pegar.
 - **Un ritual semanal se va a caer.** `/leverage` está diseñada para sobrevivir eso — si no se
   repitió nada esta semana, te dice que registres el salto en vez de fabricar un candidato.
-  Pero una skill que corre cuatro veces al año no es un loop.
+  Pero una skill que corre cuatro veces al año no es un ciclo.
 - **Todo esto es disciplina, no automatización.** El kit automatiza la *detección*. No
   automatiza la *reparación*, y no lo va a hacer, porque un sistema que repara su propio
   contexto sin supervisión puede equivocarse con seguridad de una manera nueva cada sesión.
 
 ---
 
-## Por qué el loop es lo que más importa
+## Por qué el ciclo es lo que más importa
 
-Precedence, routing y el protocolo de falla son mecanismos reales, y los tres se degradan.
+La precedencia, el ruteo y el protocolo de falla son mecanismos reales, y los tres se degradan.
 
 La precedencia se degrada hacia números duplicados. El ruteo se degrada hacia filas que
 apuntan a carpetas renombradas. El protocolo de falla se degrada hacia disculpas, porque solo
 corre cuando alguien se acuerda de correrlo. Cada uno de los tres se deteriora sin producir un
 error, sin una advertencia, y sin ninguna diferencia visible en cómo se ve el workspace.
 
-El loop es el único mecanismo que se da cuenta. El hook se da cuenta de que hace un mes que
+El ciclo es el único mecanismo que se da cuenta. El hook se da cuenta de que hace un mes que
 nadie audita. `/os-audit` se da cuenta de que una fila apunta a nada y de que dos archivos se
 contradicen. `/blueprint` se da cuenta de que los mecanismos mismos nunca se terminaron de
 construir. Sin ellos, los otros tres mecanismos son una buena idea que tuviste una vez.
@@ -311,10 +312,10 @@ el peligro específico no es que el workspace quede vacío. Es que sigue lleno. 
 respondiendo. Suena exactamente igual de seguro con los datos vencidos que con los vigentes,
 porque nada dentro de un archivo markdown lleva su propia fecha de vencimiento.
 
-Un sistema que se equivoca con seguridad es peor que no tener sistema. Sin sistema, verificás.
+Un sistema que se equivoca con seguridad es peor que no tener sistema. Sin sistema, verificas.
 Con uno equivocado, no.
 
-El loop es lo que lo mantiene honesto.
+El ciclo es lo que lo mantiene honesto.
 
 ---
 
