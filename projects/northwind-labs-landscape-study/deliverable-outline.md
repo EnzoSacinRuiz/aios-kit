@@ -2,30 +2,31 @@
 
 # Deliverable outline — Northwind Labs landscape study
 
-Status as of 2026-08-20 — see `reports/northwind-labs-interview-progress-2026-08-20.md` for
-the live interview count. This outline gets updated in place as sections draft, not rewritten
+Counts — interviews coded, competitors researched — live in
+`reports/northwind-labs-interview-progress-2026-08-20.md`, not here. This file says what each
+section is and what is blocking it; it gets updated in place as sections draft, not rewritten
 from scratch at the end.
 
 1. **Executive summary** — one page, three findings, one recommendation. **Not started.**
    Written last, once sections 2–4 are actually stable — drafting this early just means
    rewriting it twice.
 
-2. **Category map** — the competitors plotted by positioning and pricing tier. **Drafted for
-   9 of the 12 shortlisted companies**, from desk research. The 3 outstanding are smaller
-   regional players with thin public pricing info — Tomas is chasing a customer reference call
-   for at least one before falling back to inference from job postings and case studies.
+2. **Category map** — the competitors plotted by positioning and pricing tier. **Drafting from
+   desk research** (coverage in the progress note). The stragglers are the smaller regional
+   players with thin public pricing info — Tomas is chasing a customer reference call for at
+   least one before falling back to inference from job postings and case studies.
 
 3. **Buyer language** — what practitioners actually call the problem, in their own words,
-   pulled from interview transcripts. **In progress.** 5 of 8 interviews coded. Early read:
-   respondents keep saying "manual reconciliation," not "reporting" — Iris flagged this as
-   worth checking against the remaining three before it goes in as a finding rather than an
-   impression (see the interview progress note for the full caveat).
+   pulled from interview transcripts. **In progress**, gated on transcript coding. There is an
+   early read on how respondents name the problem, written up in the progress note — Iris
+   flagged it as worth checking against the remaining interviews before it goes in as a finding
+   rather than an impression.
 
 4. **Gap analysis** — where every mapped competitor falls short, and which gaps are big
    enough to build against. **Not started — blocked.** Can't responsibly draft this until the
-   remaining interviews land and the synthesis workshop happens; a gap analysis built on 5 of
-   8 interviews risks anchoring the workshop discussion on a pattern that doesn't hold once the
-   last three respondents weigh in.
+   remaining interviews land and the synthesis workshop happens; a gap analysis built on a
+   partial set risks anchoring the workshop discussion on a pattern that doesn't hold once the
+   last respondents weigh in.
 
 5. **Recommendation** — build, partner, or wait, tied back to sections 2–4. Not started; this
    is the one section that genuinely can't move before the workshop.

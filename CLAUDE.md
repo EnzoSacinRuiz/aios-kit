@@ -47,12 +47,14 @@ the only thing that prevents it.
 
 ## Routing map — where everything lives
 
-_Last verified: 2026-08-27. This table covers every first-level folder. If you look for
-something and it is not here, the table is stale — fix it (see the next section)._
+_Last verified: 2026-08-27. This table covers every first-level folder, plus the root-level
+files that decide what the workspace can reach. If you look for something and it is not here,
+the table is stale — fix it (see the next section)._
 
 | Folder | What it holds | When to go there |
 |---|---|---|
 | `context/` | The always-loaded layer: who the operator is, what they sell, who's on the team, what the quarter's goals are. | Never search it — it is already in your context. Edit it when a fact changes. |
+| `knowledge/` | The two knowledge graphs below, and nothing else. Every file under it belongs to one of them. | Never as itself — go to the child that fits. |
 | `knowledge/external/` | Intelligence about the outside world: clients, prospects, competitors, market. A `[[wiki-link]]` graph with its own `index.md`. | Preparing for a conversation with someone outside the company. |
 | `knowledge/playbook/` | The operator's own method: principles, plays, how they do the work. Same graph shape. | Deciding how to do something you've done before. |
 | `decisions/` | `log.md`, append-only. What was decided, why, and in what context. | Before re-opening a settled question. Always, when something is decided. |
@@ -64,9 +66,11 @@ something and it is not here, the table is stale — fix it (see the next sectio
 | `scripts/` | Automation that runs outside a session. | Changing what runs on its own. |
 | `docs/` | Documentation about this kit itself, for humans. | Explaining the system to a person, not using it. |
 | `.claude/` | The machinery, not the content. `rules/` holds permanent standing rules, `skills/` holds one folder per skill, `settings.json` wires the session hook. | Adding a rule, adding a skill, or changing what runs automatically. |
+| `.mcp.json` | Which external data sources this workspace can reach. Ships inert — an empty `mcpServers`, so a fresh clone starts nothing and prompts for nothing. | Wiring, checking, or removing an integration. Read it before assuming a system is or isn't reachable. |
 
 **Adding a folder:** create the folder and add its row here in the same commit. A folder the
-map doesn't mention is a folder you will not find.
+map doesn't mention is a folder you will not find. The same goes for an integration added to
+`.mcp.json` — an undocumented data source is a phantom data source.
 
 **Scope of this map:** every folder above is in it, including `.claude/`. The only folder
 deliberately left out is `.git/`, which belongs to git and not to you. An audit that flags
@@ -104,7 +108,7 @@ dead path. Delete it or create it — don't leave it sitting there.
 
 | What | When | What it does |
 |---|---|---|
-| `scripts/aios-freshness-check.sh` | `SessionStart` hook, every session | Checks five things and speaks only when something has drifted: stale `context/`, no audit in 30 days, raw material never distilled, the demo still installed, apparent secrets tracked by git. **Read-only. Fixes nothing.** |
+| `scripts/aios-freshness-check.sh` | `SessionStart` hook, every session | Checks four things and speaks only when something has drifted: the demo still installed, stale `context/`, no audit in 30 days, apparent secrets tracked by git. While the demo is still installed it says that and nothing else — a fresh clone opens with one actionable line, not a wall of warnings. **Read-only. Fixes nothing.** |
 
 **Why a hook and not a cron:** a hook lives in `.claude/settings.json` and runs on this
 machine, every session, forever. A session-scoped cron dies when the session closes. If you
@@ -118,17 +122,12 @@ data source** — output appears, nobody knows where from, and nobody notices wh
 
 ## Skills
 
-_The disk is the source of truth: `ls .claude/skills/`. This table only orients._
+The disk owns this. Run `ls .claude/skills/` to see what exists — one folder per skill, each
+with a `SKILL.md`. What actually fires a skill is the `description` in that file's
+frontmatter, so read it there when you want to know what a skill is for and when it triggers.
 
-| Skill | Role |
-|---|---|
-| `/onboard` | **Install.** Interviews the operator and replaces the demo with their real context. |
-| `/distill` | **Feed.** Turns raw material — a transcript, a document, a pile of notes — into routed knowledge. |
-| `/route-fix` | **Repair.** You missed something that existed. Name the failure mode, fix the cause. |
-| `/os-audit` | **Is it still true?** Checks every claim this manual makes against what's on disk. |
-| `/blueprint` | **Is it built right?** Scores the workspace out of 100 and names the three highest-leverage fixes. |
-| `/leverage` | **Extend, weekly.** Find the friction, cut what shouldn't exist, build the smallest machine for what's left. |
-| `/skill-builder` | **Extend, on demand.** Turn a process the operator repeats into a skill. |
+This manual deliberately does not list them. A list here would be a copy of the disk, correct
+the day it was written and quietly wrong after the next skill is added or renamed.
 
 ---
 

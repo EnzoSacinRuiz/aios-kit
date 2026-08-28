@@ -1,9 +1,7 @@
-> 🟡 DEMO — `/onboard` replaces this file with yours.
-
 # knowledge/external — ingestion manual
 
 Intelligence about the outside world: clients, prospects, competitors, and market conditions.
-Nothing about how Meridian itself does the work — that's `knowledge/playbook/`.
+Nothing about how the operator does the work themselves — that's `knowledge/playbook/`.
 
 ## What belongs here
 
@@ -18,7 +16,7 @@ conversation, not the wiki.
 ## Node format
 
 One claim per file, not one topic per file. A node named after a company
-(`northwind-labs.md`) that tries to hold everything ever learned about that company turns into
+(`<company-name>.md`) that tries to hold everything ever learned about that company turns into
 a dumping ground nobody reads in full. Prefer several small nodes over one big one once an
 account has more than two or three distinct claims worth keeping.
 
@@ -30,12 +28,12 @@ account has more than two or three distinct claims worth keeping.
 **Source:** <call, document, person>
 **Date:** <YYYY-MM-DD>
 
-Related: [[hold-the-fee-negotiate-scope]]
+Related: [[<filename-of-a-related-node>]]
 ```
 
 ## Links and the index
 
-- Use `[[northwind-labs-pushes-for-rush-timelines]]`-style double-bracket syntax to link to
+- Use `[[filename-of-another-node]]`-style double-bracket syntax to link to
   another node's filename (without `.md`). Every link must resolve to a real file — a link to
   a node that doesn't exist yet is worse than no link, because it reads as knowledge that was
   never actually captured.

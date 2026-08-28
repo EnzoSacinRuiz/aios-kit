@@ -1,10 +1,8 @@
-> 🟡 DEMO — `/onboard` replaces this file with yours.
-
 # knowledge/playbook — ingestion manual
 
-Meridian's own method: sales principles, delivery principles, and plays that will apply again
-next time — not facts about the outside world. Facts about a client, prospect, or competitor
-go in `knowledge/external/` instead.
+The operator's own method: sales principles, delivery principles, and plays that will apply
+again next time — not facts about the outside world. Facts about a client, prospect, or
+competitor go in `knowledge/external/` instead.
 
 ## What belongs here
 
@@ -28,12 +26,12 @@ One claim per file.
 **Source:** <call, document, decision, person>
 **Date:** <YYYY-MM-DD>
 
-Related: [[record-before-synthesize]]
+Related: [[<filename-of-a-related-node>]]
 ```
 
 ## Links and the index
 
-- `[[hold-the-fee-negotiate-scope]]`-style double-bracket links point to another node's
+- `[[filename-of-another-node]]`-style double-bracket links point to another node's
   filename (without `.md`), in this folder or in `knowledge/external/`. A principle earns more
   trust when it's tied to the account or competitor fact that produced it — link across the
   two wikis rather than restating the fact.

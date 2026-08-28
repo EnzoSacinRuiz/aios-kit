@@ -1,6 +1,6 @@
 ---
 name: onboard
-description: Use this on day one, right after someone clones this kit, or whenever they say "set me up," "onboard me," "let's get started," "fill in my info," or "get this ready for my business." Also fires on complaints like "this still thinks I'm the demo company," "why does the agent keep talking about a business that isn't mine," or "I never actually told it who I am." Runs a one-question-at-a-time interview, archives the demo content, and writes the operator's real context files and first rule. Safe to re-run any time — it updates in place and will not archive the demo twice.
+description: Use this on day one, right after someone clones this kit, or whenever they say "set me up," "onboard me," "let's get started," "fill in my info," or "get this ready for my business." Also fires on complaints like "this still thinks I'm the demo company," "why does the agent keep talking about a business that isn't mine," or "I never actually told it who I am." Runs a one-question-at-a-time interview, archives the demo content, and writes the operator's real context files, wiki indexes, voice profile, and first rule. Safe to re-run any time — it updates in place, will not archive the demo twice, and will not overwrite a wiki index that already holds real nodes.
 ---
 
 # Onboard
@@ -44,10 +44,17 @@ This skill replaces the demo with the operator's real context, on record, once.
      path a previous partial run already moved with plain `mv` — and the `mv` fallback still
      lands it in `archives/demo/` either way. Skip a path that's already gone; a previous run
      (or this loop, on a second pass) may already have moved it.
-   - `mkdir -p context knowledge/external knowledge/playbook decisions` — recreate every
-     directory the routing map in `CLAUDE.md` promises exists, even the ones now emptied by the
-     move above, so the map never points at nothing.
+   - `mkdir -p context knowledge/external knowledge/playbook decisions references/sops` —
+     recreate every directory the routing map in `CLAUDE.md` promises exists, even the ones now
+     emptied by the move above, so the map never points at nothing.
    - `touch decisions/log.md`
+   Directories are not enough. The banner predicate is right for demo *content*, but it also
+   catches files that are **machinery** — an `index.md` is the entry point the routing map
+   promises, and `references/voice.md` is a routing row of its own. Step 5 writes both back;
+   an empty `knowledge/` folder or a missing voice profile is the kit failing its own Routing
+   check, produced by its own installer. (The two `knowledge/*/CLAUDE.md` ingestion manuals
+   carry no banner on purpose — they are format contracts, not demo data, and survive this
+   step untouched.)
    Tell the operator plainly, in your own words: nothing was deleted, the original demo
    content now lives in `archives/demo/` under the same paths it came from, and they can open
    it any time. Doing this before you write the new files matters — write first and archive
@@ -57,7 +64,7 @@ This skill replaces the demo with the operator's real context, on record, once.
    construction, not by a flag you have to remember to check.
 
 4. **Run the interview. One question per message — never a form, never batched.**
-   Ask each of these seven in its own message and wait for the answer before asking the next:
+   Ask each of these eight in its own message and wait for the answer before asking the next:
    1. Who are you, and what do you do?
    2. What do you sell, and to whom?
    3. What's your goal for this quarter?
@@ -65,10 +72,13 @@ This skill replaces the demo with the operator's real context, on record, once.
    5. What tool holds the actual truth about your tasks, and about your money?
    6. What eats your time over and over, that you wish ran on its own?
    7. What should the agent never do, no matter what?
+   8. When the agent writes as you, how should it sound — and what should it never sound
+      like? Ask for the register too: does anything change between an internal note and
+      something a client reads?
    On a re-run, show the current content of each file first and ask only what changed —
    don't re-run the full interview against someone who already answered it.
 
-5. **Write the context files.**
+5. **Write the operator's files — `context/`, both wiki indexes, and the voice profile.**
    - `context/me.md` — answer 1, in plain first-person-about-the-operator terms.
    - `context/work.md` — answer 2 (what's sold, to whom), plus answer 5 written as a pointer,
      not a copy: name the tool that holds task and money status, and say explicitly that its
@@ -81,6 +91,23 @@ This skill replaces the demo with the operator's real context, on record, once.
    - `decisions/log.md` — append one entry: `[YYYY-MM-DD] DECISION: workspace initialized via
      /onboard | REASONING: replaced demo content with the operator's real context | CONTEXT:
      operator said the agent must never <answer 7, verbatim>.`
+   - `knowledge/external/index.md` and `knowledge/playbook/index.md` — the demo's indexes were
+     archived in step 3, and the routing map promises each of these folders is a
+     `[[wiki-link]]` graph **with its own `index.md`**. Write both back as empty stubs, not as
+     content: a `# knowledge/<folder> — index` title, one line naming what this wiki holds and
+     pointing at the `CLAUDE.md` beside it for the node format, then a `## Nodes` heading with
+     nothing under it. Invent no nodes — the list stays empty until `/distill` writes the
+     first one, and `/distill` needs the file to exist so it has something to append to.
+     **On a re-run, only create these if they are missing.** An index that already lists real
+     nodes is months of accumulated knowledge — overwriting it with a stub would be the worst
+     damage this skill could do.
+   - `references/voice.md` — answer 8, as a short profile with four parts: tone, what the
+     operator sounds like, what they avoid, and how internal writing differs from
+     client-facing. The routing map promises a voice profile in `references/`, and the demo's
+     was archived — leaving this unwritten points that row at nothing. Write only what the
+     operator actually said; if answer 8 was thin, say so in the file and leave the sections
+     short rather than filling them in. A guessed voice is `poisoning` in the one file whose
+     entire job is to sound like them.
 
 6. **Turn answer 7 into a standing rule.**
    Read `.claude/rules/README.md` first — it is the format contract every rule in that folder

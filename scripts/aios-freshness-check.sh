@@ -13,8 +13,12 @@
 #     that returns non-zero breaks the session.
 #   - Prints nothing when nothing has drifted. Silence is the success state.
 #   - Files this script reads may not exist yet on a freshly scaffolded
-#     workspace (decisions/log.md, context/me.md) — that is not a warning,
-#     it is just guarded and skipped.
+#     workspace (context/me.md) — that is not a warning, it is just guarded
+#     and skipped.
+#   - Every check must be one an operator can act on. A check that fires on
+#     a coin flip trains people to skip the output, which costs more than the
+#     check is worth. Judgement calls that need context to read belong in
+#     /os-audit, which runs monthly and has that context.
 
 WARNED=0
 
@@ -23,7 +27,22 @@ warn() {
   WARNED=1
 }
 
-# 1. context/ — no file modified in the last 60 days.
+# 1. Demo still installed — context/me.md contains the demo banner.
+#    Skipped once /onboard has archived the demo.
+#
+#    This one is a gate, not just a check. On a fresh clone the checks below
+#    would all fire at once — context/ is as old as the clone, no audit has
+#    ever run — and the first thing a new user ever sees would read as
+#    breakage instead of a next step. While the demo is installed, the only
+#    honest instruction is "run /onboard", so that is the only thing we say.
+#    Everything else resumes the moment the demo is gone.
+if [ -f context/me.md ] && grep -qF '🟡 DEMO' context/me.md 2>/dev/null; then
+  warn "Still running the demo company. Run /onboard."
+  printf '\n'
+  exit 0
+fi
+
+# 2. context/ — no file modified in the last 60 days.
 if [ -d context ]; then
   ctx_files=$(find context -type f 2>/dev/null)
   if [ -n "$ctx_files" ]; then
@@ -34,7 +53,7 @@ if [ -d context ]; then
   fi
 fi
 
-# 2. Last /os-audit — newest reports/os-audit-* file is older than 30 days,
+# 3. Last /os-audit — newest reports/os-audit-* file is older than 30 days,
 #    or none exists at all.
 if [ -d reports ]; then
   audit_fresh=$(find reports -name 'os-audit-*' -type f -mtime -30 2>/dev/null)
@@ -48,37 +67,15 @@ if [ -d reports ]; then
   fi
 fi
 
-# 3. Undistilled raw material — a file in projects/ newer than the newest
-#    entry in decisions/log.md. Skipped until that file exists (created in
-#    Task 11 of the aios-kit build, or by the operator).
-#
-#    projects/ only — NOT reports/. reports/ is skill-generated output by
-#    definition (see CLAUDE.md routing map: "Generated, not authored"), so
-#    it is never raw input to distill. /os-audit itself writes into
-#    reports/, so scanning reports/ here would make this hook warn on the
-#    very next session after every single audit — a hook that fires every
-#    session gets ignored. If raw material ever ends up in reports/ by
-#    mistake, that is a routing error and belongs to /os-audit check 6, not
-#    this hook. Do not add reports/ back to this scan.
-if [ -f decisions/log.md ]; then
-  raw=""
-  if [ -d projects ]; then
-    raw="$raw$(find projects -type f -newer decisions/log.md 2>/dev/null)"
-  fi
-  if [ -n "$raw" ]; then
-    warn "There's material in projects/ newer than the last decisions/log.md entry — distill it."
-  fi
-fi
+# Undistilled raw material used to be checked here, by comparing modification
+# times in projects/ against decisions/log.md. It was removed on purpose and
+# must not come back in that form: git does not preserve mtimes, so on a fresh
+# clone it fired on a coin flip, and for a working operator it fired in every
+# session where a project file was saved after the last decision was logged.
+# /os-audit does this same job properly, monthly, with the context to judge
+# whether the material actually went undistilled.
 
-# 4. Demo still installed — context/me.md contains the demo banner.
-#    Skipped until that file exists (created by /onboard).
-if [ -f context/me.md ]; then
-  if grep -qF '🟡 DEMO' context/me.md 2>/dev/null; then
-    warn "Still running the demo company. Run /onboard."
-  fi
-fi
-
-# 5. Apparent secrets — a tracked file matching *.env, *token*, *secret*.
+# 4. Apparent secrets — a tracked file matching *.env, *token*, *secret*.
 if command -v git >/dev/null 2>&1 && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   secrets=$(git ls-files 2>/dev/null | grep -iE '(\.env$|token|secret)' 2>/dev/null)
   if [ -n "$secrets" ]; then
