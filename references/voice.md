@@ -1,31 +1,21 @@
-> 🟡 DEMO — `/onboard` replaces this file with yours.
+# Voz — Amazon Gas
 
-# Voice — Meridian Research
+_Perfil corto: solo contiene lo que dijo el operador. Amplíalo a medida que haya posts aprobados que sirvan de ejemplo._
 
-## Tone
+## Tono
 
-Direct and evidence-first. Every claim in client-facing work is backed by a specific
-interview quote or a named source — never a vague "buyers feel." When we don't know
-something, we say so instead of rounding up.
+Cercano y loretano.
 
-## What we sound like
+## Cómo suena
 
-- Short sentences over long ones. Findings first, methodology after, not the other way
-  around.
-- Numbers and quotes, not adjectives — "6 of 8 respondents said X," not "most respondents
-  felt X."
-- No hedging in a recommendation. If the data supports a call, we make the call.
+Como alguien de Loreto que le habla a su gente: tono de vecino, no de corporación lejana.
 
-## What we avoid
+## Qué evita
 
-- Consulting jargon that doesn't earn its place — "synergy," "leverage" as a verb,
-  "ecosystem" when "market" will do.
-- Overstating what a small interview sample can support. Eight interviews is a strong signal,
-  not proof.
-- Padding a report to look more thorough than the findings warrant.
+- La jerga regional en exceso. Algo de sabor local está bien; el exceso no.
 
-## Internal vs. client-facing
+## Interno vs. publicado
 
-Internal notes and reports (this file's register loosens): terse, bullet-first, written for
-someone who already has context. Anything a client reads: formal, complete sentences,
-findings stated plainly with the evidence attached.
+- **Interno (sesiones con Enzo):** informal, pero sin exageraciones.
+- **Publicado en redes:** cercano y loretano, sin exceso de jerga. Todo post necesita la
+  aprobación de papá antes de salir (`.claude/rules/aprobacion-antes-de-publicar.md`).

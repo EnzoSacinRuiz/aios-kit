@@ -1,20 +1,16 @@
-> 🟡 DEMO — `/onboard` replaces this file with yours.
+# Sobre Enzo Sacin Ruiz
 
-# About Ana Vidal
+**Nombre:** Enzo Sacin Ruiz
+**Rol:** Responsable digital y de redes sociales de Amazon Gas
+**Empresa:** GLP Amazónico SAC (marca Amazon Gas), Iquitos, Loreto
+**Relación:** Hijo de Enzo Sacin Moro, CEO de la empresa.
 
-**Name:** Ana Vidal
-**Role:** Founder and Director
-**Company:** Meridian Research
-**Location:** Remote — team spread across three time zones
+## Qué hago
 
-## What I Do
+Llevo la parte digital de la empresa y apoyo a mi papá en ella: las redes sociales de Amazon
+Gas en TikTok, Facebook e Instagram. Produzco todo el contenido yo solo, con herramientas de
+IA. Mi papá aprueba antes de publicar.
 
-I run Meridian end to end: sales, delivery quality, hiring, and the finances. On any given
-week I'm the one closing new studies, reviewing Iris's and Tomas's drafts before they go to a
-client, and deciding whether we say yes to a project or pass on it.
+## Prioridad #1
 
-## #1 Priority
-
-New clients and collections. A study that isn't sold doesn't get staffed, and a study that
-isn't paid for might as well not have happened. Everything else — tooling, process, hiring —
-is secondary to keeping both of those moving.
+Publicar con constancia. La meta concreta del trimestre está en `context/priorities.md`.

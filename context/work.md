@@ -1,38 +1,31 @@
-> 🟡 DEMO — `/onboard` replaces this file with yours.
+# GLP Amazónico SAC — Amazon Gas
 
-# Meridian Research
+## Qué vende y a quién
 
-**Mission:** Give B2B software companies real answers about a market before they bet a
-launch on a guess.
+- **Producto:** GLP (gas licuado de petróleo), tanto envasado en cilindros (marca "Energeo") como
+  a granel.
+- **Clientes:** hogares, restaurantes y pequeña industria de Iquitos y Loreto. Vende al por
+  mayor y al por menor.
+- **Operación:** desde 1999, con cadena propia: planta envasadora, terminal portuario, barcazas
+  que transportan GLP por los ríos amazónicos y reparto terrestre.
+- **Diferenciador:** es la única empresa peruana que transporta GLP por río en alto tonelaje.
+  El mensaje de marca es "energía que mueve a Loreto".
 
-## Service Lines
+El análisis completo de la empresa (riesgo social, reputación y estado de sus redes) no va en
+este archivo. Su lugar es `knowledge/external/`.
 
-- **Buyer interviews** — a structured set of 12–20 interviews with the client's actual target
-  buyers, synthesized into a report on language, objections, and buying triggers.
-- **Category landscape studies** — a map of who else is in the category, how they position,
-  and where the gaps are, built from public sources plus a handful of practitioner interviews.
-- **Win/loss programs** — an ongoing monthly cadence of interviews with closed-won and
-  closed-lost deals, tracking why buyers actually chose or walked away.
+## Dónde vive la verdad
 
-## ICP
+- **Tareas, estado de cada post y costos:** `projects/redes-amazon-gas/calendario-contenido.xlsx`.
+  Tiene una fila por post e incluye los tokens y créditos consumidos. Sus números nunca se
+  copian aquí; se consultan en el Excel.
+- **Producción:** kie.ai (video e imagen) y ElevenLabs (audio). Las credenciales están en
+  `.env`, que nunca se commitea.
+- **ClickUp:** no se usa, aunque su clave figure en `.env`.
+- **Branding:** el kit de marca vive en `references/`. Se extrae de https://amazongas.com.pe.
 
-B2B software companies, roughly 50–500 people, launching into a new market segment or vertical
-and needing outside signal before they commit budget to it. They've usually already tried to
-answer the question internally with a survey or a few informal calls and found it wasn't
-rigorous enough to act on.
+## Fricción recurrente
 
-## How We Charge
-
-Buyer interviews and landscape studies are fixed-fee, scoped per project. Win/loss programs
-are a monthly retainer, invoiced in advance. Every engagement gets a written scope before
-work starts — we don't do time-and-materials.
-
-## Tools
-
-- **A project tracker** holds the actual status of every engagement and every dollar owed.
-  See `context/priorities.md` for the rule on why that status is never copied into this file.
-
-## Proposals
-
-- Quarterly targets live in `context/priorities.md` — that's the source of truth, not this file.
-- New client proposals are the primary growth driver right now; the retainer book is small.
+Todo el pipeline de generación de contenido (idea, copy, imagen o video, audio y adaptación a
+cada red) se hace a mano. Primero hay que documentarlo como SOP en `references/sops/` y,
+después, automatizarlo.

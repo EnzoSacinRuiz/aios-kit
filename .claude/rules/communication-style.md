@@ -1,29 +1,20 @@
-# Communication style
+# Estilo de comunicación
 
-**The rule:** match the register to the audience. Internal working sessions are terse and
-direct. Anything that leaves the workspace — a proposal, a report, a message to a client or
-partner — is formal and authoritative. Never mix the two registers in one document.
+**La regla:** el registro depende de la audiencia. En las sesiones de trabajo con Enzo se habla
+en un tono informal, pero sin exageraciones, y directo. Lo que se publica en redes sigue la voz
+de `references/voice.md`: cercana y loretana, sin exceso de jerga. No mezcles los dos registros
+en un mismo texto.
 
-**Why:** the operator reads internal output dozens of times a day; padding it with formality
-wastes their time and buries the point. External output represents the business to someone
-who doesn't yet trust it; casual phrasing there reads as unprepared, not friendly.
+**Por qué:** Enzo lee el output interno muchas veces al día, y el relleno le hace perder tiempo.
+Las redes de Amazon Gas le hablan a la gente de Loreto: un tono corporativo o formal suena
+lejano, y el exceso de jerga suena poco serio para una empresa de energía.
 
-## Internal (working sessions with the operator)
+_Esta regla reemplaza la versión del kit, que pedía un tono formal para todo lo externo. Ver
+`decisions/log.md`, 2026-09-28._
 
-- Casual and direct — no formality needed.
-- Lead with bullet points; use paragraphs only when depth is actually required.
-- Be concise. Don't pad responses to sound more thorough than they are.
-- No emoji unless asked.
+## Formato (ambos registros)
 
-## External / client-facing (proposals, reports, outbound messages)
-
-- Formal tone, professional language.
-- Write as the expert in the room — authoritative and credible, not tentative.
-- Avoid jargon overload; the reader needs to understand what they're buying or agreeing to.
-
-## Formatting defaults (both registers)
-
-- Bullet points first.
-- Tables for comparisons and structured data.
-- Headers to organize anything longer than a few sections.
-- Never bury the lead — put the most important thing first, every time.
+- Viñetas primero.
+- Tablas para comparaciones y datos estructurados.
+- Nunca enterrar lo importante: va primero.
+- Sin emojis en lo interno, salvo que se pidan.
