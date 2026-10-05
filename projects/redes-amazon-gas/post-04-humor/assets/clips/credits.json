@@ -1,0 +1,34 @@
+{
+  "d": {
+    "taskId": "efeaf8969b5ea80e01a0799bd1348f84",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/k/efeaf8969b5ea80e01a0799bd1348f84_1_1791239281_3642.mp4"
+    ],
+    "credits": 25.0
+  },
+  "a": {
+    "taskId": "1e295fc06d2cf69e8b1508cc7eb632a8",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/k/1e295fc06d2cf69e8b1508cc7eb632a8_1_1791239448_7733.mp4"
+    ],
+    "credits": 40.0
+  },
+  "b": {
+    "taskId": "608d326e80ed2012e059078b35521afa",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/k/608d326e80ed2012e059078b35521afa_1_1791239454_6432.mp4"
+    ],
+    "credits": 40.0
+  },
+  "c": {
+    "taskId": "543297789fbeeb9b9e497eafe424e5c9",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/k/543297789fbeeb9b9e497eafe424e5c9_1_1791239459_7757.mp4"
+    ],
+    "credits": 48.0
+  }
+}

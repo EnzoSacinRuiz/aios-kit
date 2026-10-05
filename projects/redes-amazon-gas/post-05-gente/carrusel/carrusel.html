@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<style>
+  @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("BarlowCondensed-Bold.ttf"); }
+  @font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url("BarlowCondensed-ExtraBold.ttf"); }
+  @font-face { font-family: "Inter"; font-weight: 100 900; src: url("Inter.ttf"); }
+  :root { --granate:#8e4149; --marron:#1b1512; --crema:#fbf8f3; --arena:#c9bdb0; --arena-o:#6b5d51; --llama:#f5dc17; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1350px; overflow:hidden; background:var(--marron); }
+  .slide { display:none; position:relative; width:1080px; height:1350px; font-family:"Inter",sans-serif; overflow:hidden; }
+  .slide.on { display:block; }
+  .light { background:var(--crema); color:var(--marron); }
+  .dark { background:var(--marron); color:var(--crema); }
+  .display { font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; line-height:.9; letter-spacing:-.005em; }
+  .display em { font-style:normal; color:var(--granate); }
+  .dark .display em { color:#e3a3a9; }
+  .kicker { display:inline-block; font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:38px; letter-spacing:.1em; text-transform:uppercase; background:var(--granate); color:var(--crema); padding:6px 18px 4px; }
+  .footer { position:absolute; left:88px; right:88px; bottom:64px; display:flex; align-items:center; justify-content:space-between; font-size:28px; font-weight:600; }
+  .footer img { height:92px; }
+  .rule { position:absolute; left:0; right:0; bottom:0; height:18px; background:var(--granate); }
+  .page { color:var(--arena-o); }
+  .dark .page { color:var(--arena); }
+
+  /* Portada: foto a sangre */
+  .full { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .veil { position:absolute; inset:0; background:linear-gradient(180deg, rgba(27,21,18,.15) 0%, rgba(27,21,18,.05) 30%, rgba(27,21,18,.7) 58%, rgba(27,21,18,.95) 100%); }
+  #s1 .txt { position:absolute; left:88px; right:88px; bottom:150px; color:var(--crema); }
+  #s1 h1 { font-size:150px; margin-top:26px; }
+  #s1 h1 em { color:var(--llama); }
+  #s1 .swipe { margin-top:36px; font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:44px; color:var(--crema); text-transform:uppercase; letter-spacing:.06em; }
+  #s1 .footer { color:var(--arena); }
+  #s1 .page { color:var(--arena); }
+
+  /* Láminas foto + texto */
+  .photo { position:absolute; left:0; top:0; width:1080px; height:700px; object-fit:cover; }
+  .body { position:absolute; left:88px; right:88px; top:760px; }
+  .body h2 { font-size:108px; margin-top:24px; }
+  .body p { margin-top:30px; font-size:40px; line-height:1.32; font-weight:500; max-width:880px; }
+  .body p b { font-weight:800; }
+
+  /* Cierre */
+  #s5 .photo { height:620px; }
+  #s5 .close { position:absolute; left:88px; right:88px; top:660px; display:flex; flex-direction:column; align-items:center; text-align:center; }
+  #s5 .close img { width:200px; }
+  #s5 h2 { font-size:116px; margin-top:34px; }
+  #s5 .since { margin-top:26px; font-size:36px; font-weight:600; color:var(--arena-o); }
+</style>
+</head>
+<body>
+  <section class="slide dark" id="s1">
+    <img class="full" src="simulacro.jpg" style="object-position:72% 50%" alt="" />
+    <div class="veil"></div>
+    <div class="txt">
+      <span class="kicker">Nuestra gente</span>
+      <h1 class="display">Así entrenamos para que tú cocines <em>tranquilo</em></h1>
+      <div class="swipe">Desliza →</div>
+    </div>
+    <div class="footer"><span>Amazon Gas</span><span class="page">1/5</span></div>
+    <div class="rule"></div>
+  </section>
+
+  <section class="slide light" id="s2">
+    <img class="photo" src="simulacro.jpg" style="object-position:30% 50%" alt="" />
+    <div class="body">
+      <span class="kicker">01 · En la planta</span>
+      <h2 class="display">Simulacros contra <em>incendios</em></h2>
+      <p>Practicamos con extintores en nuestra planta de Santa Clara de Nanay. Uno apaga, <b>todos aprenden</b>.</p>
+    </div>
+    <div class="footer"><span></span><span class="page">2/5</span></div>
+    <div class="rule"></div>
+  </section>
+
+  <section class="slide dark" id="s3">
+    <img class="photo" src="capacitacion.jpg" style="object-position:50% 50%" alt="" />
+    <div class="body">
+      <span class="kicker">02 · En el río</span>
+      <h2 class="display">Prácticas junto a las <em>barcazas</em></h2>
+      <p>El gas llega a Iquitos por río. Por eso también entrenamos ahí, <b>con mangueras contra incendio</b>.</p>
+    </div>
+    <div class="footer"><span></span><span class="page">3/5</span></div>
+    <div class="rule"></div>
+  </section>
+
+  <section class="slide light" id="s4">
+    <img class="photo" src="equipo-taller.jpg" style="object-position:50% 40%" alt="" />
+    <div class="body">
+      <span class="kicker">03 · Siempre equipados</span>
+      <h2 class="display">Casco, uniforme y <em>botas</em></h2>
+      <p>El equipo de protección <b>no es opcional</b>. Va puesto en cada turno, en tierra y en el agua.</p>
+    </div>
+    <div class="footer"><span></span><span class="page">4/5</span></div>
+    <div class="rule"></div>
+  </section>
+
+  <section class="slide light" id="s5">
+    <img class="photo" src="equipo-planta.jpg" style="object-position:50% 60%" alt="" />
+    <div class="close">
+      <img src="logo.png" alt="Amazon Gas" />
+      <h2 class="display">Seguridad desde el <em>2000</em></h2>
+      <div class="since">Amazon Gas · Iquitos, Loreto</div>
+    </div>
+    <div class="rule"></div>
+  </section>
+
+  <script>
+    const n = new URLSearchParams(location.search).get("s") || "1";
+    document.getElementById("s" + n).classList.add("on");
+  </script>
+</body>
+</html>

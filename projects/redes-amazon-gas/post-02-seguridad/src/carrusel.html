@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<style>
+  @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("BarlowCondensed-Bold.ttf"); }
+  @font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url("BarlowCondensed-ExtraBold.ttf"); }
+  @font-face { font-family: "Inter"; font-weight: 100 900; src: url("Inter.ttf"); }
+  :root { --granate:#8e4149; --marron:#1b1512; --crema:#fbf8f3; --arena:#c9bdb0; --arena-o:#6b5d51; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1350px; overflow:hidden; }
+  .slide { display:none; position:relative; width:1080px; height:1350px; padding:96px 88px; font-family:"Inter",sans-serif; }
+  .slide.on { display:block; }
+  .light { background:var(--crema); color:var(--marron); }
+  .dark { background:var(--marron); color:var(--crema); }
+  .display { font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; line-height:.9; letter-spacing:-.005em; }
+  .kicker { display:inline-block; font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:38px; letter-spacing:.1em; text-transform:uppercase; background:var(--granate); color:var(--crema); padding:6px 18px 4px; }
+  .footer { position:absolute; left:88px; right:88px; bottom:72px; display:flex; align-items:center; justify-content:space-between; font-size:28px; font-weight:600; }
+  .footer img { height:92px; }
+  .rule { position:absolute; left:0; right:0; bottom:0; height:18px; background:var(--granate); }
+  .page { color:var(--arena-o); }
+  .dark .page { color:var(--arena); }
+
+  /* Portada */
+  #s1 h1 { font-size:150px; margin-top:40px; max-width:600px; }
+  #s1 h1 em { font-style:normal; color:var(--granate); }
+  #s1 .balon { position:absolute; right:70px; top:330px; height:660px; filter:drop-shadow(0 30px 40px rgba(27,21,18,.25)); }
+  #s1 .swipe { margin-top:56px; font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:46px; color:var(--granate); text-transform:uppercase; letter-spacing:.06em; }
+
+  /* Pasos */
+  .num { font-family:"Barlow Condensed",sans-serif; font-weight:800; font-size:420px; line-height:.78; color:var(--granate); }
+  .step h2 { font-size:128px; margin-top:34px; }
+  .step p { margin-top:44px; font-size:46px; line-height:1.3; max-width:860px; font-weight:500; }
+  .step p b { font-weight:800; }
+  .tip { margin-top:48px; display:inline-block; border-left:14px solid var(--granate); padding:18px 28px; font-size:40px; font-weight:700; line-height:1.25; max-width:860px; }
+  .dark .tip { background:rgba(251,248,243,.07); }
+  .light .tip { background:rgba(142,65,73,.08); }
+
+  /* Cierre */
+  #s5 { display:none; text-align:center; }
+  #s5.on { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  #s5 img.logo { width:330px; }
+  #s5 h2 { font-size:112px; margin-top:64px; max-width:880px; }
+  #s5 h2 em { font-style:normal; color:var(--granate); }
+  #s5 .since { margin-top:40px; font-size:38px; font-weight:600; color:var(--arena-o); }
+</style>
+</head>
+<body>
+  <section class="slide light" id="s1">
+    <span class="kicker">Tu seguridad</span>
+    <h1 class="display">3 cosas que revisar cuando te llega el <em>balón</em></h1>
+    <div class="swipe">Desliza →</div>
+    <img class="balon" src="balon-10kg.png" alt="" />
+    <div class="footer"><img src="logo.png" alt="Amazon Gas" /><span class="page">1/5</span></div>
+    <div class="rule"></div>
+  </section>
+
+  <section class="slide dark step" id="s2">
+    <div class="num">1</div>
+    <h2 class="display">El precinto de seguridad</h2>
+    <p>Debe estar <b>completo y sin roturas</b>. Es la prueba de que nadie abrió el balón después de envasarlo.</p>
+    <div class="tip">¿Roto o sin precinto? No lo recibas.</div>
+    <div class="footer"><span>Amazon Gas</span><span class="page">2/5</span></div>
+    <div class="rule"></div>
+  </section>
+
+  <section class="slide light step" id="s3">
+    <div class="num">2</div>
+    <h2 class="display">El peso</h2>
+    <p>Puedes pedir que <b>lo pesen delante de ti</b>. Lleno, debe pesar la tara (el peso del balón vacío, que viene marcado en él) más el gas que compraste.</p>
+    <div class="tip">Peso completo = tara + contenido.</div>
+    <div class="footer"><span>Amazon Gas</span><span class="page">3/5</span></div>
+    <div class="rule"></div>
+  </section>
+
+  <section class="slide dark step" id="s4">
+    <div class="num">3</div>
+    <h2 class="display">Manguera y regulador</h2>
+    <p>La manguera no debe estar <b>rajada ni reseca</b>, y el regulador tiene que encajar firme en la válvula.</p>
+    <div class="tip">¿Sospechas una fuga? Pasa agua con jabón. Nunca uses fuego.</div>
+    <div class="footer"><span>Amazon Gas</span><span class="page">4/5</span></div>
+    <div class="rule"></div>
+  </section>
+
+  <section class="slide light" id="s5">
+    <img class="logo" src="logo.png" alt="Amazon Gas" />
+    <h2 class="display">Guárdalo y compártelo con tu <em>familia</em></h2>
+    <div class="since">Amazon Gas · Desde el año 2000 · Iquitos</div>
+    <div class="rule"></div>
+  </section>
+
+  <script>
+    const n = new URLSearchParams(location.search).get("s") || "1";
+    document.getElementById("s" + n).classList.add("on");
+  </script>
+</body>
+</html>

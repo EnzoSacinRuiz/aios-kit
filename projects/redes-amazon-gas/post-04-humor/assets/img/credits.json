@@ -1,0 +1,62 @@
+{
+  "ref": {
+    "taskId": "2c9915fcf03eb900905d1239b200137e",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/a2/2c9915fcf03eb900905d1239b200137e_1791238762371.png"
+    ],
+    "credits": 12.0,
+    "prompt": "Waist-up portrait of a friendly 55-year-old woman from Iquitos in the Peruvian Amazon, mestiza, warm brown skin, round kind face with laugh lines, expressive dark brown eyes, thick black hair with a few grey streaks pulled back in a low bun held by a dark maroon scrunchie, small gold hoop earrings. She wears a short-sleeve cotton blouse with a small cream and maroon floral print, a plain cream apron with one front pocket, a knee-length dark brown skirt and simple rubber sandals. She stands in a humble but tidy home kitchen in Iquitos: wooden plank walls painted light cream, a window with green mosquito screen and tropical plants outside, a tiled counter with a two-burner tabletop gas stove, a big aluminium pot full of juanes (rice parcels wrapped in green bijao leaves tied with string), looking straight at the camera with a warm, cheeky neighbourly smile, hands resting on her apron. Character reference photo, centered, face clearly visible. Photorealistic, natural warm daylight, shot on a smartphone like a TikTok comedy sketch, realistic skin texture, no text, no captions, no logos, no brand names, no purple or violet colors anywhere, no gas cylinders visible.",
+    "credits_before": 1355.5,
+    "credits_after": 1093.5
+  },
+  "b-susto": {
+    "taskId": "0b4b9c7f59a66f0e7e0dfaaf13a08918",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/a2/0b4b9c7f59a66f0e7e0dfaaf13a08918_1791238836005.png"
+    ],
+    "credits": 12.0,
+    "prompt": "Use the woman from the reference image, identical face, hair, earrings and clothes. Vertical close-up from the chest up in the same kitchen: comedic shocked expression, eyebrows raised, eyes wide, both hands on her cheeks, looking straight at the camera, lips closed. Behind her the pot of juanes on the stove, no flame and no steam. Face centered in the upper half. Photorealistic, natural warm daylight, shot on a smartphone like a TikTok comedy sketch, realistic skin texture, no text, no captions, no logos, no brand names, no purple or violet colors anywhere, no gas cylinders visible."
+  },
+  "c-celular": {
+    "taskId": "f1c1a33dfebfe052d192245a558e181d",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/a2/f1c1a33dfebfe052d192245a558e181d_1791238878459.png"
+    ],
+    "credits": 12.0,
+    "prompt": "Use the woman from the reference image, identical face, hair, earrings and clothes. Vertical medium shot from the waist up in the same kitchen: she holds a smartphone in one hand at chest height, screen facing herself, and raises the index finger of the other hand as if giving wise advice, knowing confident smile, looking straight at the camera, mouth relaxed and closed. Face clearly visible in the upper half. Photorealistic, natural warm daylight, shot on a smartphone like a TikTok comedy sketch, realistic skin texture, no text, no captions, no logos, no brand names, no purple or violet colors anywhere, no gas cylinders visible."
+  },
+  "d-hornilla": {
+    "taskId": "045043dee19a1c8e94bbd846c826db66",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/a2/045043dee19a1c8e94bbd846c826db66_1791238901468.png"
+    ],
+    "credits": 12.0,
+    "prompt": "Vertical close-up of a two-burner tabletop gas stove on a tiled counter in a humble Iquitos home kitchen, a big aluminium pot full of juanes wrapped in green bijao leaves sitting on the front burner, a small weak blue gas flame flickering under the pot, light steam. Shallow depth of field, warm daylight. Photorealistic, no text, no logos, no people, no gas cylinders, no purple."
+  },
+  "a-cocinando": {
+    "taskId": "f4c05b05f9a3f52c9aca6ee9be139e76",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/models/nano-banana-2/1791238959251-bsn8u062ztk.png"
+    ],
+    "credits": 12.0,
+    "prompt": "Use the woman from the reference image, identical face, hair, earrings and clothes. Vertical medium shot from the waist up: she stands at the stove in a humble but tidy home kitchen in Iquitos: wooden plank walls painted light cream, a window with green mosquito screen and tropical plants outside, a tiled counter with a two-burner tabletop gas stove, a big aluminium pot full of juanes (rice parcels wrapped in green bijao leaves tied with string), stirring the pot of juanes with a big wooden spoon, steam rising, a small blue gas flame under the pot. She looks at the camera, proud and happy, mouth closed in a smile. Face in the upper half of the frame. Photorealistic, natural warm daylight, shot on a smartphone like a TikTok comedy sketch, realistic skin texture, no text, no captions, no logos, no brand names, no purple or violet colors anywhere, no gas cylinders visible."
+  },
+  "escenas_credits": {
+    "before": 1093.5,
+    "after": 1045.5
+  },
+  "e-hornilla-apagada": {
+    "taskId": "170b69995a73a7cacadfac4ed81432ec",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/a2/170b69995a73a7cacadfac4ed81432ec_1791239558732.png"
+    ],
+    "credits": 12.0,
+    "prompt": "Edit this exact image: the gas burner flame under the pot is now completely OFF, no flame at all, no steam. Keep everything else identical: same pot, juanes, stove, counter, framing and light. Photorealistic, no text, no purple."
+  }
+}

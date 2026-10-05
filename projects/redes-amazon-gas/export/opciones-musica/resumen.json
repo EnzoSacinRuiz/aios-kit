@@ -1,0 +1,41 @@
+{
+  "a-cumbia-amazonica": {
+    "offset": 0.15,
+    "cortes": [
+      3.05,
+      6.943,
+      10.837,
+      14.922
+    ],
+    "fin": 17.82,
+    "pulsos": 86,
+    "bpm_detectado": 228.9,
+    "check": true
+  },
+  "b-motivacional": {
+    "offset": 2.2,
+    "cortes": [
+      3.315,
+      7.123,
+      10.941,
+      14.771
+    ],
+    "fin": 17.67,
+    "pulsos": 86,
+    "bpm_detectado": 256.4,
+    "check": true
+  },
+  "c-cinematica": {
+    "offset": 0.7,
+    "cortes": [
+      3.151,
+      7.108,
+      11.257,
+      15.3
+    ],
+    "fin": 18.2,
+    "pulsos": 70,
+    "bpm_detectado": 182.8,
+    "check": true
+  }
+}

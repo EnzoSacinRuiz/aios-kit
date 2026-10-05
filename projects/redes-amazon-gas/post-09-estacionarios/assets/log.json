@@ -1,0 +1,36 @@
+{
+  "voz": {
+    "api": "elevenlabs tts eleven_multilingual_v2",
+    "voice": "Terry",
+    "chars": 269,
+    "dur": 14.907
+  },
+  "musica": {
+    "api": "elevenlabs music",
+    "length_ms": 22000,
+    "bytes": 352802
+  },
+  "kie": {
+    "credits_before": 1343.5,
+    "tasks": {
+      "s1-bateria": {
+        "taskId": "69d458e008c80aa439322299fbf9b8d8",
+        "credits": 25.0
+      },
+      "s3-azotea": {
+        "taskId": "77a95e4c19db55fed16cbb0b246de656",
+        "credits": 25.0
+      },
+      "s2-tanques": {
+        "taskId": "f3d6a75862cfdde43c07a7ca9a90fc61",
+        "credits": 25.0
+      },
+      "s4-cisterna": {
+        "taskId": "6d34de80041e0f17d18b1bfba9fe3e10",
+        "credits": 25.0
+      }
+    },
+    "credits_after": 1045.5,
+    "pending_timeout": []
+  }
+}

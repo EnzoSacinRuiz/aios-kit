@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Barlow Condensed"; font-weight: 600; src: url("assets/fonts/BarlowCondensed-SemiBold.ttf"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("assets/fonts/BarlowCondensed-Bold.ttf"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url("assets/fonts/BarlowCondensed-ExtraBold.ttf"); }
+      @font-face { font-family: "Inter"; font-weight: 100 900; src: url("assets/fonts/Inter.ttf"); }
+      :root { --granate:#8e4149; --granate-o:#6e2f35; --marron:#1b1512; --crema:#fbf8f3; --arena:#c9bdb0; --arena-o:#6b5d51; --rosa:#e3a3a9; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--crema); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; }
+      .slot { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      .panel { position: absolute; inset: 0; overflow: hidden; }
+      .light { background: var(--crema); color: var(--marron); }
+      .dark { background: var(--marron); color: var(--crema); }
+      .display { font-family: "Barlow Condensed", sans-serif; font-weight: 800; text-transform: uppercase; line-height: .9; letter-spacing: -.005em; }
+      .kicker { display: inline-block; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 44px; letter-spacing: .1em; text-transform: uppercase; background: var(--granate); color: var(--crema); padding: 8px 22px 6px; }
+      .rule { position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: var(--granate); }
+      em { font-style: normal; color: var(--granate); }
+      .dark em { color: var(--rosa); }
+
+      /* Portada */
+      #hook-k { position: absolute; left: 88px; top: 330px; }
+      #olor { position: absolute; left: 88px; top: 470px; width: 420px; height: 300px; }
+      #hook-t { position: absolute; left: 80px; top: 790px; font-size: 290px; width: 940px; }
+      #hook-s { position: absolute; left: 88px; top: 1360px; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 96px; text-transform: uppercase; color: var(--crema); }
+      #hook-s b { color: var(--rosa); }
+
+      /* Barra de progreso (pasos) */
+      #prog { position: absolute; left: 88px; right: 88px; top: 230px; height: 70px; display: flex; align-items: center; gap: 24px; }
+      #prog .lbl { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 40px; letter-spacing: .1em; text-transform: uppercase; background: var(--granate); color: var(--crema); padding: 6px 18px 4px; white-space: nowrap; }
+      #prog .seg { flex: 1; height: 14px; background: rgba(201,189,176,.45); position: relative; overflow: hidden; }
+      #prog .seg i { position: absolute; inset: 0; background: var(--granate); transform-origin: left center; transform: scaleX(0); }
+
+      /* Pasos */
+      .num { position: absolute; left: 70px; top: 420px; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 520px; line-height: .78; color: var(--granate); }
+      .icons { position: absolute; right: 88px; top: 380px; width: 560px; height: 420px; }
+      .step h2 { position: absolute; left: 88px; top: 870px; width: 900px; font-size: 150px; }
+      .step p { position: absolute; left: 88px; top: 1250px; width: 880px; font-size: 54px; line-height: 1.25; font-weight: 600; }
+      .step p b { font-weight: 800; }
+      .dark.step p b { color: var(--rosa); }
+      .light.step p b { color: var(--granate); }
+      svg { overflow: visible; }
+
+      #ic1a, #ic1b { position: absolute; top: 60px; width: 260px; height: 260px; }
+      #ic1a { left: 0; } #ic1b { right: 0; }
+      #ic2 { position: absolute; left: 60px; top: 0; width: 440px; height: 420px; }
+      #balonWrap { position: absolute; right: 110px; top: 390px; width: 372px; height: 632px; }
+      #balon { width: 372px; height: 632px; display: block; filter: drop-shadow(0 30px 40px rgba(27,21,18,.28)); }
+      #anillo { position: absolute; left: 76px; top: -20px; width: 240px; height: 240px; }
+      #pn3 h2 { top: 1050px; width: 600px; font-size: 140px; }
+      #pn3 p { top: 1470px; }
+      #ic4 { position: absolute; left: 40px; top: 10px; width: 480px; height: 380px; }
+      #b116 { position: absolute; left: 88px; top: 1330px; display: flex; align-items: center; gap: 30px; background: var(--granate); color: var(--crema); padding: 22px 40px 18px; }
+      #b116 .t { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 64px; text-transform: uppercase; letter-spacing: .04em; }
+      #b116 .n { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 150px; line-height: .85; }
+      #pn4 p { top: 1210px; font-size: 50px; }
+
+      /* Cierre */
+      #pn5 .wrap { position: absolute; left: 0; right: 0; top: 260px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+      #pn5 img.logo { width: 300px; }
+      #pn5 h2 { font-size: 132px; margin-top: 70px; width: 920px; }
+      #pn5 .acts { display: flex; gap: 70px; margin-top: 70px; }
+      #pn5 .act { display: flex; flex-direction: column; align-items: center; gap: 14px; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 46px; text-transform: uppercase; color: var(--granate); letter-spacing: .06em; }
+      #pn5 .act svg { width: 120px; height: 120px; }
+      #pn5 .since { margin-top: 60px; font-size: 40px; font-weight: 600; color: var(--arena-o); }
+    </style>
+  </head>
+  <body>
+    <!-- Post 8 · "¿Huele a gas? Qué hacer en 4 pasos". Escenas sincronizadas con la voz de Terry (scripts/voz.py). -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="25" data-width="1080" data-height="1920">
+
+      <!-- 0 · Portada -->
+      <div id="sl0" class="clip slot" data-start="0" data-duration="4.31" data-track-index="1">
+        <div id="pn0" class="panel dark">
+          <div id="hook-k" class="kicker">Tu seguridad</div>
+          <svg id="olor" viewBox="0 0 140 100" fill="none" stroke-linecap="round" stroke-width="7">
+            <path class="ola" d="M20 95 C 5 75, 35 60, 20 40 S 35 10, 22 0" stroke="#e3a3a9" />
+            <path class="ola" d="M70 95 C 55 75, 85 60, 70 40 S 85 10, 72 0" stroke="#8e4149" />
+            <path class="ola" d="M120 95 C 105 75, 135 60, 120 40 S 135 10, 122 0" stroke="#e3a3a9" />
+          </svg>
+          <h1 id="hook-t" class="display">¿Huele a <em>gas</em>?</h1>
+          <div id="hook-s">Qué hacer en <b>4 pasos</b></div>
+          <div class="rule"></div>
+        </div>
+      </div>
+
+      <!-- 1 · No prender ni apagar nada -->
+      <div id="sl1" class="clip slot" data-start="3.89" data-duration="5.42" data-track-index="2">
+        <div id="pn1" class="panel light step">
+          <div class="num">1</div>
+          <div class="icons">
+            <svg id="ic1a" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="32" y="18" width="56" height="84" rx="4" stroke="#1b1512" stroke-width="6" />
+              <rect x="48" y="34" width="24" height="52" rx="3" stroke="#1b1512" stroke-width="5" />
+              <rect x="51" y="37" width="18" height="22" fill="#1b1512" />
+              <g class="no"><circle cx="60" cy="60" r="56" stroke="#8e4149" stroke-width="9" /><line x1="21" y1="99" x2="99" y2="21" stroke="#8e4149" stroke-width="9" /></g>
+            </svg>
+            <svg id="ic1b" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="40" y1="96" x2="74" y2="44" stroke="#6b5d51" stroke-width="8" />
+              <path d="M80 18 C 94 30, 92 44, 80 48 C 68 46, 66 32, 80 18 Z" fill="#8e4149" />
+              <circle cx="76" cy="42" r="7" fill="#1b1512" />
+              <g class="no"><circle cx="60" cy="60" r="56" stroke="#8e4149" stroke-width="9" /><line x1="21" y1="99" x2="99" y2="21" stroke="#8e4149" stroke-width="9" /></g>
+            </svg>
+          </div>
+          <h2 class="display">No prendas ni apagues <em>nada</em></h2>
+          <p>Ni luces, ni aparatos, ni <b>fósforos</b>. Una chispa basta para encender el gas.</p>
+          <div class="rule"></div>
+        </div>
+      </div>
+
+      <!-- 2 · Abrir puertas y ventanas -->
+      <div id="sl2" class="clip slot" data-start="8.89" data-duration="3.22" data-track-index="1">
+        <div id="pn2" class="panel dark step">
+          <div class="num">2</div>
+          <div class="icons">
+            <svg id="ic2" viewBox="0 0 130 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="10" y="10" width="90" height="100" stroke="#fbf8f3" stroke-width="6" />
+              <rect id="hojaL" x="13" y="13" width="42" height="94" fill="#6e2f35" stroke="#fbf8f3" stroke-width="4" />
+              <rect id="hojaR" x="55" y="13" width="42" height="94" fill="#6e2f35" stroke="#fbf8f3" stroke-width="4" />
+              <path class="aire" d="M40 40 H 125" stroke="#e3a3a9" stroke-width="6" />
+              <path class="aire" d="M30 60 H 118 C 126 60, 126 50, 118 50" stroke="#e3a3a9" stroke-width="6" />
+              <path class="aire" d="M44 80 H 125" stroke="#e3a3a9" stroke-width="6" />
+            </svg>
+          </div>
+          <h2 class="display">Abre puertas y <em>ventanas</em></h2>
+          <p>Deja salir el gas. Pesa más que el aire y <b>se queda abajo</b>.</p>
+          <div class="rule"></div>
+        </div>
+      </div>
+
+      <!-- 3 · Cerrar la válvula del balón (foto real) -->
+      <div id="sl3" class="clip slot" data-start="11.69" data-duration="3.42" data-track-index="2">
+        <div id="pn3" class="panel light step">
+          <div class="num">3</div>
+          <div id="balonWrap">
+            <img id="balon" src="assets/img/balon-10kg.png" alt="" />
+            <svg id="anillo" viewBox="0 0 120 120" fill="none" stroke-linecap="round">
+              <circle id="aro" cx="60" cy="60" r="44" stroke="#8e4149" stroke-width="7" />
+              <path id="giro" d="M60 4 A 56 56 0 0 1 116 60" stroke="#1b1512" stroke-width="6" />
+              <path id="punta" d="M108 50 L 116 62 L 124 50" stroke="#1b1512" stroke-width="6" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h2 class="display">Cierra la válvula del <em>balón</em></h2>
+          <p>Así cortas la <b>salida del gas</b>.</p>
+          <div class="rule"></div>
+        </div>
+      </div>
+
+      <!-- 4 · Salir y llamar desde afuera -->
+      <div id="sl4" class="clip slot" data-start="14.69" data-duration="6.22" data-track-index="1">
+        <div id="pn4" class="panel dark step">
+          <div class="num">4</div>
+          <div class="icons">
+            <svg id="ic4" viewBox="0 0 150 120" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 58 L 50 22 L 92 58" stroke="#fbf8f3" stroke-width="6" />
+              <path d="M18 50 V 108 H 82 V 50" stroke="#fbf8f3" stroke-width="6" />
+              <rect x="40" y="72" width="20" height="36" fill="#6e2f35" stroke="#fbf8f3" stroke-width="4" />
+              <g id="flecha"><path d="M66 90 H 124" stroke="#e3a3a9" stroke-width="7" /><path d="M112 78 L 126 90 L 112 102" stroke="#e3a3a9" stroke-width="7" /></g>
+              <g id="fono"><rect x="122" y="24" width="24" height="42" rx="4" stroke="#e3a3a9" stroke-width="5" /><line x1="130" y1="58" x2="138" y2="58" stroke="#e3a3a9" stroke-width="4" /></g>
+            </svg>
+          </div>
+          <h2 class="display">Sal y llama desde <em>afuera</em></h2>
+          <p>No uses el celular dentro de la casa.</p>
+          <div id="b116"><span class="t">Bomberos</span><span class="n">116</span></div>
+          <div class="rule"></div>
+        </div>
+      </div>
+
+      <!-- 5 · Cierre / CTA -->
+      <div id="sl5" class="clip slot" data-start="20.49" data-duration="4.51" data-track-index="2">
+        <div id="pn5" class="panel light">
+          <div class="wrap">
+            <img class="logo" src="assets/img/logo.png" alt="Amazon Gas" />
+            <h2 class="display">Guarda este video y compártelo con tu <em>familia</em></h2>
+            <div class="acts">
+              <div class="act" id="actG"><svg viewBox="0 0 60 60" fill="none" stroke="#8e4149" stroke-width="5" stroke-linejoin="round"><path d="M16 8 H 44 V 54 L 30 42 L 16 54 Z" /></svg>Guarda</div>
+              <div class="act" id="actC"><svg viewBox="0 0 60 60" fill="none" stroke="#8e4149" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"><path d="M34 10 L 54 28 L 34 46 V 36 C 20 36, 12 40, 6 52 C 8 34, 18 22, 34 20 Z" /></svg>Comparte</div>
+            </div>
+            <div class="since">Amazon Gas · Desde el año 2000 · Iquitos</div>
+          </div>
+          <div class="rule"></div>
+        </div>
+      </div>
+
+      <!-- Barra de pasos encima de las escenas 1-4 -->
+      <div id="progClip" class="clip" data-start="4.1" data-duration="16.6" data-track-index="5" style="position:absolute;inset:0;pointer-events:none;">
+        <div id="prog">
+          <span class="lbl">¿Huele a gas?</span>
+          <span class="seg"><i id="g1"></i></span><span class="seg"><i id="g2"></i></span><span class="seg"><i id="g3"></i></span><span class="seg"><i id="g4"></i></span>
+        </div>
+      </div>
+
+      <!-- Voz (Terry) en 5 tramos para dar respiro entre pasos -->
+      <audio id="vozA" src="assets/audio/voz.mp3" data-start="0.3" data-duration="8.35" data-media-start="0" data-track-index="8" data-volume="1"></audio>
+      <audio id="vozB" src="assets/audio/voz.mp3" data-start="9.15" data-duration="2.3" data-media-start="8.35" data-track-index="9" data-volume="1"></audio>
+      <audio id="vozC" src="assets/audio/voz.mp3" data-start="11.95" data-duration="2.55" data-media-start="10.65" data-track-index="8" data-volume="1"></audio>
+      <audio id="vozD" src="assets/audio/voz.mp3" data-start="15.0" data-duration="5.25" data-media-start="13.2" data-track-index="9" data-volume="1"></audio>
+      <audio id="vozE" src="assets/audio/voz.mp3" data-start="20.85" data-duration="2.68" data-media-start="18.45" data-track-index="8" data-volume="1"></audio>
+      <audio id="musica" data-timeline-role="music" src="assets/audio/musica.mp3" data-start="0" data-duration="25" data-media-start="0" data-track-index="10" data-volume="0.2"
+        data-automation='{"version": 1, "lanes": [{"target": "volume", "points": [{"t": 0, "v": 0.12}, {"t": 0.4, "v": 0.2}, {"t": 23.5, "v": 0.2}, {"t": 23.9, "v": 0.45}, {"t": 25, "v": 0}]}]}'></audio>
+      <audio id="sw1" src="assets/audio/swipe.mp3" data-start="3.95" data-duration="0.8" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sw2" src="assets/audio/swipe.mp3" data-start="8.95" data-duration="0.8" data-track-index="13" data-volume="0.4"></audio>
+      <audio id="sw3" src="assets/audio/swipe.mp3" data-start="11.75" data-duration="0.8" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sw4" src="assets/audio/swipe.mp3" data-start="14.75" data-duration="0.8" data-track-index="13" data-volume="0.4"></audio>
+      <audio id="sw5" src="assets/audio/swipe.mp3" data-start="20.55" data-duration="0.8" data-track-index="12" data-volume="0.4"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Portada
+      tl.from("#hook-k", { y: -40, opacity: 0, duration: 0.4, ease: "power2.out" }, 0.1);
+      tl.from(".ola", { y: 60, opacity: 0, duration: 0.7, stagger: 0.12, ease: "power2.out" }, 0.15);
+      tl.to(".ola", { y: -24, duration: 3.2, ease: "sine.inOut", stagger: 0.12 }, 0.9);
+      tl.from("#hook-t", { scale: 1.12, opacity: 0, duration: 0.5, ease: "back.out(1.6)", transformOrigin: "left center" }, 0.3);
+      tl.from("#hook-s", { y: 50, opacity: 0, duration: 0.45, ease: "power3.out" }, 2.45);
+
+      // Cambios de escena: empuje lateral como en el post 2
+      const cuts = [[3.89, "#pn0", "#pn1"], [8.89, "#pn1", "#pn2"], [11.69, "#pn2", "#pn3"], [14.69, "#pn3", "#pn4"], [20.49, "#pn4", "#pn5"]];
+      for (const [t, out, inn] of cuts) {
+        tl.fromTo(out, { x: 0 }, { x: -1080, duration: 0.42, ease: "expo.inOut" }, t);
+        tl.fromTo(inn, { x: 1080 }, { x: 0, duration: 0.42, ease: "expo.inOut" }, t);
+      }
+
+      // Barra de pasos
+      tl.from("#prog", { opacity: 0, duration: 0.3 }, 4.1);
+      [["#g1", 4.2], ["#g2", 9.2], ["#g3", 12.0], ["#g4", 15.0]].forEach(([s, t]) => tl.to(s, { scaleX: 1, duration: 0.5, ease: "power2.out" }, t));
+
+      // Paso 1
+      tl.from("#pn1 .num", { y: 80, opacity: 0, duration: 0.45, ease: "power3.out" }, 4.25);
+      tl.from("#pn1 h2", { y: 60, opacity: 0, duration: 0.45, ease: "power3.out" }, 4.4);
+      tl.from("#ic1a", { scale: 0.6, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 4.6);
+      tl.from("#ic1a .no", { scale: 0, opacity: 0, transformOrigin: "60px 60px", duration: 0.35, ease: "back.out(2.5)" }, 5.2);
+      tl.from("#pn1 p", { y: 40, opacity: 0, duration: 0.4, ease: "power2.out" }, 5.6);
+      tl.from("#ic1b", { scale: 0.6, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 7.0);
+      tl.from("#ic1b .no", { scale: 0, opacity: 0, transformOrigin: "60px 60px", duration: 0.35, ease: "back.out(2.5)" }, 7.4);
+
+      // Paso 2
+      tl.from("#pn2 .num", { y: 80, opacity: 0, duration: 0.45, ease: "power3.out" }, 9.15);
+      tl.from("#pn2 h2", { y: 60, opacity: 0, duration: 0.45, ease: "power3.out" }, 9.3);
+      tl.to("#hojaL", { scaleX: 0.25, transformOrigin: "13px 60px", duration: 0.6, ease: "power2.inOut" }, 9.6);
+      tl.to("#hojaR", { scaleX: 0.25, transformOrigin: "97px 60px", duration: 0.6, ease: "power2.inOut" }, 9.6);
+      tl.from(".aire", { opacity: 0, x: -30, duration: 0.5, stagger: 0.1, ease: "power2.out" }, 10.0);
+      tl.to(".aire", { x: 22, duration: 1.6, ease: "sine.inOut", stagger: 0.1 }, 10.5);
+      tl.from("#pn2 p", { y: 40, opacity: 0, duration: 0.4, ease: "power2.out" }, 10.1);
+
+      // Paso 3
+      tl.from("#pn3 .num", { y: 80, opacity: 0, duration: 0.45, ease: "power3.out" }, 11.95);
+      tl.from("#balonWrap", { y: 60, opacity: 0, duration: 0.5, ease: "power3.out" }, 12.0);
+      tl.from("#pn3 h2", { y: 60, opacity: 0, duration: 0.45, ease: "power3.out" }, 12.15);
+      tl.from("#aro", { scale: 0, opacity: 0, transformOrigin: "60px 60px", duration: 0.4, ease: "back.out(2)" }, 12.6);
+      tl.fromTo("#giro", { strokeDasharray: 90, strokeDashoffset: 90 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 12.9);
+      tl.from("#punta", { opacity: 0, duration: 0.2 }, 13.35);
+      tl.to("#aro", { scale: 1.12, transformOrigin: "60px 60px", duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut" }, 13.4);
+      tl.from("#pn3 p", { y: 40, opacity: 0, duration: 0.4, ease: "power2.out" }, 13.0);
+
+      // Paso 4
+      tl.from("#pn4 .num", { y: 80, opacity: 0, duration: 0.45, ease: "power3.out" }, 14.95);
+      tl.from("#pn4 h2", { y: 60, opacity: 0, duration: 0.45, ease: "power3.out" }, 15.1);
+      tl.from("#ic4", { opacity: 0, scale: 0.8, duration: 0.4, ease: "back.out(2)" }, 15.3);
+      tl.from("#flecha", { x: -40, opacity: 0, duration: 0.5, ease: "power3.out" }, 16.2);
+      tl.from("#fono", { scale: 0, opacity: 0, transformOrigin: "134px 45px", duration: 0.4, ease: "back.out(2.5)" }, 17.6);
+      tl.to("#fono", { rotation: 10, transformOrigin: "134px 45px", duration: 0.08, yoyo: true, repeat: 7, ease: "none" }, 18.0);
+      tl.from("#pn4 p", { y: 40, opacity: 0, duration: 0.4, ease: "power2.out" }, 17.1);
+      tl.from("#b116", { scale: 0.7, opacity: 0, transformOrigin: "left center", duration: 0.45, ease: "back.out(2)" }, 18.75);
+
+      // Cierre
+      tl.from("#pn5 .logo", { scale: 0.7, opacity: 0, duration: 0.5, ease: "back.out(1.8)" }, 20.75);
+      tl.from("#pn5 h2", { y: 50, opacity: 0, duration: 0.5, ease: "power3.out" }, 20.9);
+      tl.from("#actG", { y: 40, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 21.0);
+      tl.from("#actC", { y: 40, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 22.1);
+      tl.from("#pn5 .since", { opacity: 0, duration: 0.5 }, 23.0);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "credits_before": 1179.5,
+  "tasks": {
+    "s1-meandro": {
+      "taskId": "5a76f96441b9b43894373588b2cc5bd7",
+      "credits": 25.0,
+      "url": "https://tempfile.aiquickdraw.com/k/5a76f96441b9b43894373588b2cc5bd7_1_1790622892_8145.mp4"
+    },
+    "s2-barcaza": {
+      "taskId": "5faf36a1247de830f34b46dce7f4f604",
+      "credits": 25.0,
+      "url": "https://tempfile.aiquickdraw.com/k/5faf36a1247de830f34b46dce7f4f604_1_1790622919_9048.mp4"
+    },
+    "s3-planta": {
+      "taskId": "9f4c76a8a702057cf45b6950a45e6d6e",
+      "credits": 25.0,
+      "url": "https://tempfile.aiquickdraw.com/k/9f4c76a8a702057cf45b6950a45e6d6e_1_1790622900_5757.mp4"
+    },
+    "s4-balones": {
+      "taskId": "7abf0feba7e800482cbce95bc4a54826",
+      "credits": 25.0,
+      "url": "https://tempfile.aiquickdraw.com/k/7abf0feba7e800482cbce95bc4a54826_1_1790622900_9974.mp4"
+    },
+    "s5-camion": {
+      "taskId": "1f4a72735bfe19d6ee144ef93a4c530d",
+      "credits": 25.0,
+      "url": "https://tempfile.aiquickdraw.com/k/1f4a72735bfe19d6ee144ef93a4c530d_1_1790622912_5436.mp4"
+    }
+  },
+  "credits_after": 1054.5,
+  "pending_timeout": []
+}

@@ -1,0 +1,19 @@
+[
+  {
+    "credits_before": 1430.5,
+    "tasks": {
+      "s1-simulacro": {
+        "taskId": "95aa8e1f959e4174942d31352ab3aba8",
+        "credits": 25.0,
+        "url": "https://tempfile.aiquickdraw.com/k/95aa8e1f959e4174942d31352ab3aba8_1_1791238747_6822.mp4"
+      },
+      "s2-capacitacion": {
+        "taskId": "bfc2def97262bef2e1fe6612cd3ab2b3",
+        "credits": 25.0,
+        "url": "https://tempfile.aiquickdraw.com/k/bfc2def97262bef2e1fe6612cd3ab2b3_1_1791238776_1935.mp4"
+      }
+    },
+    "credits_after": 1045.5,
+    "pending_timeout": []
+  }
+]

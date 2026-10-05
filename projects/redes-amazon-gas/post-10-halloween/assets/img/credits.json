@@ -1,0 +1,55 @@
+{
+  "a-fiesta": {
+    "taskId": "a1a0345b998b072a64bf174f690c03ad",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/a2/a1a0345b998b072a64bf174f690c03ad_1791239909800.png"
+    ],
+    "credits": 12.0,
+    "prompt": "Use the woman from the reference image, identical face, hair, earrings and clothes (same floral blouse and cream apron). Vertical medium shot from the waist up: she stands at the stove in her humble but tidy home kitchen in Iquitos at night, decorated for a Saturday party: wooden plank walls painted light cream, a window with green mosquito screen and dark night outside, warm yellow light bulb, a simple paper garland of orange and black paper bats hanging on the wall, a small carved pumpkin with a candle inside on the shelf, a wooden Peruvian cajon drum and a guitar leaning in the corner, a tiled counter with a two-burner tabletop gas stove and a big aluminium pot of arroz con pollo (green coriander rice with chicken), stirring the pot with a big wooden spoon, steam rising, a small calm blue gas flame under the pot. She looks at the camera with a cheeky, brave, confident smile, mouth closed, as if saying nothing scares her. Face in the upper half of the frame. Photorealistic, warm cozy evening light, shot on a smartphone like a TikTok comedy sketch, realistic skin texture, family-friendly, nothing scary or gory, no text, no captions, no logos, no brand names, no purple or violet colors anywhere, no gas cylinders visible."
+  },
+  "b-susto": {
+    "taskId": "cd5fd3cfe228af1f46edb576b2cad373",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/a2/cd5fd3cfe228af1f46edb576b2cad373_1791239908700.png"
+    ],
+    "credits": 12.0,
+    "prompt": "Use the woman from the reference image, identical face, hair, earrings and clothes (same floral blouse and cream apron). Vertical close-up from the chest up in the same decorated kitchen at night: comedic terrified expression, eyebrows raised, eyes wide, both hands on her cheeks, looking straight at the camera, lips closed. Behind her the pot on the stove, no flame and no steam, the paper bats garland visible. Face centered in the upper half. Photorealistic, warm cozy evening light, shot on a smartphone like a TikTok comedy sketch, realistic skin texture, family-friendly, nothing scary or gory, no text, no captions, no logos, no brand names, no purple or violet colors anywhere, no gas cylinders visible."
+  },
+  "d-hornilla": {
+    "taskId": "2be7ca19edd59a6af2bff90a08247d8f",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/a2/2be7ca19edd59a6af2bff90a08247d8f_1791239910041.png"
+    ],
+    "credits": 12.0,
+    "prompt": "Vertical close-up of a two-burner tabletop gas stove on a tiled counter in a humble Iquitos home kitchen at night, a big aluminium pot of arroz con pollo on the front burner, a small calm blue gas flame under the pot, light steam, a small carved pumpkin with a candle softly out of focus in the background, warm yellow light. Shallow depth of field. Photorealistic, family-friendly, no text, no logos, no people, no gas cylinders, no purple."
+  },
+  "c-celular": {
+    "taskId": "a1a18fec79c304f02e111dd47e17e8f0",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/a2/a1a18fec79c304f02e111dd47e17e8f0_1791239966651.png"
+    ],
+    "credits": 12.0,
+    "prompt": "Use the woman from the reference image, identical face, hair, earrings and clothes (same floral blouse and cream apron). Vertical medium shot from the waist up in the same decorated kitchen at night: she holds a smartphone in one hand at chest height, screen facing herself, and raises the index finger of the other hand as if giving wise advice, knowing confident smile, looking straight at the camera, mouth relaxed and closed. Face clearly visible in the upper half. Photorealistic, warm cozy evening light, shot on a smartphone like a TikTok comedy sketch, realistic skin texture, family-friendly, nothing scary or gory, no text, no captions, no logos, no brand names, no purple or violet colors anywhere, no gas cylinders visible."
+  },
+  "escenas_credits": {
+    "before": 880.5,
+    "after": 832.5
+  },
+  "e-hornilla-apagada": {
+    "taskId": "7e08c22c0a8923a9b5a329bbf334bf95",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/a2/7e08c22c0a8923a9b5a329bbf334bf95_1791240147066.png"
+    ],
+    "credits": 12.0,
+    "prompt": "Edit this exact image: the gas burner flame under the pot is now completely OFF, no flame at all, no steam. Keep everything else identical: same pot, stove, counter, pumpkin, framing and light. Photorealistic, no text, no purple."
+  },
+  "apagada_credits": {
+    "before": 832.5,
+    "after": 692.5
+  }
+}

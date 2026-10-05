@@ -1,0 +1,21 @@
+{
+  "imagen": {
+    "model": "seedream-v4",
+    "taskId": "f8c2c88b82a2efacacf3271427b892c9",
+    "creditsConsumed": 5.0,
+    "kie_antes": 1538.5,
+    "kie_despues": 1505.5
+  },
+  "musica": {
+    "api": "elevenlabs music",
+    "length_ms": 13000,
+    "bytes": 209442
+  },
+  "video": {
+    "model": "kling-2.1-standard 5s",
+    "taskId": "76ea0b6ec386689f04c2638cc3761aa1",
+    "creditsConsumed": 25.0,
+    "kie_antes": 1405.5,
+    "kie_despues": 1045.5
+  }
+}

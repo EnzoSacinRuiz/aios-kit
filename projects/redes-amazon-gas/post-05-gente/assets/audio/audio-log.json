@@ -1,0 +1,26 @@
+{
+  "runs": [
+    {
+      "which": [
+        "voz",
+        "musica"
+      ],
+      "before": {
+        "character_count": 5821,
+        "character_limit": 58322
+      },
+      "after": {
+        "character_count": 7369,
+        "character_limit": 58322
+      }
+    }
+  ],
+  "voz": {
+    "chars": 266,
+    "dur": 17.322
+  },
+  "musica": {
+    "length_ms": 22000,
+    "bytes": 352802
+  }
+}

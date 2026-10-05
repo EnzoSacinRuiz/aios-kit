@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "audio": "assets/musica-v2.mp3",
+  "beats": [
+    {
+      "time": 2.699,
+      "strength": 0.882
+    },
+    {
+      "time": 4.032,
+      "strength": 0.719
+    },
+    {
+      "time": 5.366,
+      "strength": 0.86
+    },
+    {
+      "time": 6.699,
+      "strength": 0.49
+    },
+    {
+      "time": 8.032,
+      "strength": 0.871
+    },
+    {
+      "time": 9.366,
+      "strength": 0.715
+    },
+    {
+      "time": 10.699,
+      "strength": 1
+    },
+    {
+      "time": 12.032,
+      "strength": 0.61
+    },
+    {
+      "time": 13.366,
+      "strength": 0.895
+    },
+    {
+      "time": 14.699,
+      "strength": 0.707
+    },
+    {
+      "time": 16.032,
+      "strength": 0.442
+    }
+  ]
+}

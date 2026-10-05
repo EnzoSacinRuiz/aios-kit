@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<!-- Post 6 · Señor de los Milagros · feed IG/FB 1080x1350. Versión genérica: no afirma participación en la procesión. -->
+<style>
+  @font-face { font-family: "Barlow Condensed"; font-weight: 600; src: url("BarlowCondensed-SemiBold.ttf"); }
+  @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("BarlowCondensed-Bold.ttf"); }
+  @font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url("BarlowCondensed-ExtraBold.ttf"); }
+  @font-face { font-family: "Inter"; font-weight: 100 900; src: url("Inter.ttf"); }
+  :root { --granate:#8e4149; --marron:#1b1512; --crema:#fbf8f3; --arena:#c9bdb0; --rosa:#e3a3a9; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1350px; overflow:hidden; background:var(--marron); }
+  .pieza { position:relative; width:1080px; height:1350px; overflow:hidden; font-family:"Inter",sans-serif; color:var(--crema); }
+  .foto { position:absolute; left:0; right:0; top:330px; bottom:0; background:url("../assets/fondo.png") center 72% / cover no-repeat; }
+  .velo { position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(27,21,18,1) 0%, rgba(27,21,18,1) 30%, rgba(27,21,18,.75) 44%, rgba(27,21,18,.2) 58%, rgba(27,21,18,0) 66%),
+      linear-gradient(0deg, rgba(27,21,18,.9) 0%, rgba(27,21,18,.55) 12%, rgba(27,21,18,0) 28%); }
+  .texto { position:absolute; left:0; right:0; top:96px; text-align:center; padding:0 90px; }
+  .fecha { font-family:"Barlow Condensed",sans-serif; font-weight:600; font-size:36px; letter-spacing:.32em; text-transform:uppercase; color:var(--arena); }
+  .linea { width:90px; height:3px; background:var(--granate); margin:30px auto 34px; }
+  h1 { font-family:"Barlow Condensed",sans-serif; font-weight:800; text-transform:uppercase; font-size:124px; line-height:.92; letter-spacing:.01em; }
+  p { margin:38px auto 0; max-width:760px; font-size:40px; line-height:1.35; font-weight:400; color:var(--crema); opacity:.92; }
+  .firma { position:absolute; left:0; right:0; bottom:56px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .firma { bottom:48px; } .firma .placa { background:var(--crema); border-radius:4px; padding:14px 22px 12px; box-shadow:0 8px 24px rgba(0,0,0,.45); } .firma img { display:block; height:92px; }
+</style>
+</head>
+<body>
+  <div class="pieza">
+    <div class="foto"></div>
+    <div class="velo"></div>
+    <div class="texto">
+      <div class="fecha">18 de octubre</div>
+      <div class="linea"></div>
+      <h1>Señor de los<br />Milagros</h1>
+      <p>Con fe y respeto, saludamos a todas las familias de Loreto en este día.</p>
+    </div>
+    <div class="firma"><div class="placa"><img src="logo.png" alt="Amazon Gas" /></div></div>
+  </div>
+</body>
+</html>

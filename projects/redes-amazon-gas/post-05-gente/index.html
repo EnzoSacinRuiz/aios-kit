@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Barlow Condensed"; font-weight: 600; src: url("assets/fonts/BarlowCondensed-SemiBold.ttf") format("truetype"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("assets/fonts/BarlowCondensed-Bold.ttf") format("truetype"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url("assets/fonts/BarlowCondensed-ExtraBold.ttf") format("truetype"); }
+      @font-face { font-family: "Inter"; font-weight: 100 900; src: url("assets/fonts/Inter.ttf") format("truetype"); }
+
+      :root {
+        --granate: #8e4149;
+        --granate-oscuro: #6e2f35;
+        --marron: #1b1512;
+        --crema: #fbf8f3;
+        --arena: #c9bdb0;
+        --llama: #f5dc17;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--marron); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; }
+
+      .shot-wrap { position: absolute; inset: 0; overflow: hidden; }
+      video.shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      /* Foto o clip 16:9 a alto completo (3413 px de ancho) para panear en horizontal */
+      .wide { position: absolute; top: 0; left: 0; width: 3413px; height: 1920px; max-width: none; object-fit: cover; }
+
+      #veil {
+        position: absolute; inset: 0;
+        background: linear-gradient(180deg, rgba(27,21,18,0.6) 0%, rgba(27,21,18,0.08) 36%, rgba(27,21,18,0.08) 55%, rgba(27,21,18,0.65) 100%);
+      }
+
+      .card { position: absolute; left: 80px; right: 160px; top: 300px; }
+      .kicker {
+        display: inline-block; font-family: "Barlow Condensed", sans-serif; font-weight: 700;
+        font-size: 44px; letter-spacing: 0.08em; text-transform: uppercase;
+        color: var(--crema); background: var(--granate); padding: 6px 18px 4px;
+      }
+      .headline {
+        font-family: "Barlow Condensed", sans-serif; font-weight: 800; text-transform: uppercase;
+        color: var(--crema); font-size: 128px; line-height: 0.9; letter-spacing: -0.01em;
+        text-shadow: 0 4px 24px rgba(27,21,18,0.6); margin-top: 18px;
+      }
+      .headline em { font-style: normal; color: var(--llama); }
+      .bar { display: block; width: 140px; height: 12px; background: var(--granate); margin-top: 26px; }
+
+      /* Subtítulos */
+      .cap { position: absolute; left: 70px; right: 150px; top: 1180px; }
+      .cap-in { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 84px; line-height: 1.02;
+        text-transform: uppercase; color: var(--crema); text-align: left;
+        text-shadow: 0 3px 0 rgba(27,21,18,0.9), 0 0 22px rgba(27,21,18,0.85); }
+      .cap-in .w { display: inline-block; }
+
+      /* Cierre */
+      #end { position: absolute; inset: 0; background: var(--crema); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      #end-logo { width: 360px; height: auto; display: block; }
+      #end-tag {
+        margin-top: 64px; font-family: "Barlow Condensed", sans-serif; font-weight: 800; text-transform: uppercase;
+        font-size: 120px; line-height: 0.92; color: var(--marron); text-align: center; max-width: 860px;
+      }
+      #end-tag em { font-style: normal; color: var(--granate); }
+      #end-since { margin-top: 34px; font-weight: 600; font-size: 40px; color: #6b5d51; letter-spacing: 0.02em; }
+      #end-handle {
+        margin-top: 70px; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 44px;
+        color: var(--crema); background: var(--granate); padding: 10px 28px 8px;
+      }
+      #end-rule { position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: var(--granate); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="20.5" data-width="1080" data-height="1920">
+      <!-- Tomas: fotos reales. v2 y v3 animadas con kie.ai (Kling 2.1); las fotos de grupo, con paneo (sin IA) -->
+      <div id="v1-vis" class="shot-wrap"><img id="v1" class="clip wide" src="assets/img/equipo-taller.jpg" alt="" data-start="0" data-duration="3.35" data-track-index="0" /></div>
+      <div id="v2-vis" class="shot-wrap"><video id="v2" class="clip wide" src="assets/clips/s1-simulacro.mp4" data-start="2.95" data-duration="3.4" data-track-index="1" muted playsinline></video></div>
+      <div id="v2b-vis" class="shot-wrap"><img id="v2b" class="clip wide" src="assets/img/simulacro.jpg" alt="" data-start="5.95" data-duration="1.65" data-track-index="0" /></div>
+      <div id="v3-vis" class="shot-wrap"><video id="v3" class="clip shot" src="assets/clips/s2-capacitacion.mp4" data-start="7.2" data-duration="3.4" data-track-index="1" muted playsinline></video></div>
+      <div id="v4-vis" class="shot-wrap"><img id="v4" class="clip wide" src="assets/img/equipo-planta.jpg" alt="" data-start="10.2" data-duration="3.9" data-track-index="0" /></div>
+
+      <div id="veil" class="clip" data-start="0" data-duration="14.1" data-track-index="2"></div>
+
+      <!-- Textos -->
+      <div id="t1" class="clip card" data-start="0.1" data-duration="2.75" data-track-index="3">
+        <div class="t1-in">
+          <span class="kicker">Nuestra gente</span>
+          <div class="headline">Detrás de tu balón</div>
+        </div>
+      </div>
+      <div id="t2" class="clip card" data-start="3.0" data-duration="4.1" data-track-index="3">
+        <div class="t2-in">
+          <span class="kicker">En la planta</span>
+          <div class="headline">Simulacros contra incendios</div>
+        </div>
+      </div>
+      <div id="t3" class="clip card" data-start="7.3" data-duration="2.85" data-track-index="3">
+        <div class="t3-in">
+          <span class="kicker">En el río</span>
+          <div class="headline">Junto a las barcazas</div>
+        </div>
+      </div>
+      <div id="t4" class="clip card" data-start="10.28" data-duration="3.4" data-track-index="3">
+        <div class="t4-in">
+          <span class="kicker">Así entrenamos</span>
+          <div class="headline">Para que tú cocines <em>tranquilo</em></div>
+          <span class="bar"></span>
+        </div>
+      </div>
+
+      <!-- Subtítulos (alineación de la voz de Terry); del 10.28 en adelante manda el titular -->
+      <div id="cap0" class="clip cap" data-start="0.00" data-duration="0.69" data-track-index="4"><div class="cap-in"><span class="w" id="w0_0">¿Sabes</span> <span class="w" id="w0_1">qué</span> <span class="w" id="w0_2">hay</span></div></div>
+      <div id="cap1" class="clip cap" data-start="0.69" data-duration="0.74" data-track-index="4"><div class="cap-in"><span class="w" id="w1_0">detrás</span> <span class="w" id="w1_1">de</span> <span class="w" id="w1_2">cada</span></div></div>
+      <div id="cap2" class="clip cap" data-start="1.43" data-duration="0.65" data-track-index="4"><div class="cap-in"><span class="w" id="w2_0">balón</span> <span class="w" id="w2_1">que</span> <span class="w" id="w2_2">llega</span></div></div>
+      <div id="cap3" class="clip cap" data-start="2.08" data-duration="0.94" data-track-index="4"><div class="cap-in"><span class="w" id="w3_0">a</span> <span class="w" id="w3_1">tu</span> <span class="w" id="w3_2">casa?</span></div></div>
+      <div id="cap4" class="clip cap" data-start="3.02" data-duration="1.43" data-track-index="4"><div class="cap-in"><span class="w" id="w4_0">Gente</span> <span class="w" id="w4_1">que</span> <span class="w" id="w4_2">entrena.</span></div></div>
+      <div id="cap5" class="clip cap" data-start="4.45" data-duration="1.54" data-track-index="4"><div class="cap-in"><span class="w" id="w5_0">Simulacros</span> <span class="w" id="w5_1">contra</span> <span class="w" id="w5_2">incendios</span></div></div>
+      <div id="cap6" class="clip cap" data-start="5.99" data-duration="1.32" data-track-index="4"><div class="cap-in"><span class="w" id="w6_0">en</span> <span class="w" id="w6_1">nuestra</span> <span class="w" id="w6_2">planta.</span></div></div>
+      <div id="cap7" class="clip cap" data-start="7.31" data-duration="1.39" data-track-index="4"><div class="cap-in"><span class="w" id="w7_0">Prácticas</span> <span class="w" id="w7_1">con</span> <span class="w" id="w7_2">mangueras,</span></div></div>
+      <div id="cap8" class="clip cap" data-start="8.70" data-duration="0.51" data-track-index="4"><div class="cap-in"><span class="w" id="w8_0">junto</span> <span class="w" id="w8_1">a</span> <span class="w" id="w8_2">las</span></div></div>
+      <div id="cap9" class="clip cap" data-start="9.21" data-duration="0.94" data-track-index="4"><div class="cap-in"><span class="w" id="w9_0">barcazas.</span></div></div>
+
+      <!-- Cierre -->
+      <div id="end" class="clip" data-start="13.7" data-duration="6.8" data-track-index="5">
+        <img id="end-logo" src="assets/img/logo.png" alt="Amazon Gas" />
+        <div id="end-tag">Seguridad desde el <em>2000</em></div>
+        <div id="end-since">Amazon Gas · Iquitos, Loreto</div>
+        <div id="end-handle">@amazongasperu</div>
+        <div id="end-rule"></div>
+      </div>
+
+      <audio id="musica" src="assets/audio/musica.mp3" data-start="0" data-duration="20.5" data-track-index="11" data-volume="0.32"
+        data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.6,"v":1},{"t":17.4,"v":1},{"t":18.0,"v":1.6},{"t":19.4,"v":1.6},{"t":20.5,"v":0}]}]}'></audio>
+      <audio id="voz" src="assets/audio/voz.mp3" data-start="0" data-duration="17.32" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+
+      // Paneos (cámara sobre fotos reales y clips 16:9)
+      tl.fromTo("#v1", { x: -825 }, { x: -1713, duration: 3.35, ease: "none" }, 0);
+      tl.fromTo("#v2", { x: -2054 }, { x: -1576, duration: 3.4, ease: "none" }, 2.95);
+      tl.fromTo("#v2b", { x: -484, scale: 1, transformOrigin: "30% 50%" }, { x: -560, scale: 1.06, duration: 1.65, ease: "none" }, 5.95);
+      tl.fromTo("#v4", { x: -655 }, { x: -1576, duration: 3.9, ease: "none" }, 10.2);
+
+      // Fundidos entre tomas
+      tl.fromTo("#v2-vis", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.inOut" }, 2.95);
+      tl.fromTo("#v2b-vis", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 5.95);
+      tl.fromTo("#v3-vis", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 7.2);
+      tl.fromTo("#v4-vis", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 10.2);
+      tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 13.7);
+
+      // Textos
+      tl.fromTo("#t1 .kicker", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 0.1);
+      tl.fromTo("#t1 .headline", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 0.2);
+      tl.to("#t1 .t1-in", { opacity: 0, duration: 0.2 }, 2.6);
+
+      tl.fromTo("#t2 .kicker", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 3.0);
+      tl.fromTo("#t2 .headline", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 4.45);
+      tl.to("#t2 .t2-in", { opacity: 0, duration: 0.2 }, 6.9);
+
+      tl.fromTo("#t3 .kicker", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 7.3);
+      tl.fromTo("#t3 .headline", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 8.7);
+      tl.to("#t3 .t3-in", { opacity: 0, duration: 0.2 }, 9.95);
+
+      tl.fromTo("#t4 .kicker", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 10.28);
+      tl.fromTo("#t4 .headline", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 11.0);
+      tl.fromTo("#t4 .bar", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.35, ease: E }, 12.4);
+
+      // Cierre
+      tl.fromTo("#end-logo", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 13.8);
+      tl.fromTo("#end-rule", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.8, ease: E }, 13.9);
+      tl.fromTo("#end-tag", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 15.3);
+      tl.fromTo("#end-since", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 16.6);
+      tl.fromTo("#end-handle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 17.0);
+
+      // Subtítulos: la palabra que se dice se enciende en amarillo llama
+      tl.fromTo("#cap0 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 0.00);
+      tl.fromTo("#w0_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.00);
+      tl.fromTo("#w0_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.43);
+      tl.fromTo("#w0_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.53);
+      tl.fromTo("#cap1 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 0.69);
+      tl.fromTo("#w1_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.69);
+      tl.fromTo("#w1_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 1.02);
+      tl.fromTo("#w1_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 1.13);
+      tl.fromTo("#cap2 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 1.43);
+      tl.fromTo("#w2_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 1.43);
+      tl.fromTo("#w2_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 1.74);
+      tl.fromTo("#w2_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 1.83);
+      tl.fromTo("#cap3 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 2.08);
+      tl.fromTo("#w3_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.08);
+      tl.fromTo("#w3_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.14);
+      tl.fromTo("#w3_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.28);
+      tl.fromTo("#cap4 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 3.02);
+      tl.fromTo("#w4_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 3.02);
+      tl.fromTo("#w4_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 3.40);
+      tl.fromTo("#w4_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 3.51);
+      tl.fromTo("#cap5 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 4.45);
+      tl.fromTo("#w5_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 4.45);
+      tl.fromTo("#w5_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.18);
+      tl.fromTo("#w5_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.46);
+      tl.fromTo("#cap6 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 5.99);
+      tl.fromTo("#w6_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.99);
+      tl.fromTo("#w6_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 6.07);
+      tl.fromTo("#w6_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 6.37);
+      tl.fromTo("#cap7 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 7.31);
+      tl.fromTo("#w7_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 7.31);
+      tl.fromTo("#w7_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 7.87);
+      tl.fromTo("#w7_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 8.03);
+      tl.fromTo("#cap8 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 8.70);
+      tl.fromTo("#w8_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 8.70);
+      tl.fromTo("#w8_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 9.04);
+      tl.fromTo("#w8_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 9.09);
+      tl.fromTo("#cap9 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 9.21);
+      tl.fromTo("#w9_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 9.21);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
