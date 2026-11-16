@@ -9,7 +9,7 @@ _Última actualización: 2026-09-28._
 
 1. **Publicar 2 veces por semana en TikTok, Facebook e Instagram.** Si Amazon Gas todavía no
    tiene cuenta de TikTok, abrirla forma parte de esta meta. El avance se mide en
-   `projects/redes-amazon-gas/calendario-contenido.xlsx`.
+   `projects/redes-amazon-gas/mes-1/calendario-contenido.xlsx`.
 
 ---
 

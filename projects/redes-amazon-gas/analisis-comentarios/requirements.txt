@@ -1,0 +1,1 @@
+# Sin dependencias: solo librería estándar de Python. El archivo existe para que Railway detecte Python.

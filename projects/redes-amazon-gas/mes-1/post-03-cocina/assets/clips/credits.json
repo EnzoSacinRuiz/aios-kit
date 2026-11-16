@@ -1,0 +1,78 @@
+{
+  "runs": [
+    {
+      "credits_before": 1538.5,
+      "images": {
+        "s2-fritura": {
+          "taskId": "18d0c0eb7625d94605892942db9e8fd9",
+          "url": "https://tempfile.aiquickdraw.com/a2/18d0c0eb7625d94605892942db9e8fd9_1791238640124.png",
+          "credits": 4.0
+        },
+        "s4-bolitas": {
+          "taskId": "ffc9cb347391ba8ed2aef0d5d0dd742d",
+          "url": "https://tempfile.aiquickdraw.com/a2/ffc9cb347391ba8ed2aef0d5d0dd742d_1791238642767.png",
+          "credits": 4.0
+        },
+        "s1-platano": {
+          "taskId": "c169878b80fba083f0e606916a48f7d7",
+          "url": "https://tempfile.aiquickdraw.com/p/c169878b80fba083f0e606916a48f7d7_1_1791238631_1454.png",
+          "credits": 4.0
+        },
+        "s3-machacar": {
+          "taskId": "1375b4d3838b18bf1b5deee9e43a3dfc",
+          "url": "https://tempfile.aiquickdraw.com/p/1375b4d3838b18bf1b5deee9e43a3dfc_1_1791238674_4339.png",
+          "credits": 4.0
+        },
+        "s5-cecina": {
+          "taskId": "6f216bbed0c431f1846fd0c839f5fa46",
+          "url": "https://tempfile.aiquickdraw.com/a2/6f216bbed0c431f1846fd0c839f5fa46_1791238691036.png",
+          "credits": 4.0
+        },
+        "s6-plato": {
+          "taskId": "23e344be4e4f8e086f7dfa80ab8157c4",
+          "url": "https://tempfile.aiquickdraw.com/a2/23e344be4e4f8e086f7dfa80ab8157c4_1791238699220.png",
+          "credits": 4.0
+        },
+        "bg-cocina": {
+          "taskId": "0158b43d7311f7499a066eea0f7130c5",
+          "url": "https://tempfile.aiquickdraw.com/a2/0158b43d7311f7499a066eea0f7130c5_1791238694218.png",
+          "credits": 4.0
+        }
+      },
+      "videos": {
+        "s2-fritura": {
+          "taskId": "b294c4363248a30955aa5d806c40ff31",
+          "url": "https://tempfile.aiquickdraw.com/k/b294c4363248a30955aa5d806c40ff31_1_1791238786_6355.mp4",
+          "credits": 25.0
+        },
+        "s3-machacar": {
+          "taskId": "61bbb4dc86300c0622506251ce6b52e3",
+          "url": "https://tempfile.aiquickdraw.com/k/61bbb4dc86300c0622506251ce6b52e3_1_1791238803_6468.mp4",
+          "credits": 25.0
+        },
+        "s4-bolitas": {
+          "taskId": "0b3bbceb558000e9411d1b643471fbcf",
+          "url": "https://tempfile.aiquickdraw.com/k/0b3bbceb558000e9411d1b643471fbcf_1_1791238798_9199.mp4",
+          "credits": 25.0
+        },
+        "s5-cecina": {
+          "taskId": "616a691742a210068c82c783eae77215",
+          "url": "https://tempfile.aiquickdraw.com/k/616a691742a210068c82c783eae77215_1_1791238810_3284.mp4",
+          "credits": 25.0
+        },
+        "s1-platano": {
+          "taskId": "c07fd3aaf07d6de9b1b0fb56724bf790",
+          "url": "https://tempfile.aiquickdraw.com/k/c07fd3aaf07d6de9b1b0fb56724bf790_1_1791238820_4563.mp4",
+          "credits": 25.0
+        },
+        "s6-plato": {
+          "taskId": "1d44896ccf08f3b3c65445627b298e40",
+          "url": "https://tempfile.aiquickdraw.com/k/1d44896ccf08f3b3c65445627b298e40_1_1791238823_2403.mp4",
+          "credits": 25.0
+        }
+      },
+      "credits_after": 1045.5,
+      "pending_timeout": []
+    }
+  ]
+}

@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1350" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Barlow Condensed"; font-weight: 600; src: url("assets/fonts/BarlowCondensed-SemiBold.ttf") format("truetype"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("assets/fonts/BarlowCondensed-Bold.ttf") format("truetype"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url("assets/fonts/BarlowCondensed-ExtraBold.ttf") format("truetype"); }
+      @font-face { font-family: "Inter"; font-weight: 100 900; src: url("assets/fonts/Inter.ttf") format("truetype"); }
+
+      :root {
+        --granate: #8e4149;
+        --granate-oscuro: #6e2f35;
+        --marron: #1b1512;
+        --crema: #fbf8f3;
+        --arena: #c9bdb0;
+        --llama: #f5dc17;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1350px; overflow: hidden; background: var(--marron); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; }
+
+      .shot-wrap { position: absolute; inset: 0; overflow: hidden; }
+      video.shot, img.shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      img.wide { position: absolute; top: 0; left: 0; height: 100%; width: 2400px; max-width: none; }
+
+      #veil {
+        position: absolute; inset: 0;
+        background: linear-gradient(180deg, rgba(27,21,18,0.72) 0%, rgba(27,21,18,0.15) 38%, rgba(27,21,18,0.05) 55%, rgba(27,21,18,0.66) 100%);
+      }
+
+      .card { position: absolute; left: 80px; right: 140px; top: 130px; }
+      .kicker {
+        display: inline-block; font-family: "Barlow Condensed", sans-serif; font-weight: 700;
+        font-size: 44px; letter-spacing: 0.08em; text-transform: uppercase;
+        color: var(--crema); background: var(--granate); padding: 8px 22px 6px;
+      }
+      .headline {
+        font-family: "Barlow Condensed", sans-serif; font-weight: 800; text-transform: uppercase;
+        color: var(--crema); font-size: 150px; line-height: 0.9; letter-spacing: -0.01em;
+        text-shadow: 0 4px 24px rgba(27,21,18,0.6); margin-top: 18px;
+      }
+      .headline.md { font-size: 104px; }
+      .headline.sm { font-size: 96px; }
+      .headline em { font-style: normal; color: var(--llama); }
+      .headline.box { display: inline; background: var(--granate); padding: 4px 22px 0; text-shadow: none;
+        -webkit-box-decoration-break: clone; box-decoration-break: clone; line-height: 1.08; }
+      .bar { display: block; width: 140px; height: 12px; background: var(--granate); margin-top: 26px; }
+
+      /* Fórmula del peso: tara + 10 kg = lo que marca la balanza */
+      #formula { position: absolute; left: 80px; right: 80px; top: 120px; }
+      #formula .row { display: flex; align-items: baseline; gap: 22px; margin-bottom: 14px; }
+      #formula .op { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 120px; line-height: 0.9;
+        color: var(--llama); text-shadow: 0 4px 24px rgba(27,21,18,0.7); width: 90px; text-align: center; }
+      #formula .big { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 120px; line-height: 0.9;
+        text-transform: uppercase; color: var(--crema); text-shadow: 0 4px 24px rgba(27,21,18,0.7); }
+      #formula .sub { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 40px; letter-spacing: 0.04em;
+        text-transform: uppercase; color: var(--crema); background: var(--granate); padding: 6px 16px 4px; align-self: center; }
+      #formula .res { display: inline-block; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 64px;
+        line-height: 1; text-transform: uppercase; color: var(--marron); background: var(--llama); padding: 10px 22px 6px; }
+
+      /* Checklist de planta */
+      #checks, #checks2 { position: absolute; left: 80px; top: 340px; display: flex; flex-direction: column; gap: 16px; }
+      #checks2 { top: 410px; }  /* el titular de t4 ocupa dos líneas */
+      .chk { display: inline-flex; align-items: center; gap: 18px; font-family: "Barlow Condensed", sans-serif; font-weight: 800;
+        font-size: 64px; line-height: 1; text-transform: uppercase; color: var(--marron); background: var(--crema); padding: 10px 26px 6px 16px; }
+      .tick { display: inline-flex; align-items: center; justify-content: center; width: 54px; height: 54px; border-radius: 50%;
+        background: var(--granate); color: var(--crema); font-size: 40px; }
+
+      .cap { position: absolute; left: 70px; right: 150px; top: 880px; }
+      .cap-in { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 84px; line-height: 1.02;
+        text-transform: uppercase; color: var(--crema); text-align: left;
+        text-shadow: 0 3px 0 rgba(27,21,18,0.9), 0 0 22px rgba(27,21,18,0.85); }
+      .cap-in .w { display: inline-block; }
+
+      #end { position: absolute; inset: 0; background: var(--crema); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      #end-logo { width: 200px; height: auto; display: block; }
+      #end-num { margin-top: 40px; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 88px; line-height: 0.9;
+        text-transform: uppercase; color: var(--granate); text-align: center; }
+      #end-tag, .end-tag {
+        margin-top: 10px; font-family: "Barlow Condensed", sans-serif; font-weight: 800; text-transform: uppercase;
+        font-size: 72px; line-height: 0.95; color: var(--marron); text-align: center; max-width: 900px;
+      }
+      #end-tag em, .end-tag em { font-style: normal; color: var(--granate); }
+      /* Contacto: ícono oficial de WhatsApp (Simple Icons) y número grande en negro, igual que el post 7 */
+      #end-wa { margin-top: 30px; display: flex; flex-direction: column; align-items: center; }
+      #end-wa .wa-lbl { font-weight: 700; font-size: 42px; color: var(--marron); letter-spacing: 0.01em; }
+      #end-wa .wa-row { margin-top: 18px; display: flex; align-items: center; gap: 26px; background: #ffffff;
+        border: 5px solid #25D366; border-radius: 999px; padding: 18px 48px 18px 30px; }
+      #end-wa .wa-ico { width: 100px; height: 100px; display: block; }
+      #end-wa .wa-num { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 104px; line-height: 1;
+        color: #000000; letter-spacing: 0.01em; }
+      #end-handle {
+        margin-top: 34px; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 44px;
+        color: var(--crema); background: var(--granate); padding: 10px 28px 8px;
+      }
+      #end-rule { position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: var(--granate); }
+      #end-wave { position: absolute; left: 0; right: 0; top: 0; height: 22px; background: var(--granate); }
+    </style>
+  </head>
+  <body>
+    <!-- Generado por scripts/build.py. Balanza, llenado y precinto: imágenes de kie.ai (Nano Banana 2) animadas con
+         Kling 2.1, con el balón real de 10 kg como referencia. Camión: foto real con paneo, sin IA. -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="38.3" data-width="1080" data-height="1350">
+      <div id="s1-vis" class="shot-wrap"><video id="s1" class="clip shot" src="assets/clips/a-balanza.mp4" data-start="0.0" data-duration="3.86" data-media-start="0" data-track-index="0" muted playsinline></video></div>
+      <div id="s2-vis" class="shot-wrap"><img id="s2" class="clip shot" src="assets/clips/a-balanza.png" data-start="3.46" data-duration="6.62" data-track-index="1" alt="" /></div>
+      <div id="s3-vis" class="shot-wrap"><video id="s3" class="clip shot" src="assets/clips/c-llenado.mp4" data-start="9.68" data-duration="3.77" data-media-start="0" data-track-index="0" muted playsinline></video></div>
+      <div id="s4-vis" class="shot-wrap"><video id="s4" class="clip shot" src="assets/clips/b-precinto.mp4" data-start="13.05" data-duration="2.98" data-media-start="0" data-track-index="1" muted playsinline></video></div>
+      <div id="s5-vis" class="shot-wrap"><img id="s5" class="clip wide" src="assets/img/camion-real.webp" data-start="15.63" data-duration="4.48" data-track-index="0" alt="" /></div>
+      <div id="s6-vis" class="shot-wrap"><video id="s6" class="clip shot" src="assets/clips/a-balanza.mp4" data-start="19.71" data-duration="9.16" data-media-start="0" data-track-index="1" muted playsinline></video></div>
+
+      <div id="veil" class="clip" data-start="0" data-duration="28.869999999999997" data-track-index="2"></div>
+
+      <div id="t1" class="clip card" data-start="0.1" data-duration="3.51" data-track-index="3">
+        <div class="t1-in">
+          <span class="kicker">Peso verificado</span>
+          <div class="headline">Tu balón llega <em>completo</em></div>
+        </div>
+      </div>
+
+      <div id="formula" class="clip" data-start="3.61" data-duration="6.22" data-track-index="3">
+        <div class="row r1"><span class="op"></span><span class="big">Tara</span><span class="sub">peso del balón vacío</span></div>
+        <div class="row r2"><span class="op">+</span><span class="big">10 kg</span><span class="sub">de gas</span></div>
+        <div class="row r3"><span class="op">=</span><span class="res">Lo que marca la balanza</span></div>
+      </div>
+
+      <div id="t2" class="clip card" data-start="9.83" data-duration="5.95" data-track-index="3">
+        <div class="t2-in">
+          <span class="kicker">En planta</span>
+          <div class="headline md">Uno por <em>uno</em></div>
+        </div>
+      </div>
+      <div id="checks" class="clip" data-start="10.73" data-duration="5.05" data-track-index="5">
+        <div class="chk c1"><span class="tick">✓</span>Pesado</div>
+        <div class="chk c2"><span class="tick">✓</span>Precinto</div>
+        <div class="chk c3"><span class="tick">✓</span>Etiqueta</div>
+      </div>
+
+      <div id="t3" class="clip card" data-start="15.78" data-duration="4.08" data-track-index="3">
+        <div class="t3-in">
+          <div class="headline md box">Peso <em>verificado</em></div>
+          <span class="bar"></span>
+        </div>
+      </div>
+
+      <div id="t4" class="clip card" data-start="19.86" data-duration="8.61" data-track-index="3">
+        <div class="t4-in">
+          <div class="headline md box">Pésalo y revisa <em>el precinto</em></div>
+        </div>
+      </div>
+      <!-- Cómo es un precinto correcto (sin primer plano: no hay foto real del precinto) -->
+      <div id="checks2" class="clip" data-start="23.76" data-duration="4.71" data-track-index="5">
+        <div class="chk c1"><span class="tick">✓</span>Amarillo</div>
+        <div class="chk c2"><span class="tick">✓</span>Con el nombre Amazon Gas</div>
+        <div class="chk c3"><span class="tick">✓</span>Sin romper</div>
+      </div>
+
+      <div id="cap0" class="clip cap" data-start="0.30" data-duration="0.96" data-track-index="4"><div class="cap-in"><span class="w" id="w0_0">Tu</span> <span class="w" id="w0_1">balón</span> <span class="w" id="w0_2">llega</span></div></div>
+      <div id="cap1" class="clip cap" data-start="1.26" data-duration="0.96" data-track-index="4"><div class="cap-in"><span class="w" id="w1_0">completo.</span></div></div>
+      <div id="cap2" class="clip cap" data-start="2.23" data-duration="0.40" data-track-index="4"><div class="cap-in"><span class="w" id="w2_0">Y</span> <span class="w" id="w2_1">te</span> <span class="w" id="w2_2">lo</span></div></div>
+      <div id="cap3" class="clip cap" data-start="2.62" data-duration="0.99" data-track-index="4"><div class="cap-in"><span class="w" id="w3_0">mostramos.</span></div></div>
+      <div id="cap4" class="clip cap" data-start="3.61" data-duration="1.06" data-track-index="4"><div class="cap-in"><span class="w" id="w4_0">Cada</span> <span class="w" id="w4_1">balón</span> <span class="w" id="w4_2">tiene</span></div></div>
+      <div id="cap5" class="clip cap" data-start="4.67" data-duration="1.33" data-track-index="4"><div class="cap-in"><span class="w" id="w5_0">su</span> <span class="w" id="w5_1">tara</span> <span class="w" id="w5_2">grabada.</span></div></div>
+      <div id="cap6" class="clip cap" data-start="6.00" data-duration="1.65" data-track-index="4"><div class="cap-in"><span class="w" id="w6_0">Súmale</span> <span class="w" id="w6_1">diez</span> <span class="w" id="w6_2">kilos,</span></div></div>
+      <div id="cap7" class="clip cap" data-start="7.65" data-duration="0.70" data-track-index="4"><div class="cap-in"><span class="w" id="w7_0">y</span> <span class="w" id="w7_1">eso</span> <span class="w" id="w7_2">tiene</span></div></div>
+      <div id="cap8" class="clip cap" data-start="8.35" data-duration="0.60" data-track-index="4"><div class="cap-in"><span class="w" id="w8_0">que</span> <span class="w" id="w8_1">marcar</span> <span class="w" id="w8_2">la</span></div></div>
+      <div id="cap9" class="clip cap" data-start="8.95" data-duration="0.88" data-track-index="4"><div class="cap-in"><span class="w" id="w9_0">balanza.</span></div></div>
+      <div id="cap10" class="clip cap" data-start="9.83" data-duration="0.89" data-track-index="4"><div class="cap-in"><span class="w" id="w10_0">En</span> <span class="w" id="w10_1">planta</span> <span class="w" id="w10_2">lo</span></div></div>
+      <div id="cap11" class="clip cap" data-start="10.73" data-duration="1.17" data-track-index="4"><div class="cap-in"><span class="w" id="w11_0">pesamos</span> <span class="w" id="w11_1">uno</span> <span class="w" id="w11_2">por</span></div></div>
+      <div id="cap12" class="clip cap" data-start="11.90" data-duration="0.57" data-track-index="4"><div class="cap-in"><span class="w" id="w12_0">uno,</span></div></div>
+      <div id="cap13" class="clip cap" data-start="12.47" data-duration="0.73" data-track-index="4"><div class="cap-in"><span class="w" id="w13_0">y</span> <span class="w" id="w13_1">le</span> <span class="w" id="w13_2">ponemos</span></div></div>
+      <div id="cap14" class="clip cap" data-start="13.20" data-duration="1.40" data-track-index="4"><div class="cap-in"><span class="w" id="w14_0">precinto</span> <span class="w" id="w14_1">y</span> <span class="w" id="w14_2">etiqueta</span></div></div>
+      <div id="cap15" class="clip cap" data-start="14.60" data-duration="0.59" data-track-index="4"><div class="cap-in"><span class="w" id="w15_0">antes</span> <span class="w" id="w15_1">de</span> <span class="w" id="w15_2">que</span></div></div>
+      <div id="cap16" class="clip cap" data-start="15.20" data-duration="0.58" data-track-index="4"><div class="cap-in"><span class="w" id="w16_0">salga.</span></div></div>
+      <div id="cap17" class="clip cap" data-start="15.78" data-duration="1.08" data-track-index="4"><div class="cap-in"><span class="w" id="w17_0">Porque</span> <span class="w" id="w17_1">cuando</span> <span class="w" id="w17_2">pagas</span></div></div>
+      <div id="cap18" class="clip cap" data-start="16.86" data-duration="0.97" data-track-index="4"><div class="cap-in"><span class="w" id="w18_0">tu</span> <span class="w" id="w18_1">balón,</span></div></div>
+      <div id="cap19" class="clip cap" data-start="17.83" data-duration="1.08" data-track-index="4"><div class="cap-in"><span class="w" id="w19_0">compras</span> <span class="w" id="w19_1">diez</span> <span class="w" id="w19_2">kilos</span></div></div>
+      <div id="cap20" class="clip cap" data-start="18.91" data-duration="0.95" data-track-index="4"><div class="cap-in"><span class="w" id="w20_0">de</span> <span class="w" id="w20_1">gas.</span></div></div>
+      <div id="cap21" class="clip cap" data-start="19.86" data-duration="1.34" data-track-index="4"><div class="cap-in"><span class="w" id="w21_0">Cuando</span> <span class="w" id="w21_1">te</span> <span class="w" id="w21_2">llegue,</span></div></div>
+      <div id="cap22" class="clip cap" data-start="21.20" data-duration="1.32" data-track-index="4"><div class="cap-in"><span class="w" id="w22_0">pésalo</span> <span class="w" id="w22_1">y</span> <span class="w" id="w22_2">revisa</span></div></div>
+      <div id="cap23" class="clip cap" data-start="22.52" data-duration="1.24" data-track-index="4"><div class="cap-in"><span class="w" id="w23_0">el</span> <span class="w" id="w23_1">precinto.</span></div></div>
+      <div id="cap24" class="clip cap" data-start="23.76" data-duration="1.30" data-track-index="4"><div class="cap-in"><span class="w" id="w24_0">Amarillo,</span></div></div>
+      <div id="cap25" class="clip cap" data-start="25.07" data-duration="0.89" data-track-index="4"><div class="cap-in"><span class="w" id="w25_0">con</span> <span class="w" id="w25_1">el</span> <span class="w" id="w25_2">nombre</span></div></div>
+      <div id="cap26" class="clip cap" data-start="25.96" data-duration="1.17" data-track-index="4"><div class="cap-in"><span class="w" id="w26_0">Amazon</span> <span class="w" id="w26_1">Gas,</span></div></div>
+      <div id="cap27" class="clip cap" data-start="27.13" data-duration="1.34" data-track-index="4"><div class="cap-in"><span class="w" id="w27_0">y</span> <span class="w" id="w27_1">sin</span> <span class="w" id="w27_2">romper.</span></div></div>
+
+      <div id="end" class="clip" data-start="28.47" data-duration="9.83" data-track-index="6">
+        <div id="end-wave"></div>
+        <img id="end-logo" src="assets/img/logo.png" alt="Amazon Gas" />
+        <div id="end-wa">
+          <div class="wa-lbl">¿No te cuadra? Escríbenos</div>
+          <div class="wa-row"><img class="wa-ico" src="assets/img/whatsapp.svg" alt="WhatsApp" /><span class="wa-num">991 511 401</span></div>
+        </div>
+        <!-- Frase final pedida por Enzo, después del WhatsApp -->
+        <div id="end-num">Peso exacto,</div>
+        <div id="end-tag">peso <em>verificado</em></div>
+        <div id="end-tag2" class="end-tag">y precio <em>justo</em></div>
+        <div id="end-handle">@amazongasperu</div>
+        <div id="end-rule"></div>
+      </div>
+
+      <audio id="musica" src="assets/audio/musica.mp3" data-start="0" data-duration="38.3" data-track-index="11" data-volume="0.45"
+        data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.5,"v":1},{"t":36.5,"v":1},{"t":38.3,"v":0}]}]}' data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voz&quot;],&quot;strength&quot;:0.8}"></audio>
+      <audio id="voz" src="assets/audio/voz.mp3" data-start="0.3" data-duration="35.43" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+
+      // Gancho: Tu balón llega completo
+      tl.fromTo("#t1 .kicker", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 0.1);
+      tl.fromTo("#t1 .headline", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 0.2);
+      tl.to("#t1 .t1-in", { opacity: 0, duration: 0.2 }, 3.41);
+
+      // Tara + 10 kg = lo que marca la balanza, cada parte cuando la voz la dice
+      tl.fromTo("#formula .r1", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.35, ease: E }, 4.76);
+      tl.fromTo("#formula .r2", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.35, ease: E }, 6.47);
+      tl.fromTo("#formula .r3", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 8.37);
+      tl.to("#formula", { opacity: 0, duration: 0.2 }, 9.63);
+      tl.fromTo("#s2", { scale: 1.0 }, { scale: 1.12, duration: 6.62, ease: "none", transformOrigin: "40% 70%" }, 3.46);
+
+      // En planta, uno por uno: pesado, precinto, etiqueta
+      tl.fromTo("#t2 .kicker", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 9.83);
+      tl.fromTo("#t2 .headline", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 9.93);
+      tl.fromTo("#checks .c1", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.3, ease: E }, 10.73);
+      tl.fromTo("#checks .c2", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.3, ease: E }, 13.2);
+      tl.fromTo("#checks .c3", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.3, ease: E }, 13.96);
+      tl.to(["#t2 .t2-in", "#checks"], { opacity: 0, duration: 0.2 }, 15.58);
+
+      // Peso verificado
+      tl.fromTo("#t3 .headline", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 15.78);
+      tl.fromTo("#t3 .bar", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.35, ease: E }, 16.08);
+      tl.to("#t3 .t3-in", { opacity: 0, duration: 0.2 }, 19.66);
+
+      // Pésalo cuando te llegue
+      tl.fromTo("#t4 .headline", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 19.86);
+      tl.fromTo("#checks2 .c1", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.3, ease: E }, 23.76);
+      tl.fromTo("#checks2 .c2", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.3, ease: E }, 25.47);
+      tl.fromTo("#checks2 .c3", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.3, ease: E }, 27.3);
+
+      // Foto real del camión (16:9) en formato vertical: paneo de la carga hacia la cabina y el letrero
+      tl.fromTo("#s5", { x: -180, scale: 1.0 }, { x: -948, scale: 1.03, duration: 4.48, ease: "sine.inOut" }, 15.63);
+
+      // La toma 6 dura más que el clip (5 s): zoom lento para que el último fotograma no se vea congelado
+      tl.fromTo("#s6", { scale: 1.0 }, { scale: 1.1, duration: 9.16, ease: "none", transformOrigin: "50% 60%" }, 19.71);
+
+      // Fundidos entre tomas
+      tl.fromTo("#s2-vis", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 3.46);
+      tl.fromTo("#s3-vis", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 9.68);
+      tl.fromTo("#s4-vis", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 13.05);
+      tl.fromTo("#s5-vis", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 15.63);
+      tl.fromTo("#s6-vis", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 19.71);
+
+      // Cierre
+      tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 28.47);
+      tl.fromTo("#end-logo", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 28.52);
+      tl.fromTo("#end-wave", { scaleX: 0, transformOrigin: "100% 50%" }, { scaleX: 1, duration: 0.8, ease: E }, 28.67);
+      tl.fromTo("#end-rule", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.8, ease: E }, 28.67);
+      tl.fromTo("#end-num", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 31.95);
+      tl.fromTo("#end-tag", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 33.26);
+      tl.fromTo("#end-tag2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 34.53);
+      tl.fromTo("#end-wa", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 29.81);
+      tl.fromTo("#end-wa .wa-ico", { scale: 0.6 }, { scale: 1, duration: 0.5, ease: "back.out(2)" }, 29.91);
+      tl.fromTo("#end-handle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 36.03);
+
+      // Subtítulos: la palabra que se dice se enciende en amarillo llama
+      tl.fromTo("#cap0 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 0.30);
+      tl.fromTo("#w0_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.30);
+      tl.fromTo("#w0_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.55);
+      tl.fromTo("#w0_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.93);
+      tl.fromTo("#cap1 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 1.26);
+      tl.fromTo("#w1_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 1.26);
+      tl.fromTo("#cap2 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 2.23);
+      tl.fromTo("#w2_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.23);
+      tl.fromTo("#w2_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.40);
+      tl.fromTo("#w2_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.52);
+      tl.fromTo("#cap3 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 2.62);
+      tl.fromTo("#w3_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.62);
+      tl.fromTo("#cap4 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 3.61);
+      tl.fromTo("#w4_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 3.61);
+      tl.fromTo("#w4_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 3.96);
+      tl.fromTo("#w4_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 4.39);
+      tl.fromTo("#cap5 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 4.67);
+      tl.fromTo("#w5_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 4.67);
+      tl.fromTo("#w5_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 4.86);
+      tl.fromTo("#w5_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.12);
+      tl.fromTo("#cap6 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 6.00);
+      tl.fromTo("#w6_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 6.00);
+      tl.fromTo("#w6_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 6.57);
+      tl.fromTo("#w6_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 6.85);
+      tl.fromTo("#cap7 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 7.65);
+      tl.fromTo("#w7_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 7.65);
+      tl.fromTo("#w7_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 7.81);
+      tl.fromTo("#w7_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 8.05);
+      tl.fromTo("#cap8 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 8.35);
+      tl.fromTo("#w8_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 8.35);
+      tl.fromTo("#w8_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 8.47);
+      tl.fromTo("#w8_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 8.85);
+      tl.fromTo("#cap9 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 8.95);
+      tl.fromTo("#w9_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 8.95);
+      tl.fromTo("#cap10 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 9.83);
+      tl.fromTo("#w10_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 9.83);
+      tl.fromTo("#w10_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 10.06);
+      tl.fromTo("#w10_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 10.58);
+      tl.fromTo("#cap11 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 10.73);
+      tl.fromTo("#w11_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 10.73);
+      tl.fromTo("#w11_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.38);
+      tl.fromTo("#w11_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.64);
+      tl.fromTo("#cap12 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 11.90);
+      tl.fromTo("#w12_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.90);
+      tl.fromTo("#cap13 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 12.47);
+      tl.fromTo("#w13_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 12.47);
+      tl.fromTo("#w13_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 12.64);
+      tl.fromTo("#w13_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 12.78);
+      tl.fromTo("#cap14 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 13.20);
+      tl.fromTo("#w14_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 13.20);
+      tl.fromTo("#w14_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 13.88);
+      tl.fromTo("#w14_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 13.96);
+      tl.fromTo("#cap15 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 14.60);
+      tl.fromTo("#w15_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 14.60);
+      tl.fromTo("#w15_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 14.94);
+      tl.fromTo("#w15_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 15.04);
+      tl.fromTo("#cap16 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 15.20);
+      tl.fromTo("#w16_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 15.20);
+      tl.fromTo("#cap17 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 15.78);
+      tl.fromTo("#w17_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 15.78);
+      tl.fromTo("#w17_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 16.15);
+      tl.fromTo("#w17_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 16.48);
+      tl.fromTo("#cap18 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 16.86);
+      tl.fromTo("#w18_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 16.86);
+      tl.fromTo("#w18_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 17.01);
+      tl.fromTo("#cap19 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 17.83);
+      tl.fromTo("#w19_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 17.83);
+      tl.fromTo("#w19_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 18.27);
+      tl.fromTo("#w19_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 18.57);
+      tl.fromTo("#cap20 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 18.91);
+      tl.fromTo("#w20_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 18.91);
+      tl.fromTo("#w20_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 19.02);
+      tl.fromTo("#cap21 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 19.86);
+      tl.fromTo("#w21_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 19.86);
+      tl.fromTo("#w21_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 20.27);
+      tl.fromTo("#w21_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 20.39);
+      tl.fromTo("#cap22 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 21.20);
+      tl.fromTo("#w22_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 21.20);
+      tl.fromTo("#w22_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 21.92);
+      tl.fromTo("#w22_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 22.10);
+      tl.fromTo("#cap23 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 22.52);
+      tl.fromTo("#w23_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 22.52);
+      tl.fromTo("#w23_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 22.64);
+      tl.fromTo("#cap24 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 23.76);
+      tl.fromTo("#w24_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 23.76);
+      tl.fromTo("#cap25 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 25.07);
+      tl.fromTo("#w25_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 25.07);
+      tl.fromTo("#w25_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 25.33);
+      tl.fromTo("#w25_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 25.47);
+      tl.fromTo("#cap26 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 25.96);
+      tl.fromTo("#w26_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 25.96);
+      tl.fromTo("#w26_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 26.50);
+      tl.fromTo("#cap27 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 27.13);
+      tl.fromTo("#w27_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 27.13);
+      tl.fromTo("#w27_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 27.30);
+      tl.fromTo("#w27_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 27.56);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

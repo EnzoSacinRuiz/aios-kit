@@ -1,0 +1,64 @@
+# Copies — post 11 (borrador, pendiente de aprobación de papá)
+
+_Ningún post sale sin la aprobación de papá. Él pidió verlo antes de que se suba (conversación del 2026-10-26)._
+_Frase final "peso exacto, peso verificado y precio justo" pedida por Enzo el 2026-10-26. Papá había dicho no tocar el precio: confirmarla con él al aprobar._
+_Responde, sin nombrarlos, a los comentarios de que el balón llega incompleto (ver reports/analisis-comentarios-2026-10-26.md). No cita la queja: abre en positivo, con "Tu balón llega completo". El precio NO se toca, por decisión de papá del 2026-10-26._
+
+---
+
+## Post 11 · Peso verificado · "Tu balón llega completo"
+
+**Archivos:** `post-11-peso.mp4` (1080×1920, 38,3 s) para TikTok y `post-11-peso-4x5.mp4` (1080×1350) para el feed de Instagram y Facebook. Hechos con kie.ai (imágenes y clips de IA de planta, con el balón real como referencia) y la foto real del camión. Si se graban tomas reales en planta, se reemplazan en `post-11-peso/scripts/build.py`.
+
+### Guion
+
+| Tiempo | Toma (grabar en planta) | Texto en pantalla | Voz |
+|---|---|---|---|
+| 0–3 s | Balón subiendo a la balanza | Tu balón llega completo | Tu balón llega completo. Y te lo mostramos. |
+| 3–9 s | Primer plano de la tara grabada en el balón y después del número en la balanza | Tara + 10 kg | Cada balón tiene su tara grabada. Súmale 10 kilos y eso tiene que marcar. |
+| 9–15 s | Línea de llenado, precinto puesto a mano, etiqueta | Peso verificado, uno por uno | En planta lo pesamos uno por uno, y le ponemos precinto y etiqueta antes de que salga. |
+| 15–20 s | Balones listos saliendo al reparto | Peso verificado | Porque cuando pagas tu balón, compras 10 kilos de gas. Y eso es lo que te tiene que llegar. |
+| 16–23 s | Vuelve el balón en la balanza | Pésalo y revisa el precinto / ✓ Amarillo ✓ Con el nombre Amazon Gas ✓ Sin romper | Cuando te llegue, pésalo y revisa el precinto. Amarillo, con el nombre Amazon Gas, y sin romper. |
+| 23–31 s | Cierre con logo, WhatsApp y frase final | ¿No te cuadra? Escríbenos / 991 511 401 / Peso exacto, peso verificado y precio justo | Y si no te cuadra, escríbenos al WhatsApp. Peso exacto, peso verificado y precio justo. |
+
+### Tomas a grabar (celular en vertical, buena luz)
+1. Un balón subiendo a la balanza, en plano completo, de 3 a 4 s.
+2. Primer plano de la tara grabada en el cuello del balón, que se lea el número.
+3. Primer plano de la pantalla de la balanza con el peso total, quieto 3 s.
+4. La línea de llenado en movimiento.
+5. Manos poniendo el precinto y la etiqueta.
+6. Balones cargándose al camión o saliendo de planta.
+7. Si se puede, el mismo balón pesado en una balanza común, para mostrar que cualquiera puede hacerlo.
+
+### TikTok
+Tu balón llega completo. Te lo mostramos ⚖️
+
+Tara + 10 kilos. Pésalo cuando te llegue y revisa el precinto: amarillo, con el nombre Amazon Gas y sin romper.
+
+#Iquitos #Loreto #AmazonGas #GLP #BalonDeGas
+
+### Instagram (Reel)
+Tu balón llega completo. Te lo mostramos ⚖️
+
+Cada balón tiene su tara grabada: súmale 10 kilos y eso tiene que marcar la balanza. En planta los pesamos uno por uno, con precinto y etiqueta, antes de que salgan.
+
+Cuando te llegue, pésalo y revisa el precinto: amarillo, con el nombre Amazon Gas y sin romper. Si no te cuadra, escríbenos al WhatsApp 991 511 401.
+
+#Iquitos #Loreto #AmazonGas #GLP
+
+### Facebook
+Tu balón llega completo. Y te lo mostramos. ⚖️
+
+Cada balón tiene grabado su peso vacío, que se llama tara. Súmale 10 kilos y eso es lo que tiene que marcar la balanza. En planta los pesamos uno por uno y les ponemos precinto y etiqueta antes de que salgan.
+
+Cuando pagas tu balón, compras 10 kilos de gas. Cuando te llegue, pésalo (es tu derecho) y revisa el precinto: amarillo, con el nombre Amazon Gas y sin romper. Si no te cuadra, escríbenos al WhatsApp 991 511 401.
+
+#AmazonGas #Iquitos #Loreto #PesoVerificado
+
+---
+
+### Confirmar con papá antes de grabar
+- Permiso para grabar en planta (tomas 1 a 6).
+- Que el pesaje sea de verdad uno por uno, y cuánto margen de error tiene.
+- Quién atiende los WhatsApp de "no me cuadra", porque el post invita a escribir.
+- Confirmar que el precinto dice "Amazon Gas" (y no "Energeo", la marca del cilindro según context/work.md).

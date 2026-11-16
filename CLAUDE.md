@@ -110,6 +110,7 @@ dead path. Delete it or create it — don't leave it sitting there.
 | What | When | What it does |
 |---|---|---|
 | `scripts/aios-freshness-check.sh` | `SessionStart` hook, every session | Checks four things and speaks only when something has drifted: the demo still installed, stale `context/`, no audit in 30 days, apparent secrets tracked by git. While the demo is still installed it says that and nothing else — a fresh clone opens with one actionable line, not a wall of warnings. **Read-only. Fixes nothing.** |
+| `projects/redes-amazon-gas/analisis-comentarios/server.py` on Railway (project `amazon-gas-comentarios`, service `dashboard`) | Every 12 h (`SCRAPE_HOURS`), no session needed | Runs `scripts/scrape.py` against Apify (~USD 0.07 per run): posts, comments and follower counts for Facebook, Instagram and TikTok. Writes to the Railway volume `/data`, where `historial.json` accumulates one follower snapshot per day — the only follower history that exists, so never delete the volume. Serves the password-protected dashboard and its 2-page executive PDF export. Deploy with `railway up` from that folder — it is not wired to git. Logs: `railway logs`. |
 
 **Why a hook and not a cron:** a hook lives in `.claude/settings.json` and runs on this
 machine, every session, forever. A session-scoped cron dies when the session closes. If you

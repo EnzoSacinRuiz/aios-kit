@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Barlow Condensed"; font-weight: 600; src: url("assets/fonts/BarlowCondensed-SemiBold.ttf") format("truetype"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("assets/fonts/BarlowCondensed-Bold.ttf") format("truetype"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url("assets/fonts/BarlowCondensed-ExtraBold.ttf") format("truetype"); }
+      @font-face { font-family: "Inter"; font-weight: 100 900; src: url("assets/fonts/Inter.ttf") format("truetype"); }
+      :root { --granate: #8e4149; --granate-oscuro: #6e2f35; --marron: #1b1512; --crema: #fbf8f3; --arena: #c9bdb0; --llama: #f5dc17; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--marron); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; }
+      .shot-wrap { position: absolute; inset: 0; overflow: hidden; }
+      img.still-full { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      video.shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      #veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(27,21,18,0.45) 0%, rgba(27,21,18,0) 22%, rgba(27,21,18,0) 55%, rgba(27,21,18,0.55) 100%); }
+
+      /* Gancho */
+      #hook { position: absolute; left: 60px; right: 60px; top: 120px; text-align: center; }
+      .hook-in { display: inline-block; background: var(--granate); padding: 18px 34px 14px; }
+      .hook-t { font-family: "Barlow Condensed", sans-serif; font-weight: 800; text-transform: uppercase; color: var(--crema);
+        font-size: 78px; line-height: 0.95; letter-spacing: 0.005em; }
+      .hook-t em { font-style: normal; color: var(--llama); }
+
+      /* Rótulo del personaje */
+      #name { position: absolute; left: 60px; top: 1060px; }
+      .name-k { display: inline-block; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 64px; text-transform: uppercase;
+        color: var(--marron); background: var(--crema); padding: 6px 20px 2px; }
+      .name-s { display: block; width: max-content; margin-top: 8px; font-weight: 600; font-size: 34px; color: var(--crema); background: var(--granate); padding: 6px 16px; }
+
+      /* Inserto */
+      #pff { position: absolute; left: 0; right: 0; top: 330px; text-align: center; }
+      .pff-t { display: inline-block; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 150px; color: var(--crema);
+        text-shadow: 0 4px 0 rgba(27,21,18,0.9), 0 0 30px rgba(27,21,18,0.8); letter-spacing: 0.04em; }
+      .pff-s { display: block; margin-top: 4px; font-weight: 700; font-size: 46px; color: var(--crema); text-shadow: 0 2px 14px rgba(27,21,18,0.9); }
+
+      /* Subtítulos */
+      .cap { position: absolute; left: 70px; right: 70px; top: 1330px; text-align: center; }
+      .cap-in { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 92px; line-height: 1.0; text-transform: uppercase; color: var(--crema);
+        text-shadow: 0 4px 0 rgba(27,21,18,0.95), 0 0 24px rgba(27,21,18,0.9); }
+      .cap-in .w { display: inline-block; }
+
+      /* Cierre */
+      #end { position: absolute; inset: 0; background: var(--crema); }
+      #end-balon { position: absolute; left: 50%; top: 150px; height: 640px; width: auto; transform: translateX(-50%); }
+      #end-logo { position: absolute; left: 50%; top: 830px; width: 220px; height: auto; transform: translateX(-50%); }
+      #end-tag { position: absolute; left: 70px; right: 70px; top: 1150px; text-align: center; font-family: "Barlow Condensed", sans-serif; font-weight: 800;
+        text-transform: uppercase; font-size: 104px; line-height: 0.93; color: var(--marron); }
+      #end-tag em { font-style: normal; color: var(--granate); }
+      #end-wa { position: absolute; left: 50%; top: 1430px; transform: translateX(-50%); white-space: nowrap; font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700; font-size: 60px; color: var(--crema); background: var(--granate); padding: 12px 34px 8px; }
+      #end-handle { position: absolute; left: 0; right: 0; top: 1570px; text-align: center; font-weight: 600; font-size: 38px; color: #6b5d51; }
+      #end-rule { position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: var(--granate); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="24.35" data-width="1080" data-height="1920">
+      <!-- Planos: Doña Meche (kie.ai Nano Banana 2 + Kling AI Avatar con la voz de ElevenLabs) -->
+      <div id="va-vis" class="shot-wrap"><video id="va" class="clip shot" src="assets/clips/a.mp4" data-start="0.0" data-duration="6.88" data-track-index="0" muted playsinline></video></div>
+      <!-- Inserto: dos fotogramas (llama encendida / apagada) con parpadeo, igual que en el post 4 -->
+      <div id="vd-vis" class="clip shot-wrap" data-start="6.88" data-duration="2.2" data-track-index="1">
+        <div id="vd" class="shot-wrap"><img class="still-full" src="assets/img/e-hornilla-1080.jpg" alt="" /><img id="vd-on" class="still-full" src="assets/img/d-hornilla-1080.jpg" alt="" /></div>
+      </div>
+      <div id="vb-vis" class="shot-wrap"><video id="vb" class="clip shot" src="assets/clips/b.mp4" data-start="9.08" data-duration="4.06" data-track-index="0" muted playsinline></video></div>
+      <div id="vc-vis" class="shot-wrap"><video id="vc" class="clip shot" src="assets/clips/c.mp4" data-start="13.14" data-duration="7.81" data-track-index="1" muted playsinline></video></div>
+      <div id="veil" class="clip" data-start="0" data-duration="20.95" data-track-index="2"></div>
+
+      <div id="hook" class="clip" data-start="0.05" data-duration="6.63" data-track-index="3">
+        <div class="hook-in"><div class="hook-t">Sábado de <em>Halloween</em><br />y Canción Criolla</div></div>
+      </div>
+      <div id="name" class="clip" data-start="1.0" data-duration="3.8" data-track-index="4">
+        <span class="name-k">Doña Meche</span>
+        <span class="name-s">La vecina · ya la conoces</span>
+      </div>
+      <div id="pff" class="clip" data-start="7.38" data-duration="1.70" data-track-index="3">
+        <span class="pff-t">PFFF…</span>
+        <span class="pff-s">y se apagó la candela…</span>
+      </div>
+
+      <div id="cap0" class="clip cap" data-start="0.00" data-duration="0.88" data-track-index="5"><div class="cap-in"><span class="w" id="w0_0">Sábado</span> <span class="w" id="w0_1">de</span> <span class="w" id="w0_2">jarana</span></div></div>
+      <div id="cap1" class="clip cap" data-start="0.88" data-duration="1.96" data-track-index="5"><div class="cap-in"><span class="w" id="w1_0">criolla</span> <span class="w" id="w1_1">y</span> <span class="w" id="w1_2">Halloween.</span></div></div>
+      <div id="cap2" class="clip cap" data-start="2.84" data-duration="0.98" data-track-index="5"><div class="cap-in"><span class="w" id="w2_0">¿Brujas?</span></div></div>
+      <div id="cap3" class="clip cap" data-start="3.82" data-duration="1.24" data-track-index="5"><div class="cap-in"><span class="w" id="w3_0">¿Fantasmas?</span></div></div>
+      <div id="cap4" class="clip cap" data-start="5.06" data-duration="0.44" data-track-index="5"><div class="cap-in"><span class="w" id="w4_0">A</span> <span class="w" id="w4_1">mí</span> <span class="w" id="w4_2">nada</span></div></div>
+      <div id="cap5" class="clip cap" data-start="5.50" data-duration="0.52" data-track-index="5"><div class="cap-in"><span class="w" id="w5_0">me</span> <span class="w" id="w5_1">asusta,</span></div></div>
+      <div id="cap6" class="clip cap" data-start="6.03" data-duration="0.85" data-track-index="5"><div class="cap-in"><span class="w" id="w6_0">vecina.</span></div></div>
+      <div id="cap7" class="clip cap" data-start="9.08" data-duration="0.37" data-track-index="5"><div class="cap-in"><span class="w" id="w7_0">¡Ay,</span></div></div>
+      <div id="cap8" class="clip cap" data-start="9.45" data-duration="0.19" data-track-index="5"><div class="cap-in"><span class="w" id="w8_0">no,</span></div></div>
+      <div id="cap9" class="clip cap" data-start="9.64" data-duration="0.80" data-track-index="5"><div class="cap-in"><span class="w" id="w9_0">otra</span> <span class="w" id="w9_1">vez</span> <span class="w" id="w9_2">no!</span></div></div>
+      <div id="cap10" class="clip cap" data-start="10.44" data-duration="0.55" data-track-index="5"><div class="cap-in"><span class="w" id="w10_0">¿Se</span> <span class="w" id="w10_1">acabó</span> <span class="w" id="w10_2">el</span></div></div>
+      <div id="cap11" class="clip cap" data-start="10.98" data-duration="0.53" data-track-index="5"><div class="cap-in"><span class="w" id="w11_0">gas?</span></div></div>
+      <div id="cap12" class="clip cap" data-start="11.52" data-duration="0.61" data-track-index="5"><div class="cap-in"><span class="w" id="w12_0">¡Esto</span> <span class="w" id="w12_1">sí</span> <span class="w" id="w12_2">da</span></div></div>
+      <div id="cap13" class="clip cap" data-start="12.13" data-duration="0.91" data-track-index="5"><div class="cap-in"><span class="w" id="w13_0">miedo!</span></div></div>
+      <div id="cap14" class="clip cap" data-start="13.14" data-duration="0.86" data-track-index="5"><div class="cap-in"><span class="w" id="w14_0">El</span> <span class="w" id="w14_1">susto</span> <span class="w" id="w14_2">más</span></div></div>
+      <div id="cap15" class="clip cap" data-start="14.00" data-duration="1.28" data-track-index="5"><div class="cap-in"><span class="w" id="w15_0">grande</span> <span class="w" id="w15_1">de</span> <span class="w" id="w15_2">Iquitos</span></div></div>
+      <div id="cap16" class="clip cap" data-start="15.28" data-duration="0.92" data-track-index="5"><div class="cap-in"><span class="w" id="w16_0">es</span> <span class="w" id="w16_1">quedarse</span> <span class="w" id="w16_2">sin</span></div></div>
+      <div id="cap17" class="clip cap" data-start="16.19" data-duration="1.51" data-track-index="5"><div class="cap-in"><span class="w" id="w17_0">gas</span> <span class="w" id="w17_1">el</span> <span class="w" id="w17_2">sábado.</span></div></div>
+      <div id="cap18" class="clip cap" data-start="17.70" data-duration="1.28" data-track-index="5"><div class="cap-in"><span class="w" id="w18_0">Pide</span> <span class="w" id="w18_1">antes</span> <span class="w" id="w18_2">a</span></div></div>
+      <div id="cap19" class="clip cap" data-start="18.98" data-duration="1.04" data-track-index="5"><div class="cap-in"><span class="w" id="w19_0">Amazon</span> <span class="w" id="w19_1">Gas</span> <span class="w" id="w19_2">por</span></div></div>
+      <div id="cap20" class="clip cap" data-start="20.02" data-duration="0.93" data-track-index="5"><div class="cap-in"><span class="w" id="w20_0">WhatsApp.</span></div></div>
+
+      <div id="end" class="clip" data-start="20.95" data-duration="3.4" data-track-index="6">
+        <img id="end-balon" src="assets/img/balon-15kg.png" alt="Balón Amazon Gas" />
+        <img id="end-logo" src="assets/img/logo.png" alt="Amazon Gas" />
+        <div id="end-tag">Que el sábado no te <em>asuste</em></div>
+        <div id="end-wa">Pide al WhatsApp 991 511 401</div>
+        <div id="end-handle">@amazongasperu · Iquitos</div>
+        <div id="end-rule"></div>
+      </div>
+
+      <audio id="voz-a" src="assets/audio/voz-a.mp3" data-start="0.0" data-duration="6.88" data-track-index="10" data-volume="1"></audio>
+      <audio id="voz-b" src="assets/audio/voz-b.mp3" data-start="9.08" data-duration="4.06" data-track-index="10" data-volume="1"></audio>
+      <audio id="voz-c" src="assets/audio/voz-c.mp3" data-start="13.14" data-duration="7.81" data-track-index="10" data-volume="1"></audio>
+      <audio id="sfx-llama" src="assets/audio/sfx-llama.mp3" data-start="6.98" data-duration="2.0" data-track-index="11" data-volume="0.9"></audio>
+      <audio id="sfx-golpe" src="assets/audio/sfx-golpe.mp3" data-start="7.48" data-duration="1.8" data-track-index="12" data-volume="0.55"></audio>
+      <!-- Música en dos tramos: se calla en el inserto/susto y vuelve desde el seg. M2 de la pista para que su final coincida con el cierre -->
+      <audio id="musica" src="assets/audio/musica.mp3" data-start="0" data-duration="7.18" data-track-index="13" data-volume="0.2"
+        data-fade-in="0.4" data-fade-out="0.3"></audio>
+      <audio id="musica-2" src="assets/audio/musica.mp3" data-start="9.38" data-duration="14.97" data-media-start="7.38" data-track-index="14" data-volume="0.2"
+        data-fade-in="0.9" data-fade-out="0.4"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+
+      tl.fromTo("#hook .hook-in", { opacity: 0, y: -40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.7)" }, 0.05);
+      tl.to("#hook .hook-in", { opacity: 0, y: -20, duration: 0.2 }, 6.43);
+      tl.fromTo("#name .name-k", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.3, ease: E }, 1.0);
+      tl.fromTo("#name .name-s", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.3, ease: E }, 1.12);
+      tl.to("#name", { opacity: 0, duration: 0.2 }, 4.6);
+
+      // Corte seco al inserto; leve empuje de cámara sobre la hornilla
+      tl.fromTo("#vd", { scale: 1.0 }, { scale: 1.08, duration: 2.2, ease: "none" }, 6.88);
+      // La llama parpadea y se apaga
+      tl.set("#vd-on", { opacity: 1 }, 6.88);
+      tl.to("#vd-on", { opacity: 0.35, duration: 0.08 }, 7.03);
+      tl.to("#vd-on", { opacity: 1, duration: 0.08 }, 7.13);
+      tl.to("#vd-on", { opacity: 0.2, duration: 0.08 }, 7.26);
+      tl.to("#vd-on", { opacity: 0.8, duration: 0.06 }, 7.36);
+      tl.to("#vd-on", { opacity: 0, duration: 0.15 }, 7.46);
+      tl.fromTo("#pff .pff-t", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, 7.38);
+      tl.fromTo("#pff .pff-s", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 7.68);
+      // Zoom dramático en el susto
+      tl.fromTo("#vb", { scale: 1.0 }, { scale: 1.12, duration: 0.5, ease: "power2.out" }, 9.08);
+      tl.fromTo("#vb-vis", { x: -14 }, { x: 0, duration: 0.3, ease: "elastic.out(1, 0.3)" }, 9.08);
+
+      // Cierre
+      tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut" }, 20.95);
+      tl.fromTo("#end-balon", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.4)" }, 21.05);
+      tl.fromTo("#end-logo", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 21.30);
+      tl.fromTo("#end-tag", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 21.55);
+      tl.fromTo("#end-wa", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: E }, 21.95);
+      tl.fromTo("#end-handle", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 22.25);
+      tl.fromTo("#end-rule", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: E }, 21.15);
+
+      // Subtítulos (alineación de ElevenLabs): la palabra dicha se enciende en amarillo llama
+      tl.fromTo("#cap0 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 0.00);
+      tl.fromTo("#w0_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.00);
+      tl.fromTo("#w0_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.43);
+      tl.fromTo("#w0_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.53);
+      tl.fromTo("#cap1 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 0.88);
+      tl.fromTo("#w1_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.88);
+      tl.fromTo("#w1_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 1.45);
+      tl.fromTo("#w1_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 1.59);
+      tl.fromTo("#cap2 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 2.84);
+      tl.fromTo("#w2_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.84);
+      tl.fromTo("#cap3 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 3.82);
+      tl.fromTo("#w3_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 3.82);
+      tl.fromTo("#cap4 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 5.06);
+      tl.fromTo("#w4_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.06);
+      tl.fromTo("#w4_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.19);
+      tl.fromTo("#w4_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.31);
+      tl.fromTo("#cap5 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 5.50);
+      tl.fromTo("#w5_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.50);
+      tl.fromTo("#w5_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.60);
+      tl.fromTo("#cap6 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 6.03);
+      tl.fromTo("#w6_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 6.03);
+      tl.fromTo("#cap7 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 9.08);
+      tl.fromTo("#w7_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 9.08);
+      tl.fromTo("#cap8 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 9.45);
+      tl.fromTo("#w8_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 9.45);
+      tl.fromTo("#cap9 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 9.64);
+      tl.fromTo("#w9_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 9.64);
+      tl.fromTo("#w9_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 9.86);
+      tl.fromTo("#w9_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 10.11);
+      tl.fromTo("#cap10 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 10.44);
+      tl.fromTo("#w10_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 10.44);
+      tl.fromTo("#w10_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 10.67);
+      tl.fromTo("#w10_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 10.89);
+      tl.fromTo("#cap11 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 10.98);
+      tl.fromTo("#w11_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 10.98);
+      tl.fromTo("#cap12 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 11.52);
+      tl.fromTo("#w12_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.52);
+      tl.fromTo("#w12_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.87);
+      tl.fromTo("#w12_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.99);
+      tl.fromTo("#cap13 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 12.13);
+      tl.fromTo("#w13_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 12.13);
+      tl.fromTo("#cap14 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 13.14);
+      tl.fromTo("#w14_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 13.14);
+      tl.fromTo("#w14_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 13.44);
+      tl.fromTo("#w14_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 13.83);
+      tl.fromTo("#cap15 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 14.00);
+      tl.fromTo("#w15_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 14.00);
+      tl.fromTo("#w15_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 14.41);
+      tl.fromTo("#w15_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 14.50);
+      tl.fromTo("#cap16 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 15.28);
+      tl.fromTo("#w16_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 15.28);
+      tl.fromTo("#w16_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 15.49);
+      tl.fromTo("#w16_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 15.95);
+      tl.fromTo("#cap17 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 16.19);
+      tl.fromTo("#w17_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 16.19);
+      tl.fromTo("#w17_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 16.46);
+      tl.fromTo("#w17_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 16.64);
+      tl.fromTo("#cap18 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 17.70);
+      tl.fromTo("#w18_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 17.70);
+      tl.fromTo("#w18_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 18.18);
+      tl.fromTo("#w18_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 18.84);
+      tl.fromTo("#cap19 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 18.98);
+      tl.fromTo("#w19_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 18.98);
+      tl.fromTo("#w19_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 19.44);
+      tl.fromTo("#w19_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 19.82);
+      tl.fromTo("#cap20 .cap-in", { opacity: 0, y: 14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "power2.out" }, 20.02);
+      tl.fromTo("#w20_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 20.02);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1350" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1350px; overflow: hidden; background: #fbf8f3; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+      .slot { position: absolute; left: 0; top: 0; width: 1080px; height: 1350px; overflow: hidden; }
+      .slot .panel { position: absolute; inset: 0; overflow: hidden; }
+      .crema { background: #fbf8f3; } .marron { background: #1b1512; }
+      .slot img { display: block; width: 1080px; height: 1350px; }
+    </style>
+  </head>
+  <body>
+    <!-- Generado por scripts/opciones.py con c-cinematica: cada lámina llega justo en un golpe fuerte de la música. -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="18.2" data-width="1080" data-height="1350">
+      <div id="sl1" class="clip slot" data-start="0" data-duration="3.361" data-track-index="1"><div id="pn1" class="panel crema"><img id="im1" src="assets/post-02-slide-1.png" alt="" /></div></div>
+      <div id="sl2" class="clip slot" data-start="2.941" data-duration="4.377" data-track-index="2"><div id="pn2" class="panel marron"><img id="im2" src="assets/post-02-slide-2.png" alt="" /></div></div>
+      <div id="sl3" class="clip slot" data-start="6.898" data-duration="4.569" data-track-index="1"><div id="pn3" class="panel crema"><img id="im3" src="assets/post-02-slide-3.png" alt="" /></div></div>
+      <div id="sl4" class="clip slot" data-start="11.047" data-duration="4.463" data-track-index="2"><div id="pn4" class="panel marron"><img id="im4" src="assets/post-02-slide-4.png" alt="" /></div></div>
+      <div id="sl5" class="clip slot" data-start="15.09" data-duration="3.11" data-track-index="1"><div id="pn5" class="panel crema"><img id="im5" src="assets/post-02-slide-5.png" alt="" /></div></div>
+      <audio id="musica" data-timeline-role="music" src="assets/opciones/c-cinematica.mp3" data-start="0" data-duration="18.2" data-media-start="0.7" data-track-index="10" data-volume="0.9"
+        data-automation='{"version": 1, "lanes": [{"target": "volume", "points": [{"t": 0, "v": 0.7}, {"t": 0.5, "v": 1}, {"t": 16.8, "v": 1}, {"t": 18.2, "v": 0}]}]}'></audio>
+      <audio id="swipe1" src="assets/swipe.mp3" data-start="3.071" data-duration="0.8" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="swipe2" src="assets/swipe.mp3" data-start="7.028" data-duration="0.8" data-track-index="13" data-volume="0.45"></audio>
+      <audio id="swipe3" src="assets/swipe.mp3" data-start="11.177" data-duration="0.8" data-track-index="12" data-volume="0.45"></audio>
+      <audio id="swipe4" src="assets/swipe.mp3" data-start="15.22" data-duration="0.8" data-track-index="13" data-volume="0.45"></audio>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // Portada: entra con un leve zoom
+      tl.fromTo("#im1", { scale: 1.06, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "power2.out" }, 0);
+
+      // Cambio de lámina: [inicio del deslizamiento, golpe, sale, entra, imagen que entra]
+      const cuts = [
+        [2.941, 3.151, "#pn1", "#pn2", "#im2"],
+        [6.898, 7.108, "#pn2", "#pn3", "#im3"],
+        [11.047, 11.257, "#pn3", "#pn4", "#im4"],
+        [15.09, 15.3, "#pn4", "#pn5", "#im5"],
+      ];
+      for (const [t, beat, out, inn] of cuts) {
+        tl.fromTo(out, { x: 0 }, { x: -1080, duration: 0.42, ease: "expo.inOut" }, t);
+        tl.fromTo(inn, { x: 1080 }, { x: 0, duration: 0.42, ease: "expo.inOut" }, t);
+      }
+
+      // Acento en el golpe y leve respiración mientras se lee
+      tl.fromTo("#im2", { scale: 1.035 }, { scale: 1.0, duration: 0.5, ease: "power2.out" }, 3.151);
+      tl.fromTo("#pn2", { scale: 1 }, { scale: 1.015, duration: 3.2, ease: "none" }, 3.651);
+      tl.fromTo("#im3", { scale: 1.035 }, { scale: 1.0, duration: 0.5, ease: "power2.out" }, 7.108);
+      tl.fromTo("#pn3", { scale: 1 }, { scale: 1.015, duration: 3.2, ease: "none" }, 7.608);
+      tl.fromTo("#im4", { scale: 1.035 }, { scale: 1.0, duration: 0.5, ease: "power2.out" }, 11.257);
+      tl.fromTo("#pn4", { scale: 1 }, { scale: 1.015, duration: 3.2, ease: "none" }, 11.757);
+      tl.fromTo("#im5", { scale: 1.035 }, { scale: 1.0, duration: 0.5, ease: "power2.out" }, 15.3);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

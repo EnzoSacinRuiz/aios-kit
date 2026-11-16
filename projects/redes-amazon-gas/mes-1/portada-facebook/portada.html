@@ -1,0 +1,98 @@
+<!doctype html>
+<!-- Portada de Facebook (1640x624). Opción por URL: portada.html?v=a | ?v=b | ?v=c
+     Zona segura: el texto va centrado en ~1100 px, porque el celular recorta los costados. -->
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<style>
+  @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("assets/BarlowCondensed-Bold.ttf"); }
+  @font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url("assets/BarlowCondensed-ExtraBold.ttf"); }
+  @font-face { font-family: "Inter"; font-weight: 100 900; src: url("assets/Inter.ttf"); }
+  :root { --granate: #8e4149; --marron: #1b1512; --crema: #fbf8f3; --arena: #c9bdb0; --llama: #f5dc17; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1640px; height: 624px; overflow: hidden; background: var(--marron); }
+  .cover { position: relative; width: 1640px; height: 624px; overflow: hidden; display: none; }
+
+  /* A: barcaza al atardecer, texto centrado */
+  #a { display: none; }
+  #a img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+  #a .shade { position: absolute; inset: 0; background:
+      linear-gradient(180deg, rgba(27,21,18,0.25) 0%, rgba(27,21,18,0) 30%, rgba(27,21,18,0.35) 55%, rgba(27,21,18,0.8) 100%); }
+  #a .txt { position: absolute; left: 0; right: 0; top: 345px; text-align: center; }
+  #a .kicker { display: inline-block; font-family: "Barlow Condensed"; font-weight: 700; font-size: 30px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--crema); background: var(--granate); padding: 6px 18px 3px; }
+  #a h1 { margin-top: 14px; font-family: "Barlow Condensed"; font-weight: 800; font-size: 96px; line-height: 0.92; text-transform: uppercase;
+    color: var(--crema); text-shadow: 0 4px 30px rgba(27,21,18,0.55); }
+  #a h1 em { font-style: normal; color: var(--llama); }
+  #a .foot { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; font-family: "Inter"; font-weight: 600; font-size: 26px;
+    color: var(--crema); letter-spacing: 0.02em; }
+  #a .foot b { font-family: "Barlow Condensed"; font-weight: 800; font-size: 32px; background: var(--granate); padding: 4px 14px 1px; margin-left: 10px; letter-spacing: 0.03em; }
+  #a .rule { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: var(--granate); }
+
+  /* B: panel granate a la izquierda + foto aérea del río */
+  #b { background: var(--granate); }
+  #b img.bg { position: absolute; right: 0; top: 0; width: 940px; height: 624px; object-fit: cover; object-position: 30% 50%; }
+  #b .cut { position: absolute; left: 640px; top: 0; width: 220px; height: 624px; background: var(--granate);
+    clip-path: polygon(0 0, 100% 0, 30% 100%, 0 100%); }
+  #b .txt { position: absolute; left: 290px; top: 92px; width: 520px; }
+  #b img.logo { width: 92px; height: auto; display: block; background: var(--crema); padding: 12px; border-radius: 3px; box-shadow: 0 6px 18px rgba(27,21,18,0.3); box-sizing: content-box; }
+  #b h1 { margin-top: 22px; font-family: "Barlow Condensed"; font-weight: 800; font-size: 72px; line-height: 0.9; text-transform: uppercase; color: var(--crema); }
+  #b h1 em { font-style: normal; color: var(--llama); }
+  #b .sub { margin-top: 18px; font-family: "Inter"; font-weight: 600; font-size: 24px; line-height: 1.35; color: #f3e6e7; }
+  #b .wa { display: inline-block; margin-top: 22px; font-family: "Barlow Condensed"; font-weight: 800; font-size: 34px; color: var(--granate);
+    background: var(--crema); padding: 6px 18px 3px; letter-spacing: 0.02em; }
+  /* C: foto real de la barcaza a pleno sol (upscale de la foto de WhatsApp), mensaje en el cielo */
+  #c img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%;
+    filter: saturate(1.06) contrast(1.04); }
+  #c .shade { position: absolute; inset: 0; background:
+      linear-gradient(180deg, rgba(27,21,18,0.42) 0%, rgba(27,21,18,0.12) 40%, rgba(27,21,18,0) 62%, rgba(27,21,18,0.55) 100%); }
+  #c .txt { position: absolute; left: 0; right: 0; top: 52px; text-align: center; }
+  #c h1 { font-family: "Barlow Condensed"; font-weight: 800; font-size: 104px; line-height: 0.92; text-transform: uppercase;
+    color: var(--crema); text-shadow: 0 3px 0 rgba(27,21,18,0.35), 0 6px 30px rgba(27,21,18,0.5); }
+  #c h1 em { font-style: normal; color: var(--llama); }
+  #c .foot { position: absolute; left: 0; right: 0; bottom: 30px; text-align: center; font-family: "Inter"; font-weight: 600; font-size: 26px;
+    color: var(--crema); text-shadow: 0 2px 10px rgba(27,21,18,0.7); }
+  #c .foot b { font-family: "Barlow Condensed"; font-weight: 800; font-size: 32px; background: var(--granate); padding: 4px 14px 1px; margin-left: 10px;
+    letter-spacing: 0.03em; text-shadow: none; }
+  #c .rule { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: var(--granate); }
+  #c .foot b.wa-pill { display: inline-flex; align-items: center; gap: 12px; vertical-align: middle; padding: 6px 16px 6px 6px; font-size: 34px; }
+  #c .wa-badge { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; background: #25d366; }
+  #c .wa-ico { width: 26px; height: 26px; display: block; }
+</style>
+</head>
+<body>
+  <div class="cover" id="a">
+    <img class="bg" src="assets/rio.webp" alt="" />
+    <div class="shade"></div>
+    <div class="txt">
+      <h1>La energía que<br /><em>mueve a Loreto</em></h1>
+    </div>
+    <div class="foot">Amazon Gas · Desde el año 2000 · Iquitos <b>WhatsApp 991 511 401</b></div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="cover" id="b">
+    <img class="bg" src="assets/aerea-meandro.webp" alt="" />
+    <div class="cut"></div>
+    <div class="txt">
+      <img class="logo" src="assets/logo.webp" alt="Amazon Gas" />
+      <h1>La energía que<br /><em>mueve a Loreto</em></h1>
+      <div class="sub">Gas por río y por tierra, desde el año 2000.</div>
+      <span class="wa">WhatsApp 991 511 401</span>
+    </div>
+  </div>
+
+  <div class="cover" id="c">
+    <img class="bg" src="assets/barcaza-sol-upscale-recraft.png" alt="" />
+    <div class="shade"></div>
+    <div class="txt"><h1>La energía que<br /><em>mueve a Loreto</em></h1></div>
+    <div class="foot">Amazon Gas · Desde el año 2000 · Iquitos <b class="wa-pill"><span class="wa-badge"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span>991 511 401</b></div>
+    <div class="rule"></div>
+  </div>
+
+  <script>
+    const v = new URLSearchParams(location.search).get("v") || "a";
+    document.getElementById(v).style.display = "block";
+  </script>
+</body>
+</html>

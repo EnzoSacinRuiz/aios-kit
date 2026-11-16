@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Redes Amazon Gas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FBF8F3; --surface: #FFFFFF; --ink: #1B1512; --ink-2: #6B5D51; --line: #E6DED4;
+  --accent: #8E4149; --accent-soft: #F3E7E8; --bar: #8E4149; --track: #EFE8DF;
+  --ok: #2F6B3A; --ok-soft: #E4F0E5; --warn: #8A5A00; --warn-soft: #FBF0D9;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1B1512; --surface: #251D19; --ink: #F3EDE6; --ink-2: #B5A79A; --line: #3A2F29;
+    --accent: #E3A3A9; --accent-soft: #3A2528; --bar: #D98C93; --track: #33291F;
+    --ok: #8FD19A; --ok-soft: #1F3323; --warn: #F0C46B; --warn-soft: #3A2E14;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1B1512; --surface: #251D19; --ink: #F3EDE6; --ink-2: #B5A79A; --line: #3A2F29;
+  --accent: #E3A3A9; --accent-soft: #3A2528; --bar: #D98C93; --track: #33291F;
+  --ok: #8FD19A; --ok-soft: #1F3323; --warn: #F0C46B; --warn-soft: #3A2E14;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 Inter, system-ui, sans-serif; }
+main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 64px; }
+h1, h2, h3 { font-family: "Barlow Condensed", sans-serif; font-weight: 700; letter-spacing: .01em; margin: 0; }
+h1 { font-size: 34px; line-height: 1.1; }
+h2 { font-size: 22px; margin-bottom: 12px; }
+h3 { font-size: 20px; }
+.sec { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2); font-weight: 600; margin: 32px 0 12px; font-family: Inter, sans-serif; }
+.sub { color: var(--ink-2); font-size: 13px; margin-top: 4px; }
+header { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; justify-content: space-between; margin-bottom: 8px; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: none; color: var(--ink-2); font: 500 14px Inter, sans-serif; padding: 8px 14px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+.cuentas { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.cuenta, .tile, .card { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 16px; min-width: 0; }
+.cuenta.apagada { opacity: .45; }
+.cuenta .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.cuenta .handle { color: var(--ink-2); font-size: 13px; }
+.cuenta .seg-n { font: 700 44px/1 "Barlow Condensed", sans-serif; margin-top: 10px; }
+.cuenta .seg-l { color: var(--ink-2); font-size: 13px; }
+.delta { font-size: 13px; margin-top: 4px; }
+.delta.sube { color: var(--ok); } .delta.baja { color: var(--accent); } .delta.nada { color: var(--ink-2); }
+.spark { width: 100%; height: 44px; margin: 10px 0 4px; display: block; }
+.spark polyline { fill: none; stroke: var(--bar); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.spark circle { fill: var(--bar); stroke: var(--surface); stroke-width: 2; }
+.spark .hit { fill: transparent; stroke: none; }
+.kv { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 14px; }
+.kv dt { color: var(--ink-2); } .kv dd { margin: 0; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.tile .k { color: var(--ink-2); font-size: 13px; }
+.tile .v { font: 700 40px/1.1 "Barlow Condensed", sans-serif; margin-top: 4px; }
+.tile .d { color: var(--ink-2); font-size: 12px; }
+.grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 860px) { .grid { grid-template-columns: 5fr 7fr; } }
+.card { margin-bottom: 16px; }
+.bars { display: flex; flex-direction: column; gap: 10px; }
+.bar { display: grid; grid-template-columns: 130px 1fr 36px; align-items: center; gap: 10px; padding: 4px 0; }
+.bar .tr { height: 14px; background: var(--track); border-radius: 0 4px 4px 0; }
+.bar .fill { height: 100%; background: var(--bar); border-radius: 0 4px 4px 0; min-width: 2px; }
+.bar .num { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.bar:hover .fill { filter: brightness(1.1); }
+.tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 13px; padding: 6px 10px; border-radius: 4px; opacity: 0; transition: opacity .1s; z-index: 10; max-width: 260px; }
+.scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; color: var(--ink-2); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+td:first-child { white-space: nowrap; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+a { color: var(--accent); }
+.post { max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+.estado { display: inline-block; font-size: 12px; font-weight: 500; padding: 1px 6px; border-radius: 2px; white-space: nowrap; }
+.estado.ok { background: var(--ok-soft); color: var(--ok); }
+.estado.falta { background: var(--warn-soft); color: var(--warn); }
+.estado.curso { background: var(--track); color: var(--ink-2); }
+.coms { list-style: none; margin: 0; padding: 0; }
+.coms li { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.coms li:last-child { border-bottom: 0; }
+.meta { color: var(--ink-2); font-size: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 4px; }
+.chip { background: var(--accent-soft); color: var(--ink); border-radius: 2px; padding: 1px 6px; font-size: 12px; font-weight: 500; }
+.filtros { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.filtros button { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 2px; font: 500 12px Inter, sans-serif; padding: 4px 8px; cursor: pointer; }
+.filtros button[aria-pressed="true"] { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.vacio { color: var(--ink-2); padding: 12px 0; }
+.nota { color: var(--ink-2); font-size: 12px; margin-top: 8px; }
+.alerta { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 8px 12px; border-radius: 2px; font-size: 13px; margin: 16px 0; }
+footer { color: var(--ink-2); font-size: 12px; margin-top: 32px; border-top: 1px solid var(--line); padding-top: 16px; }
+footer ul { margin: 4px 0 0; padding-left: 18px; }
+.acciones { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn { border: 1px solid var(--accent); background: none; color: var(--accent); font: 600 14px Inter, sans-serif; padding: 8px 14px; border-radius: 4px; cursor: pointer; }
+.btn:hover { background: var(--accent-soft); }
+
+/* Reporte ejecutivo: solo existe al imprimir. Siempre en claro, A4, dos páginas. */
+#ejecutivo { display: none; }
+@page { size: A4; margin: 14mm 14mm 16mm; }
+@media print {
+  :root, :root[data-theme="dark"], :root:not([data-theme="light"]) {
+    --bg: #FFFFFF; --surface: #FFFFFF; --ink: #1B1512; --ink-2: #6B5D51; --line: #E6DED4;
+    --accent: #8E4149; --accent-soft: #F3E7E8; --bar: #8E4149; --track: #EFE8DF;
+    --ok: #2F6B3A; --ok-soft: #E4F0E5; --warn: #8A5A00; --warn-soft: #FBF0D9;
+  }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff; font-size: 10.5pt; }
+  main, .tip { display: none !important; }
+  #ejecutivo { display: block; }
+}
+.ej-pag { break-after: page; }
+.ej-pag:last-child { break-after: auto; }
+.ej-cab { display: flex; justify-content: space-between; align-items: end; border-bottom: 2px solid var(--accent); padding-bottom: 6pt; margin-bottom: 10pt; }
+.ej-cab h1 { font-size: 24pt; }
+.ej-cab .sub { font-size: 9pt; text-align: right; }
+.ej h2 { font-size: 14pt; margin: 12pt 0 6pt; }
+.ej ul.claves { margin: 0; padding-left: 14pt; }
+.ej ul.claves li { margin-bottom: 3pt; }
+.ej table { font-size: 9.5pt; }
+.ej th { font-size: 8pt; padding: 4pt 5pt; }
+.ej td { padding: 4pt 5pt; }
+.ej td:nth-child(2) { white-space: nowrap; }
+.ej .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8pt; }
+.ej .kpi { border: 1px solid var(--line); border-radius: 3px; padding: 8pt; }
+.ej .kpi .v { font: 700 24pt/1 "Barlow Condensed", sans-serif; margin-top: 2pt; }
+.ej .kpi .k { font-size: 9pt; color: var(--ink-2); }
+.ej .bar { grid-template-columns: 110pt 1fr 24pt; padding: 1pt 0; }
+.ej .bar .tr { height: 9pt; }
+.ej blockquote { margin: 0 0 5pt; padding: 3pt 0 3pt 8pt; border-left: 2px solid var(--line); font-size: 9.5pt; }
+.ej blockquote .meta { margin: 0; }
+.ej .pie { color: var(--ink-2); font-size: 8pt; margin-top: 12pt; border-top: 1px solid var(--line); padding-top: 6pt; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1>Redes sociales · Amazon Gas</h1>
+      <div class="sub" id="act">Cargando…</div>
+    </div>
+    <div class="acciones">
+      <div class="seg" role="group" aria-label="Red">
+        <button data-red="todas" aria-pressed="true">Todas</button>
+        <button data-red="facebook" aria-pressed="false">Facebook</button>
+        <button data-red="instagram" aria-pressed="false">Instagram</button>
+        <button data-red="tiktok" aria-pressed="false">TikTok</button>
+      </div>
+      <button class="btn" id="pdf" title="Reporte de 2 páginas. En el diálogo elige «Guardar como PDF».">Exportar PDF</button>
+    </div>
+  </header>
+  <div id="alerta"></div>
+
+  <div class="sec">Cuentas</div>
+  <section class="cuentas" id="cuentas"></section>
+
+  <div class="sec">Publicación y rendimiento · últimos 30 días</div>
+  <div class="grid">
+    <section class="card">
+      <h2>Constancia semanal</h2>
+      <div class="scroll"><table id="constancia"></table></div>
+      <p class="nota" id="meta-nota"></p>
+    </section>
+    <section class="card">
+      <h2>Top posts por interacciones</h2>
+      <div class="scroll"><table>
+        <thead><tr><th>#</th><th>Red</th><th>Post</th><th class="n">Interacc.</th><th class="n">Tasa</th></tr></thead>
+        <tbody id="top"></tbody>
+      </table></div>
+      <p class="nota">Interacciones = likes + comentarios + compartidos. Tasa = interacciones ÷ vistas.</p>
+    </section>
+  </div>
+
+  <div class="sec">Conversación</div>
+  <section class="tiles" id="tiles"></section>
+  <div class="grid">
+    <section class="card">
+      <h2>¿De qué hablan?</h2>
+      <div class="bars" id="bars"></div>
+      <p class="nota">El tema se asigna automáticamente por palabras clave. Puede equivocarse con el sarcasmo.</p>
+    </section>
+    <section class="card">
+      <h2>Últimos comentarios</h2>
+      <div class="filtros" id="filtros"></div>
+      <ul class="coms" id="coms"></ul>
+    </section>
+  </div>
+
+  <div class="sec">Detalle</div>
+  <section class="card">
+    <h2>Todos los posts</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Fecha</th><th>Red</th><th>Post</th><th class="n">Vistas</th><th class="n">Likes</th><th class="n">Coment.</th><th class="n">Compart.</th><th class="n">Tasa</th></tr></thead>
+      <tbody id="posts"></tbody>
+    </table></div>
+  </section>
+
+  <footer>
+    <strong>De dónde salen los datos:</strong> perfiles y posts públicos, recogidos automáticamente cada 12 horas.
+    <ul>
+      <li>El crecimiento de seguidores se mide desde el primer registro (26 oct 2026): las redes no muestran el historial públicamente.</li>
+      <li>No incluye alcance, impresiones, visitas al perfil, datos demográficos ni horarios de la audiencia. Esos datos solo están en las estadísticas internas de Meta y TikTok.</li>
+      <li>Instagram muestra hasta los 12 posts más recientes.</li>
+    </ul>
+  </footer>
+</main>
+<div id="ejecutivo" class="ej"></div>
+<div class="tip" id="tip"></div>
+<script>
+const $ = s => document.querySelector(s);
+const fmt = new Intl.NumberFormat("es-PE");
+const TZ = "America/Lima";
+const fecha = iso => iso ? new Date(iso).toLocaleDateString("es-PE", { day: "numeric", month: "short", timeZone: TZ }) : "—";
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const REDES = [
+  { k: "facebook", nombre: "Facebook", handle: "amazongasperu" },
+  { k: "instagram", nombre: "Instagram", handle: "@amazongasperu" },
+  { k: "tiktok", nombre: "TikTok", handle: "@amazongas" },
+];
+const NOMBRE = Object.fromEntries(REDES.map(r => [r.k, r.nombre]));
+let D = null, red = "todas", temaSel = null;
+try { red = localStorage.getItem("red") || "todas"; } catch (e) {}
+
+const inter = p => p.likes + p.comentarios + p.compartidos;
+const tasa = (i, v) => v ? (i / v * 100).toLocaleString("es-PE", { maximumFractionDigits: 1 }) + "%" : "—";
+const pct = (a, b) => b ? `${Math.round((a / b) * 100)}% del total` : "—";
+const diaLima = iso => new Date(new Date(iso).toLocaleString("en-US", { timeZone: TZ }));
+function lunes(d) { const x = new Date(d); x.setHours(0, 0, 0, 0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; }
+
+function delta(hist) {
+  if (!hist.length) return { txt: "Sin datos todavía", cls: "nada" };
+  const ult = hist[hist.length - 1];
+  if (hist.length < 2) return { txt: `Primer registro: ${fecha(ult.fecha + "T12:00:00")}. El crecimiento se ve desde el próximo.`, cls: "nada" };
+  const limite = new Date(ult.fecha); limite.setDate(limite.getDate() - 7);
+  const base = [...hist].reverse().find(h => new Date(h.fecha) <= limite) || hist[0];
+  const d = ult.seguidores - base.seguidores;
+  const desde = base === hist[0] && new Date(base.fecha) > limite ? `desde el ${fecha(base.fecha + "T12:00:00")}` : "en 7 días";
+  return { txt: `${d > 0 ? "+" : ""}${fmt.format(d)} ${desde}`, cls: d > 0 ? "sube" : d < 0 ? "baja" : "nada" };
+}
+
+function spark(hist) {
+  if (hist.length < 2) return "";
+  const W = 300, H = 44, P = 5;
+  const ys = hist.map(h => h.seguidores), min = Math.min(...ys), max = Math.max(...ys), r = max - min || 1;
+  const pts = hist.map((h, i) => [P + i * (W - 2 * P) / (hist.length - 1), H - P - (h.seguidores - min) / r * (H - 2 * P)]);
+  const ult = pts[pts.length - 1];
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Evolución de seguidores">
+    <polyline points="${pts.map(p => p.join(",")).join(" ")}" vector-effect="non-scaling-stroke"/>
+    <circle cx="${ult[0]}" cy="${ult[1]}" r="4"/>
+    ${pts.map((p, i) => `<rect class="hit" x="${p[0] - 8}" y="0" width="16" height="${H}" data-tip="${fecha(hist[i].fecha + "T12:00:00")}: ${fmt.format(hist[i].seguidores)} seguidores"/>`).join("")}
+  </svg>`;
+}
+
+function stats(k) {
+  const hist = D.historial.filter(h => h.red === k);
+  const ult = hist[hist.length - 1];
+  const ps = D.posts.filter(p => p.red === k);
+  const vistas = ps.reduce((a, p) => a + p.vistas, 0);
+  const it = ps.reduce((a, p) => a + inter(p), 0);
+  const itConVistas = ps.filter(p => p.vistas).reduce((a, p) => a + inter(p), 0);
+  return { hist, ult, ps, vistas, it, itConVistas, dl: delta(hist),
+           porSeguidor: ult && ult.seguidores ? (it / ult.seguidores).toLocaleString("es-PE", { maximumFractionDigits: 2 }) : "—" };
+}
+
+// Últimas 5 semanas, lunes a domingo, hora de Lima. La más reciente primero.
+function constancia() {
+  const hoy = lunes(diaLima(new Date().toISOString()));
+  return [...Array(5)].map((_, i) => {
+    const s = new Date(hoy); s.setDate(s.getDate() - 7 * i);
+    const fin = new Date(s); fin.setDate(fin.getDate() + 7);
+    const n = Object.fromEntries(REDES.map(r => [r.k,
+      D.posts.filter(p => p.red === r.k && p.fecha && diaLima(p.fecha) >= s && diaLima(p.fecha) < fin).length]));
+    return { s, actual: i === 0, n };
+  });
+}
+
+function render() {
+  document.querySelectorAll(".seg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.red === red));
+  const enRed = x => red === "todas" || x.red === red;
+
+  // Cuentas
+  $("#cuentas").innerHTML = REDES.map(r => {
+    const { hist, ult, ps, vistas, it, itConVistas, dl, porSeguidor } = stats(r.k);
+    const extra = ult && ult.likes_totales != null ? `<dt>Likes totales de la cuenta</dt><dd>${fmt.format(ult.likes_totales)}</dd>` : "";
+    return `<article class="cuenta ${red !== "todas" && red !== r.k ? "apagada" : ""}">
+      <div class="top"><h3>${r.nombre}</h3><span class="handle">${esc(r.handle)}</span></div>
+      <div class="seg-n">${ult ? fmt.format(ult.seguidores) : "—"}</div>
+      <div class="seg-l">seguidores</div>
+      <div class="delta ${dl.cls}">${dl.txt}</div>
+      ${spark(hist)}
+      <dl class="kv">
+        <dt>Posts (30 días)</dt><dd>${ps.length}</dd>
+        <dt>Vistas</dt><dd>${fmt.format(vistas)}</dd>
+        <dt>Interacciones</dt><dd>${fmt.format(it)}</dd>
+        <dt>Tasa de interacción</dt><dd>${tasa(itConVistas, vistas)}</dd>
+        <dt>Interacciones por seguidor</dt><dd>${porSeguidor}</dd>
+        ${extra}
+      </dl>
+    </article>`;
+  }).join("");
+
+  $("#constancia").innerHTML = tablaConstancia();
+  $("#meta-nota").textContent = `Meta: ${D.meta_semana} posts por semana en cada red. Semana de lunes a domingo.`;
+
+  // Top posts
+  const posts = D.posts.filter(enRed);
+  const top = [...posts].sort((a, b) => inter(b) - inter(a)).slice(0, 5);
+  $("#top").innerHTML = top.length ? top.map((p, i) =>
+    `<tr><td>${i + 1}</td><td>${NOMBRE[p.red]}</td><td><a class="post" href="${esc(p.url)}" target="_blank" rel="noopener" title="${esc(p.texto)}">${esc(p.texto || "(sin texto)")}</a></td>
+     <td class="n">${fmt.format(inter(p))}</td><td class="n">${tasa(inter(p), p.vistas)}</td></tr>`).join("")
+    : `<tr><td colspan="5" class="vacio">Sin posts en el periodo.</td></tr>`;
+
+  // Conversación
+  const coms = D.comentarios.filter(enRed);
+  const nombreTema = Object.fromEntries(D.temas.map(t => [t.clave, t.nombre]));
+  const cuenta = k => coms.filter(c => c.tema === k).length;
+  $("#tiles").innerHTML = [
+    ["Comentarios", coms.length, `en ${posts.length} posts`],
+    ["Sobre precio", cuenta("precio"), pct(cuenta("precio"), coms.length)],
+    ["Sobre peso", cuenta("peso"), pct(cuenta("peso"), coms.length)],
+    ["Positivos", cuenta("positivo"), pct(cuenta("positivo"), coms.length)],
+  ].map(([k, v, d]) => `<div class="tile"><div class="k">${k}</div><div class="v">${fmt.format(v)}</div><div class="d">${d}</div></div>`).join("");
+
+  const filas = D.temas.map(t => ({ ...t, n: cuenta(t.clave) })).sort((a, b) => b.n - a.n);
+  const max = Math.max(1, ...filas.map(f => f.n));
+  $("#bars").innerHTML = filas.map(f =>
+    `<div class="bar" data-tip="${esc(f.nombre)}: ${f.n} de ${coms.length} comentarios (${pct(f.n, coms.length)})">
+      <span>${esc(f.nombre)}</span>
+      <div class="tr"><div class="fill" style="width:${(f.n / max) * 100}%"></div></div>
+      <span class="num">${f.n}</span></div>`).join("");
+
+  $("#filtros").innerHTML = [`<button data-tema="" aria-pressed="${!temaSel}">Todos</button>`]
+    .concat(filas.filter(f => f.n).map(f => `<button data-tema="${f.clave}" aria-pressed="${temaSel === f.clave}">${esc(f.nombre)} (${f.n})</button>`)).join("");
+  const lista = coms.filter(c => !temaSel || c.tema === temaSel);
+  $("#coms").innerHTML = lista.length ? lista.slice(0, 50).map(c =>
+    `<li><div class="meta"><span class="chip">${esc(nombreTema[c.tema])}</span><span>${NOMBRE[c.red]}</span><span>${fecha(c.fecha)}</span><span>${esc(c.autor)}</span>${c.likes ? `<span>${c.likes} likes</span>` : ""}${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">ver</a>` : ""}</div>${esc(c.texto)}</li>`).join("")
+    : `<li class="vacio">No hay comentarios con este filtro.</li>`;
+
+  // Detalle
+  $("#posts").innerHTML = posts.length ? posts.map(p =>
+    `<tr><td>${fecha(p.fecha)}</td><td>${NOMBRE[p.red]}</td><td><a class="post" href="${esc(p.url)}" target="_blank" rel="noopener" title="${esc(p.texto)}">${esc(p.texto || "(sin texto)")}</a></td>
+     <td class="n">${fmt.format(p.vistas)}</td><td class="n">${fmt.format(p.likes)}</td><td class="n">${fmt.format(p.comentarios)}</td><td class="n">${fmt.format(p.compartidos)}</td><td class="n">${tasa(inter(p), p.vistas)}</td></tr>`).join("")
+    : `<tr><td colspan="8" class="vacio">Sin posts en el periodo.</td></tr>`;
+}
+
+function tablaConstancia() {
+  const meta = D.meta_semana;
+  const celda = (n, actual) => {
+    if (n >= meta) return `${n} <span class="estado ok">✓ meta</span>`;
+    if (actual) return `${n} <span class="estado curso">en curso</span>`;
+    return `${n} <span class="estado falta">faltó ${meta - n}</span>`;
+  };
+  return `<thead><tr><th>Semana</th>${REDES.map(r => `<th>${r.nombre}</th>`).join("")}</tr></thead><tbody>` +
+    constancia().map(w => `<tr><td>${w.s.toLocaleDateString("es-PE", { day: "numeric", month: "short" })}</td>` +
+      REDES.map(r => `<td>${celda(w.n[r.k], w.actual)}</td>`).join("") + "</tr>").join("") + "</tbody>";
+}
+
+// Reporte ejecutivo de 2 páginas: siempre las tres redes, sin importar el filtro de pantalla.
+function ejecutivo() {
+  const S = Object.fromEntries(REDES.map(r => [r.k, stats(r.k)]));
+  const meta = D.meta_semana;
+  const cerradas = constancia().filter(w => !w.actual).slice(0, 4);
+  const cumplidas = k => cerradas.filter(w => w.n[k] >= meta).length;
+  const top = [...D.posts].sort((a, b) => inter(b) - inter(a)).slice(0, 5);
+  const coms = D.comentarios;
+  const nombreTema = Object.fromEntries(D.temas.map(t => [t.clave, t.nombre]));
+  const filas = D.temas.map(t => ({ ...t, n: coms.filter(c => c.tema === t.clave).length })).sort((a, b) => b.n - a.n);
+  const max = Math.max(1, ...filas.map(f => f.n));
+  const conTasa = REDES.filter(r => S[r.k].vistas).sort((a, b) => S[b.k].itConVistas / S[b.k].vistas - S[a.k].itConVistas / S[a.k].vistas);
+  const generado = new Date().toLocaleDateString("es-PE", { day: "numeric", month: "long", year: "numeric", timeZone: TZ });
+  const corto = s => {  // sin emojis: en el PDF salen como recuadros si la fuente no los tiene
+    const c = Array.from(s.replace(/[\p{Extended_Pictographic}\u{1F1E6}-\u{1F1FF}️‍]/gu, "").replace(/\s+/g, " ").trim());
+    return c.length > 70 ? c.slice(0, 68).join("") + "…" : c.join("");
+  };
+
+  const claves = [
+    `<strong>Seguidores:</strong> ` + REDES.map(r => `${r.nombre} ${S[r.k].ult ? fmt.format(S[r.k].ult.seguidores) : "—"}` +
+      (S[r.k].hist.length > 1 ? ` (${S[r.k].dl.txt})` : "")).join(" · ") +
+      (REDES.some(r => S[r.k].hist.length > 1) ? "" : ". El crecimiento se mide desde el 26 oct 2026."),
+    `<strong>Constancia:</strong> en las últimas ${cerradas.length} semanas cerradas se cumplió la meta de ${meta} posts semanales: ` +
+      REDES.map(r => `${cumplidas(r.k)} de ${cerradas.length} en ${r.nombre}`).join(", ") + ".",
+    top[0] ? `<strong>Post más fuerte:</strong> «${esc(corto(top[0].texto))}» (${NOMBRE[top[0].red]}, ${fecha(top[0].fecha)}): ` +
+      `${fmt.format(inter(top[0]))} interacciones y ${fmt.format(top[0].vistas)} vistas.` : "",
+    conTasa.length ? `<strong>Mejor tasa de interacción:</strong> ${conTasa[0].nombre}, con ${tasa(S[conTasa[0].k].itConVistas, S[conTasa[0].k].vistas)} de las vistas.` : "",
+    coms.length ? `<strong>Conversación:</strong> ${coms.length} comentarios en 30 días. ` +
+      filas.filter(f => f.n).slice(0, 3).map(f => `${f.nombre}: ${f.n} (${Math.round(f.n / coms.length * 100)}%)`).join(" · ") + "." : "",
+  ].filter(Boolean);
+
+  const ejemplos = filas.filter(f => f.n).slice(0, 3).flatMap(f =>
+    coms.filter(c => c.tema === f.clave && c.texto.length <= 180).sort((a, b) => b.likes - a.likes || b.texto.length - a.texto.length).slice(0, 2));
+
+  const cab = n => `<div class="ej-cab"><div><h1>Redes sociales · Amazon Gas</h1></div>
+    <div class="sub">Reporte ejecutivo · últimos 30 días<br>Generado el ${generado} · página ${n} de 2</div></div>`;
+
+  $("#ejecutivo").innerHTML = `
+  <section class="ej-pag">
+    ${cab(1)}
+    <h2>Lo importante</h2>
+    <ul class="claves">${claves.map(c => `<li>${c}</li>`).join("")}</ul>
+    <h2>Cuentas</h2>
+    <div class="kpis">${REDES.map(r => `<div class="kpi"><div class="k">${r.nombre} · ${esc(r.handle)}</div>
+      <div class="v">${S[r.k].ult ? fmt.format(S[r.k].ult.seguidores) : "—"}</div><div class="k">seguidores</div>
+      <div class="delta ${S[r.k].dl.cls}">${S[r.k].hist.length > 1 ? S[r.k].dl.txt : "Primer registro"}</div></div>`).join("")}</div>
+    <h2>Rendimiento por red · 30 días</h2>
+    <table><thead><tr><th>Red</th><th class="n">Posts</th><th class="n">Vistas</th><th class="n">Interacciones</th><th class="n">Tasa de interacción</th><th class="n">Interacc. por seguidor</th></tr></thead>
+      <tbody>${REDES.map(r => `<tr><td>${r.nombre}</td><td class="n">${S[r.k].ps.length}</td><td class="n">${fmt.format(S[r.k].vistas)}</td>
+        <td class="n">${fmt.format(S[r.k].it)}</td><td class="n">${tasa(S[r.k].itConVistas, S[r.k].vistas)}</td><td class="n">${S[r.k].porSeguidor}</td></tr>`).join("")}</tbody></table>
+    <h2>Constancia semanal · meta ${meta} posts por red</h2>
+    <table>${tablaConstancia()}</table>
+  </section>
+  <section class="ej-pag">
+    ${cab(2)}
+    <h2>Top 5 posts por interacciones</h2>
+    <table><thead><tr><th>#</th><th>Fecha</th><th>Red</th><th>Post</th><th class="n">Vistas</th><th class="n">Interacc.</th><th class="n">Tasa</th></tr></thead>
+      <tbody>${top.map((p, i) => `<tr><td>${i + 1}</td><td>${fecha(p.fecha)}</td><td>${NOMBRE[p.red]}</td><td>${esc(corto(p.texto || "(sin texto)"))}</td>
+        <td class="n">${fmt.format(p.vistas)}</td><td class="n">${fmt.format(inter(p))}</td><td class="n">${tasa(inter(p), p.vistas)}</td></tr>`).join("")}</tbody></table>
+    <h2>¿De qué hablan los comentarios? · ${coms.length} en total</h2>
+    <div class="bars">${filas.map(f => `<div class="bar"><span>${esc(f.nombre)}</span>
+      <div class="tr"><div class="fill" style="width:${f.n / max * 100}%"></div></div><span class="num">${f.n}</span></div>`).join("")}</div>
+    ${ejemplos.length ? `<h2>Comentarios representativos</h2>` + ejemplos.map(c =>
+      `<blockquote><div class="meta"><span class="chip">${esc(nombreTema[c.tema])}</span><span>${NOMBRE[c.red]} · ${fecha(c.fecha)}</span></div>${esc(c.texto)}</blockquote>`).join("") : ""}
+    <div class="pie">Fuente: perfiles y posts públicos de Facebook (amazongasperu), Instagram (@amazongasperu) y TikTok (@amazongas), recogidos automáticamente.
+      Interacciones = likes + comentarios + compartidos; tasa = interacciones ÷ vistas. El tema de cada comentario se asigna por palabras clave.
+      No incluye alcance, impresiones ni datos demográficos: esos datos solo están en las estadísticas internas de cada red.</div>
+  </section>`;
+}
+
+$("#pdf").addEventListener("click", () => {
+  if (!D) return;
+  ejecutivo();
+  const titulo = document.title;
+  document.title = `Reporte redes Amazon Gas ${new Date().toLocaleDateString("sv-SE", { timeZone: TZ })}`;  // nombre del PDF
+  window.print();
+  document.title = titulo;
+});
+
+document.addEventListener("click", e => {
+  const r = e.target.closest(".seg button");
+  if (r) { red = r.dataset.red; temaSel = null; try { localStorage.setItem("red", red); } catch (e) {} render(); }
+  const t = e.target.closest(".filtros button");
+  if (t) { temaSel = t.dataset.tema || null; render(); }
+});
+const tip = $("#tip");
+document.addEventListener("mousemove", e => {
+  const b = e.target.closest("[data-tip]");
+  if (!b) { tip.style.opacity = 0; return; }
+  tip.textContent = b.dataset.tip;
+  tip.style.left = Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 8) + "px";
+  tip.style.top = (e.clientY + 14) + "px";
+  tip.style.opacity = 1;
+});
+
+async function cargar() {
+  try {
+    D = await (await fetch("/api/data", { cache: "no-store" })).json();
+    const e = D.estado || {};
+    $("#act").textContent = e.ultima
+      ? `Actualizado el ${new Date(e.ultima).toLocaleString("es-PE", { dateStyle: "medium", timeStyle: "short", timeZone: TZ })} · se actualiza solo cada 12 horas`
+      : "Datos del último scrapeo manual";
+    $("#alerta").innerHTML = e.ultima && !e.ok ? `<div class="alerta">La última actualización falló. Se muestran los datos anteriores.</div>` : "";
+    render();
+  } catch (err) {
+    $("#act").textContent = "No se pudieron cargar los datos.";
+  }
+}
+cargar();
+setInterval(cargar, 10 * 60 * 1000);
+</script>
+</body>
+</html>

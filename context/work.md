@@ -16,12 +16,13 @@ este archivo. Su lugar es `knowledge/external/`.
 
 ## Dónde vive la verdad
 
-- **Tareas, estado de cada post y costos:** `projects/redes-amazon-gas/calendario-contenido.xlsx`.
+- **Tareas, estado de cada post y costos:** `projects/redes-amazon-gas/mes-1/calendario-contenido.xlsx`.
   Tiene una fila por post e incluye los tokens y créditos consumidos. Sus números nunca se
   copian aquí; se consultan en el Excel.
 - **Producción:** kie.ai (video e imagen) y ElevenLabs (audio). Las credenciales están en
   `.env`, que nunca se commitea.
 - **ClickUp:** no se usa, aunque su clave figure en `.env`.
+- **WhatsApp de pedidos:** 991 511 401. Es el CTA de todos los posts.
 - **Branding:** el kit de marca vive en `references/`. Se extrae de https://amazongas.com.pe.
 
 ## Fricción recurrente

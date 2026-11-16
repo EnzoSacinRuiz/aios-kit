@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Barlow Condensed"; font-weight: 600; src: url("assets/fonts/BarlowCondensed-SemiBold.ttf") format("truetype"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 700; src: url("assets/fonts/BarlowCondensed-Bold.ttf") format("truetype"); }
+      @font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url("assets/fonts/BarlowCondensed-ExtraBold.ttf") format("truetype"); }
+      @font-face { font-family: "Inter"; font-weight: 100 900; src: url("assets/fonts/Inter.ttf") format("truetype"); }
+
+      :root {
+        --granate: #8e4149;
+        --granate-oscuro: #6e2f35;
+        --marron: #1b1512;
+        --crema: #fbf8f3;
+        --arena: #c9bdb0;
+        --llama: #f5dc17;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--marron); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; }
+
+      .shot-wrap { position: absolute; inset: 0; overflow: hidden; }
+      video.shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      video.real { position: absolute; top: 0; left: 0; height: 100%; width: 3416px; max-width: none; }
+
+      #veil {
+        position: absolute; inset: 0;
+        background: linear-gradient(180deg, rgba(27,21,18,0.7) 0%, rgba(27,21,18,0.12) 40%, rgba(27,21,18,0.05) 55%, rgba(27,21,18,0.62) 100%);
+      }
+
+      .card { position: absolute; left: 80px; right: 160px; top: 290px; }
+      .kicker {
+        display: inline-block; font-family: "Barlow Condensed", sans-serif; font-weight: 700;
+        font-size: 44px; letter-spacing: 0.08em; text-transform: uppercase;
+        color: var(--crema); background: var(--granate); padding: 8px 22px 6px;
+      }
+      .headline {
+        font-family: "Barlow Condensed", sans-serif; font-weight: 800; text-transform: uppercase;
+        color: var(--crema); font-size: 150px; line-height: 0.9; letter-spacing: -0.01em;
+        text-shadow: 0 4px 24px rgba(27,21,18,0.6); margin-top: 18px;
+      }
+      .headline.md { font-size: 124px; }
+      .headline.sm { font-size: 112px; }
+      .headline em { font-style: normal; color: var(--llama); }
+      .headline.box { display: inline; background: var(--granate); padding: 4px 22px 0; text-shadow: none;
+        -webkit-box-decoration-break: clone; box-decoration-break: clone; line-height: 1.08; }
+      .bar { display: block; width: 140px; height: 12px; background: var(--granate); margin-top: 26px; }
+
+      /* Nivel del río: una línea que baja (la vaciante) */
+      #nivel { position: absolute; left: 80px; top: 900px; width: 260px; }
+      #nivel .ln { height: 6px; background: var(--crema); opacity: 0.9; }
+      #nivel .lbl { margin-top: 12px; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 34px;
+        letter-spacing: 0.08em; text-transform: uppercase; color: var(--crema); text-shadow: 0 2px 12px rgba(27,21,18,0.8); }
+
+      .cap { position: absolute; left: 70px; right: 150px; top: 1180px; }
+      .cap-in { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 84px; line-height: 1.02;
+        text-transform: uppercase; color: var(--crema); text-align: left;
+        text-shadow: 0 3px 0 rgba(27,21,18,0.9), 0 0 22px rgba(27,21,18,0.85); }
+      .cap-in .w { display: inline-block; }
+
+      #end { position: absolute; inset: 0; background: var(--crema); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      #end-logo { width: 360px; height: auto; display: block; }
+      #end-num { margin-top: 70px; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 120px; line-height: 0.9;
+        text-transform: uppercase; color: var(--granate); text-align: center; }
+      #end-tag {
+        margin-top: 10px; font-family: "Barlow Condensed", sans-serif; font-weight: 800; text-transform: uppercase;
+        font-size: 84px; line-height: 0.95; color: var(--marron); text-align: center; max-width: 860px;
+      }
+      #end-tag em { font-style: normal; color: var(--granate); }
+      /* Contacto: ícono oficial de WhatsApp (Simple Icons) y número grande en negro, a pedido de papá */
+      #end-wa { margin-top: 56px; display: flex; flex-direction: column; align-items: center; }
+      #end-wa .wa-lbl { font-weight: 700; font-size: 42px; color: var(--marron); letter-spacing: 0.01em; }
+      #end-wa .wa-row { margin-top: 18px; display: flex; align-items: center; gap: 26px; background: #ffffff;
+        border: 5px solid #25D366; border-radius: 999px; padding: 18px 48px 18px 30px; }
+      #end-wa .wa-ico { width: 118px; height: 118px; display: block; }
+      #end-wa .wa-num { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 120px; line-height: 1;
+        color: #000000; letter-spacing: 0.01em; }
+      #end-handle {
+        margin-top: 64px; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 44px;
+        color: var(--crema); background: var(--granate); padding: 10px 28px 8px;
+      }
+      #end-rule { position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: var(--granate); }
+      #end-wave { position: absolute; left: 0; right: 0; top: 0; height: 22px; background: var(--granate); }
+    </style>
+  </head>
+  <body>
+    <!-- Generado por scripts/build.py. Tomas 1 y 3: video real de la barcaza (upscale, sin IA generativa).
+         Tomas 2 y 4: fotos reales animadas con kie.ai (Kling 2.1). -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="18.8" data-width="1080" data-height="1920">
+      <div id="s1-vis" class="shot-wrap"><video id="s1" class="clip real" src="assets/clips/real-barcaza-upscale.mp4" data-start="0.0" data-duration="4.52" data-media-start="0" data-track-index="0" muted playsinline></video></div>
+      <div id="s2-vis" class="shot-wrap"><video id="s2" class="clip shot" src="assets/clips/v2-meandro.mp4" data-start="4.12" data-duration="2.58" data-track-index="1" muted playsinline></video></div>
+      <div id="s3-vis" class="shot-wrap"><video id="s3" class="clip real" src="assets/clips/real-barcaza-upscale.mp4" data-start="6.3" data-duration="4.3" data-media-start="4.82" data-track-index="0" muted playsinline></video></div>
+      <div id="s4-vis" class="shot-wrap"><video id="s4" class="clip shot" src="assets/clips/v3-barcaza.mp4" data-start="10.2" data-duration="2.85" data-track-index="1" muted playsinline></video></div>
+
+      <div id="veil" class="clip" data-start="0" data-duration="13.05" data-track-index="2"></div>
+
+      <div id="t1" class="clip card" data-start="0.1" data-duration="1.83" data-track-index="3">
+        <div class="t1-in">
+          <span class="kicker">Parte 2</span>
+          <div class="headline sm">Iquitos no tiene <em>carretera</em></div>
+        </div>
+      </div>
+      <div id="t1b" class="clip card" data-start="1.93" data-duration="4.32" data-track-index="3">
+        <div class="t1b-in">
+          <span class="kicker">Vaciante en Loreto</span>
+          <div class="headline md">¿Y cuando el río baja?</div>
+        </div>
+      </div>
+      <div id="nivel" class="clip" data-start="1.93" data-duration="4.32" data-track-index="5">
+        <div class="ln"></div><div class="lbl">Nivel del río</div>
+      </div>
+      <div id="t2" class="clip card" data-start="6.45" data-duration="6.2" data-track-index="3">
+        <div class="t2-in">
+          <div class="headline md box">El gas sigue <em>llegando</em></div>
+          <span class="bar"></span>
+        </div>
+      </div>
+
+      <div id="cap0" class="clip cap" data-start="0.30" data-duration="0.86" data-track-index="4"><div class="cap-in"><span class="w" id="w0_0">Iquitos</span> <span class="w" id="w0_1">no</span> <span class="w" id="w0_2">tiene</span></div></div>
+      <div id="cap1" class="clip cap" data-start="1.16" data-duration="0.77" data-track-index="4"><div class="cap-in"><span class="w" id="w1_0">carretera.</span></div></div>
+      <div id="cap2" class="clip cap" data-start="1.93" data-duration="0.34" data-track-index="4"><div class="cap-in"><span class="w" id="w2_0">Y</span> <span class="w" id="w2_1">en</span> <span class="w" id="w2_2">la</span></div></div>
+      <div id="cap3" class="clip cap" data-start="2.26" data-duration="0.60" data-track-index="4"><div class="cap-in"><span class="w" id="w3_0">vaciante,</span></div></div>
+      <div id="cap4" class="clip cap" data-start="2.87" data-duration="0.92" data-track-index="4"><div class="cap-in"><span class="w" id="w4_0">el</span> <span class="w" id="w4_1">río</span> <span class="w" id="w4_2">tampoco</span></div></div>
+      <div id="cap5" class="clip cap" data-start="3.78" data-duration="0.49" data-track-index="4"><div class="cap-in"><span class="w" id="w5_0">ayuda.</span></div></div>
+      <div id="cap6" class="clip cap" data-start="4.27" data-duration="0.65" data-track-index="4"><div class="cap-in"><span class="w" id="w6_0">¿Cómo</span> <span class="w" id="w6_1">llega</span> <span class="w" id="w6_2">el</span></div></div>
+      <div id="cap7" class="clip cap" data-start="4.92" data-duration="0.64" data-track-index="4"><div class="cap-in"><span class="w" id="w7_0">gas</span> <span class="w" id="w7_1">cuando</span> <span class="w" id="w7_2">el</span></div></div>
+      <div id="cap8" class="clip cap" data-start="5.56" data-duration="0.89" data-track-index="4"><div class="cap-in"><span class="w" id="w8_0">río</span> <span class="w" id="w8_1">baja?</span></div></div>
+      <div id="cap9" class="clip cap" data-start="6.45" data-duration="0.96" data-track-index="4"><div class="cap-in"><span class="w" id="w9_0">Desde</span> <span class="w" id="w9_1">la</span> <span class="w" id="w9_2">barcaza</span></div></div>
+      <div id="cap10" class="clip cap" data-start="7.42" data-duration="1.11" data-track-index="4"><div class="cap-in"><span class="w" id="w10_0">seguimos</span> <span class="w" id="w10_1">navegando,</span></div></div>
+      <div id="cap11" class="clip cap" data-start="8.53" data-duration="0.78" data-track-index="4"><div class="cap-in"><span class="w" id="w11_0">con</span> <span class="w" id="w11_1">cuidado</span> <span class="w" id="w11_2">y</span></div></div>
+      <div id="cap12" class="clip cap" data-start="9.31" data-duration="1.04" data-track-index="4"><div class="cap-in"><span class="w" id="w12_0">con</span> <span class="w" id="w12_1">experiencia.</span></div></div>
+      <div id="cap13" class="clip cap" data-start="10.35" data-duration="0.73" data-track-index="4"><div class="cap-in"><span class="w" id="w13_0">Porque</span> <span class="w" id="w13_1">el</span> <span class="w" id="w13_2">gas</span></div></div>
+      <div id="cap14" class="clip cap" data-start="11.09" data-duration="0.65" data-track-index="4"><div class="cap-in"><span class="w" id="w14_0">tiene</span> <span class="w" id="w14_1">que</span> <span class="w" id="w14_2">llegar</span></div></div>
+      <div id="cap15" class="clip cap" data-start="11.74" data-duration="0.91" data-track-index="4"><div class="cap-in"><span class="w" id="w15_0">a</span> <span class="w" id="w15_1">tu</span> <span class="w" id="w15_2">cocina.</span></div></div>
+
+      <div id="end" class="clip" data-start="12.65" data-duration="6.15" data-track-index="6">
+        <div id="end-wave"></div>
+        <img id="end-logo" src="assets/img/logo.png" alt="Amazon Gas" />
+        <div id="end-num">Energía que mueve</div>
+        <div id="end-tag">a <em>Loreto</em></div>
+        <div id="end-wa">
+          <div class="wa-lbl">Pide tu balón por WhatsApp</div>
+          <div class="wa-row"><img class="wa-ico" src="assets/img/whatsapp.svg" alt="WhatsApp" /><span class="wa-num">991 511 401</span></div>
+        </div>
+        <div id="end-handle">@amazongasperu</div>
+        <div id="end-rule"></div>
+      </div>
+
+      <audio id="musica" src="assets/audio/musica.mp3" data-start="0" data-duration="18.8" data-track-index="11" data-volume="0.5"
+        data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.5,"v":1},{"t":17.0,"v":1},{"t":18.8,"v":0}]}]}' data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;voz&quot;],&quot;strength&quot;:0.8}"></audio>
+      <audio id="voz" src="assets/audio/voz.mp3" data-start="0.3" data-duration="15.14" data-track-index="10" data-volume="1"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const E = "power3.out";
+
+      // Gancho: Iquitos no tiene carretera (parte 2)
+      tl.fromTo("#t1 .kicker", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 0.1);
+      tl.fromTo("#t1 .headline", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 0.2);
+      tl.to("#t1 .t1-in", { opacity: 0, duration: 0.2 }, 1.73);
+
+      // ¿Y cuando el río baja? La línea del nivel baja lentamente
+      tl.fromTo("#t1b .kicker", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: E }, 1.93);
+      tl.fromTo("#t1b .headline", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 2.03);
+      tl.to("#t1b .t1b-in", { opacity: 0, duration: 0.2 }, 6.05);
+      tl.fromTo("#nivel", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.93);
+      tl.fromTo("#nivel", { y: -60 }, { y: 120, duration: 3.92, ease: "sine.inOut" }, 1.93);
+      tl.to("#nivel", { opacity: 0, duration: 0.2 }, 6.05);
+
+      // El gas sigue llegando
+      tl.fromTo("#t2 .headline", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 6.45);
+      tl.fromTo("#t2 .bar", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.35, ease: E }, 6.75);
+
+      // Video real 16:9 recortado a 9:16: paneo lento del remolcador hacia la barcaza con los tanques
+      tl.fromTo("#s1", { x: -1646 }, { x: -690, duration: 4.52, ease: "sine.inOut" }, 0);
+      tl.fromTo("#s3", { x: -1646, scale: 1.0 }, { x: -1441, scale: 1.04, duration: 4.3, ease: "none" }, 6.3);
+
+      // Fundidos entre tomas
+      tl.fromTo("#s2-vis", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 4.12);
+      tl.fromTo("#s3-vis", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 6.3);
+      tl.fromTo("#s4-vis", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 10.2);
+
+      // Cierre
+      tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.inOut" }, 12.65);
+      tl.fromTo("#end-logo", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 12.7);
+      tl.fromTo("#end-wave", { scaleX: 0, transformOrigin: "100% 50%" }, { scaleX: 1, duration: 0.8, ease: E }, 12.85);
+      tl.fromTo("#end-rule", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.8, ease: E }, 12.85);
+      tl.fromTo("#end-num", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 13.68);
+      tl.fromTo("#end-tag", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 14.7);
+      tl.fromTo("#end-wa", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: E }, 15.54);
+      tl.fromTo("#end-wa .wa-ico", { scale: 0.6 }, { scale: 1, duration: 0.5, ease: "back.out(2)" }, 15.64);
+      tl.fromTo("#end-handle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 15.94);
+
+      // Subtítulos: la palabra que se dice se enciende en amarillo llama
+      tl.fromTo("#cap0 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 0.30);
+      tl.fromTo("#w0_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.30);
+      tl.fromTo("#w0_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.82);
+      tl.fromTo("#w0_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 0.93);
+      tl.fromTo("#cap1 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 1.16);
+      tl.fromTo("#w1_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 1.16);
+      tl.fromTo("#cap2 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 1.93);
+      tl.fromTo("#w2_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 1.93);
+      tl.fromTo("#w2_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.05);
+      tl.fromTo("#w2_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.16);
+      tl.fromTo("#cap3 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 2.26);
+      tl.fromTo("#w3_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.26);
+      tl.fromTo("#cap4 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 2.87);
+      tl.fromTo("#w4_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 2.87);
+      tl.fromTo("#w4_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 3.09);
+      tl.fromTo("#w4_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 3.38);
+      tl.fromTo("#cap5 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 3.78);
+      tl.fromTo("#w5_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 3.78);
+      tl.fromTo("#cap6 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 4.27);
+      tl.fromTo("#w6_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 4.27);
+      tl.fromTo("#w6_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 4.60);
+      tl.fromTo("#w6_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 4.82);
+      tl.fromTo("#cap7 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 4.92);
+      tl.fromTo("#w7_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 4.92);
+      tl.fromTo("#w7_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.20);
+      tl.fromTo("#w7_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.44);
+      tl.fromTo("#cap8 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 5.56);
+      tl.fromTo("#w8_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.56);
+      tl.fromTo("#w8_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 5.79);
+      tl.fromTo("#cap9 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 6.45);
+      tl.fromTo("#w9_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 6.45);
+      tl.fromTo("#w9_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 6.75);
+      tl.fromTo("#w9_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 6.86);
+      tl.fromTo("#cap10 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 7.42);
+      tl.fromTo("#w10_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 7.42);
+      tl.fromTo("#w10_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 7.85);
+      tl.fromTo("#cap11 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 8.53);
+      tl.fromTo("#w11_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 8.53);
+      tl.fromTo("#w11_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 8.71);
+      tl.fromTo("#w11_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 9.21);
+      tl.fromTo("#cap12 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 9.31);
+      tl.fromTo("#w12_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 9.31);
+      tl.fromTo("#w12_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 9.46);
+      tl.fromTo("#cap13 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 10.35);
+      tl.fromTo("#w13_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 10.35);
+      tl.fromTo("#w13_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 10.64);
+      tl.fromTo("#w13_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 10.77);
+      tl.fromTo("#cap14 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 11.09);
+      tl.fromTo("#w14_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.09);
+      tl.fromTo("#w14_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.33);
+      tl.fromTo("#w14_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.42);
+      tl.fromTo("#cap15 .cap-in", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, 11.74);
+      tl.fromTo("#w15_0", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.74);
+      tl.fromTo("#w15_1", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.79);
+      tl.fromTo("#w15_2", { color: "#fbf8f3" }, { color: "#f5dc17", duration: 0.06 }, 11.92);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

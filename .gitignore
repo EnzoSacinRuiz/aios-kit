@@ -40,3 +40,21 @@ build/
 *.mp4
 *.mov
 *.zip
+
+# Comentarios scrapeados: traen nombres de personas reales y el repo es público
+projects/redes-amazon-gas/analisis-comentarios/data/
+
+# Assets de producción de los posts (fotos, clips, audio, fuentes): pesan cientos de MB y viven en el disco
+# y en el drive. Del post se commitea el texto: guion, brief, scripts, HTML y copies.
+projects/**/*.png
+projects/**/*.jpg
+projects/**/*.jpeg
+projects/**/*.webp
+projects/**/*.heic
+projects/**/*.mp3
+projects/**/*.wav
+projects/**/*.ttf
+projects/**/*.otf
+projects/**/node_modules/
+projects/**/.hyperframes/artifacts/
+*.log

@@ -1,0 +1,17 @@
+{
+ "precinto-1": {
+  "taskId": "f247a94a136054f00c7beb0dffda76cd",
+  "state": "fail",
+  "fail": "ConnectException: Operation timed out (Connection timed out)"
+ },
+ "precinto-2": {
+  "taskId": "0bb3dfe18f802dd8bb351eec1b1308d2",
+  "state": "fail",
+  "fail": "ConnectException: Operation timed out (Connection timed out)"
+ },
+ "precinto-3": {
+  "taskId": "6840021e0f1fff998445cebd6fa4e44b",
+  "state": "fail",
+  "fail": "ConnectException: Operation timed out (Connection timed out)"
+ }
+}

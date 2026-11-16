@@ -1,0 +1,58 @@
+{
+  "img-c-llenado": {
+    "taskId": "b98548881811866142df581f3b431123",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/workers/images/image_60e524079fc9d72dccf88fe2848dbf6a.png"
+    ],
+    "credits": 12.0
+  },
+  "img-a-balanza": {
+    "taskId": "3c4d8b90bbe04f3d1b4fe0f2517e9c83",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/workers/images/image_47e265a44e8dea97be0f33676b29001e.png"
+    ],
+    "credits": 12.0
+  },
+  "img-b-precinto": {
+    "taskId": "dd433b3f847aef16d0d81e671cdf7aee",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/models/nano-banana-2/1793047652868-23h96y74fuj.png"
+    ],
+    "credits": 12.0
+  },
+  "vid-a-balanza": {
+    "taskId": "d395ee7fd50ed37330873366a060b7f0",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/k/d395ee7fd50ed37330873366a060b7f0_1_1793047751_9413.mp4"
+    ],
+    "credits": 25.0
+  },
+  "vid-b-precinto": {
+    "taskId": "6208b9140b1b28f187353c3a551e51cb",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/k/6208b9140b1b28f187353c3a551e51cb_1_1793047751_6642.mp4"
+    ],
+    "credits": 25.0
+  },
+  "vid-c-llenado": {
+    "taskId": "1a48e7c4ca0f5c56968feac5c7f55c2b",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/k/1a48e7c4ca0f5c56968feac5c7f55c2b_1_1793047763_6844.mp4"
+    ],
+    "credits": 25.0
+  },
+  "vid-d-camion": {
+    "taskId": "ac5550b369eb15e7a1ff99472b3ca454",
+    "state": "success",
+    "urls": [
+      "https://tempfile.aiquickdraw.com/k/ac5550b369eb15e7a1ff99472b3ca454_1_1793047750_7285.mp4"
+    ],
+    "credits": 25.0
+  }
+}
